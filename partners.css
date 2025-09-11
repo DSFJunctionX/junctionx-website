@@ -1,0 +1,146 @@
+/* Challenge partners (карточки) */
+.partners-challenges {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.partner-card, .media-logo {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 20px;
+    padding: 18px;
+    background: rgba(255, 255, 255, .03);
+}
+
+.media-logo {
+    padding: 8px 18px;
+}
+
+.partner-card .logo-box {
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.partner-card .logo-box img {
+    max-height: 42px;
+    max-width: 80%;
+    object-fit: contain
+}
+
+.partner-card h3, .media-logo h3 {
+    margin: 0 0 6px;
+    font-weight: 800;
+}
+
+.partner-card p {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* Media partners (только логотипы, поменьше) */
+.partners-media {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+        margin-top: 20px;
+}
+
+.media-logo {
+    /* height: 56px; */
+    border-radius: 14px;
+    /* background: #fff; */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 40px 1fr;
+        column-gap: 14px;
+}
+
+/* .media-logo img {
+    max-height: 30%;
+    max-width: 80%;
+    object-fit: contain
+} */
+
+/* Адаптив */
+@media (max-width:1200px) {
+    .partners-challenges {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .partners-media {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width:720px) {
+    .partners-challenges {
+        grid-template-columns: 1fr;
+    }
+
+    .partners-media {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* partner-card: лого слева, имя справа */
+.partner-card {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    /* слева лого, справа текст */
+    column-gap: 14px;
+    row-gap: 8px;
+    align-items: center;
+}
+
+/* лого-клетка */
+.partner-card .logo-box {
+    grid-column: 1;
+    grid-row: 1;
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    /* убрать нижний отступ если был */
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+}
+
+.partner-card .logo-box img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+/* имя партнёра справа от лого */
+.partner-card h3, .media-logo h3{
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+}
+
+/* описание — второй ряд на всю ширину */
+.partner-card p {
+    grid-column: 1 / -1;
+    margin: 6px 0 0;
+    color: var(--muted);
+}
+
+/* чуть компактнее на совсем узких экранах */
+@media (max-width:480px) {
+    .partner-card {
+        grid-template-columns: 56px 1fr;
+    }
+
+    .partner-card .logo-box {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+.partner-card p{
+    margin-left: 12px;
+}

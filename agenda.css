@@ -1,0 +1,63 @@
+/* AGENDA */
+.agenda {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.agenda .day {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 20px;
+    padding: 24px;
+    background: rgba(255, 255, 255, .03);
+}
+
+.agenda .day .eyebrow {
+    margin: 0 0 4px;
+}
+
+.agenda .day .h2 {
+    font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    font-weight: 700;
+    margin: 0 0 12px;
+    font-size: clamp(22px, 4.6vw, 36px);
+}
+
+.agenda .slots {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.agenda .slot {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+.agenda .slot:last-child {
+    border-bottom: none;
+}
+
+.agenda .slot time {
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.agenda .slot strong {
+    font-weight: 800;
+}
+
+@media (max-width:900px) {
+    .agenda {
+        grid-template-columns: 1fr;
+    }
+
+    .agenda .slot {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}

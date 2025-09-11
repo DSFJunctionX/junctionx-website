@@ -1,0 +1,1004 @@
+
+
+  /* ======= TOKENS ======= */
+  :root {
+      --bg: #0b0a28;
+      --bg-2: #0f153a;
+      --white: #ffffff;
+      --muted: #cbd5e1;
+      --soft: #9ca3af;
+      --ink: #232323;
+      /* Raisin Black */
+      --primary: #5865f2;
+      --primary-2: #6c77ff;
+      --line: #1f2a44;
+      --max: 1120px;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+  }
+
+  * {
+      box-sizing: border-box
+  }
+
+  html {
+      scroll-behavior: smooth
+  }
+
+  body {
+      margin: 0;
+      font: 300 16px/1.6 "Lato", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--white);
+      background: var(--bg)
+  }
+
+  body {
+      height: 100%;
+  }
+  html,
+
+  body {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+  }
+  main {
+      flex: 1 0 auto;
+  }
+
+  img {
+      max-width: 100%;
+      display: block
+  }
+
+  a {
+      color: inherit;
+      text-decoration: none
+  }
+
+  .container {
+      width: min(var(--max), 92%);
+      margin-inline: auto;
+  }
+
+  .grid {
+      display: grid;
+      gap: 24px;
+  }
+.grid > .cta {
+        text-align: center;
+}
+  section {
+      padding-block: clamp(48px, 7vw, 96px);
+  }
+
+  .block {
+    width: min(var(--max), 92%);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 20px;
+      margin: 60px auto;
+      padding: 50px;
+      /* width: fit-content; */
+      background: linear-gradient(90deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02))
+  }
+
+ 
+.container>.block {
+    width: auto;
+}
+
+
+  .btn {
+      display: inline-block;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 10px 22px rgba(88, 101, 242, .35);
+      transition: transform .06s ease, box-shadow .2s ease
+  }
+
+  .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(88, 101, 242, .45)
+  }
+
+  .btn--ghost {
+      background: transparent;
+      border-color: rgba(255, 255, 255, .2)
+  }
+
+  .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--soft);
+      font-weight: 800;
+      font-size: .8rem;
+      margin: 0;
+  }
+
+  .h1,
+  .h2 {
+      font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-weight: 300;
+      font-size: clamp(32px, 6.5vw, 54px);
+      line-height: 1.08;
+      margin: 10px 0 10px;
+      text-transform: uppercase;
+         
+  }
+
+   .h2 {
+padding-bottom: 20px;
+   }
+
+  .h1 .logo-inline,
+  .h2 .logo-inline,
+  .footer .logo-inline,
+  .brand .logo-inline {
+      height: 0.8em;
+      display: inline-block;
+      margin-right: 26px;
+      margin-left: -4px;
+      width: auto;
+      object-fit: contain;
+      vertical-align: -0.05em;
+  }
+
+  .footer .logo-inline {
+      margin-right: 6px;
+      margin-left: -2px;
+      opacity: 0.7;
+    vertical-align: -0.1em;
+  }
+
+  .brand .logo-inline {
+      height: 0.78em;
+      margin-right: 10px;
+      margin-left: 2px;
+
+  }
+
+  .nowrap {
+      white-space: nowrap;
+  }
+
+  .lead {
+      color: var(--muted);
+      font-size: clamp(16px, 2.8vw, 18px)
+  }
+
+  header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(160%) blur(8px);
+      background: rgba(11, 10, 40, .7);
+      border-bottom: 1px solid rgba(255, 255, 255, .06)
+  }
+
+  .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0
+  }
+
+  .nav__links {
+      display: flex;
+      gap: 18px;
+      align-items: center
+  }
+
+  .nav__links a {
+      opacity: .8;
+      padding: 8px 10px;
+      font-weight: 700;
+  }
+
+  .nav__links a:hover {
+      opacity: 1;
+    background: rgba(255, 255, 255, .05);
+        border-radius: 16px;
+  }
+
+  /* ABOUT */
+  .prose {
+      max-width: 820px;
+      margin-left: 6px;
+  }
+
+  .desc-list {
+      columns: 2;
+      column-gap: 24px;
+      margin: 12px 0 0;
+  }
+
+  .desc-list li {
+      break-inside: avoid;
+      margin: 6px 0;
+  }
+
+  @media (max-width: 720px) {
+      .desc-list {
+          columns: 1
+      }
+  }
+
+  .brand {
+      display: inline-flex;
+      align-items: center;
+      /* font-size: 20px; */
+      text-transform: uppercase;
+      flex: 0 0 auto;
+      align-items: baseline;
+      white-space: nowrap;
+  }
+
+  .brand img {
+      /* height: 18px;
+      width: auto;
+      display: block; */
+      margin: 0 12px 0 4px;
+  }
+
+  /* MAIN */
+  .main {
+      position: relative;
+      overflow: hidden;
+      background-image: url('https://junctionxlisbon.my.canva.site/_assets/media/50e46d0937909c4ee898f0c4c920bfd3.jpg');
+  }
+
+  .main__bg {
+      position: absolute;
+      pointer-events: none;
+      inset: 0;
+      background:
+          radial-gradient(800px 300px at 110% 10%, rgba(88, 101, 242, .24), transparent 60%),
+          radial-gradient(500px 250px at -10% 100%, rgba(108, 119, 255, .25), transparent 60%);
+  }
+
+  .main .grid {
+      grid-template-columns: 1.1fr .9fr;
+    align-items: start;
+  }
+
+  .panel {
+      background: linear-gradient(180deg, #11153a, #0b0a28);
+  }
+
+  /* COLLAB STRIP */
+  .collab {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+  }
+
+  section[id="collab"] {
+        align-self: start;
+  }
+   section[id="register"], section[id="partners"] {
+       padding: 0;
+   }
+  
+  .collab .left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+  }
+
+  .collab .logos {
+      display: flex;
+      gap: 12px;
+      align-items: center
+  }
+
+  .collab .partner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 8px 12px;
+      border: 1px solid rgba(2, 6, 23, .06)
+  }
+
+  .collab .partner img {
+      object-fit: contain;
+  }
+
+  @media (max-width: 900px) {
+      .collab {
+          flex-direction: column;
+          align-items: flex-start
+      }
+          .collab .partner img {
+              margin-top: -90px;
+              margin-bottom: -90px;
+          }
+  }
+
+  /* HOW */
+  .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px
+  }
+
+  .step {
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 16px;
+      padding: 18px;
+      background: linear-gradient(180deg, #12173f, #0b0a28)
+  }
+
+  .step h3 {
+      margin: 0 0 10px
+  }
+
+  /* PARTNERS */
+  .partners {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px
+  }
+
+  .logo {
+      height: 54px;
+      background: #fff;
+      color: #0f172a;
+      display: grid;
+      place-items: center;
+      border-radius: 12px
+  }
+
+  /* CTA */
+
+  .cta h2 {
+      margin: 0;
+      font-size: clamp(22px, 4.8vw, 32px)
+  }
+
+
+  footer {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 26px 0 48px;
+      color: var(--soft)
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+      .main .grid {
+          grid-template-columns: 1fr;
+          gap: 80px
+      }
+
+      .steps {
+          grid-template-columns: 1fr
+      }
+
+      .partners {
+          grid-template-columns: repeat(3, 1fr)
+      }
+
+      .cta {
+          justify-content: center;
+          text-align: center,
+      }
+  }
+
+  .video-hero {
+      position: relative;
+      height: clamp(420px, 62vw, 720px);
+      background: #000;
+      overflow: hidden;
+  }
+
+  .video-hero .video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      /* чтобы видео не перекрывало клики */
+  }
+
+  .video-hero .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+          linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .55)),
+          /* затемнение */
+          radial-gradient(900px 380px at 85% -10%, rgba(88, 101, 242, .25), transparent 60%);
+  }
+
+  .video-hero .content {
+      position: relative;
+      z-index: 2;
+      padding-block: clamp(80px, 14vw, 160px);
+  }
+
+  .video-hero .h1 {
+      margin: 10px 0 10px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+      .video-hero .video {
+          display: none;
+      }
+
+      /* экономим батарею/анимации */
+      .video-hero {
+          background: #0b0a28 url('./assets/hero-poster.jpg') center/cover no-repeat;
+      }
+  }
+
+  /*  PARTNERS  */
+  .partner-hero {
+      display: grid;
+      place-items: center;
+      margin-top: 34px;
+  }
+
+  .partner-hero .logo {
+      width: min(520px, 92%);
+      height: 96px;
+      border-radius: 20px;
+  }
+
+  .partner-mid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+  }
+
+  .partner-mid .logo {
+      height: 84px;
+      border-radius: 18px;
+  }
+
+  .partner-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+  }
+
+  .partner-list .logo {
+      height: 64px;
+      border-radius: 14px;
+  }
+
+  /* логотипы внутри карточек */
+  .logo img {
+      max-height: 56%;
+      max-width: 80%;
+      object-fit: contain
+  }
+
+  @media (max-width:1024px) {
+      .partner-list {
+          grid-template-columns: repeat(4, 1fr);
+      }
+  }
+
+  @media (max-width:720px) {
+      .partner-mid {
+          grid-template-columns: 1fr;
+      }
+
+      .partner-list {
+          grid-template-columns: repeat(2, 1fr);
+      }
+  }
+
+  /* FAQ */
+  summary::-webkit-details-marker {
+      display: none;
+  }
+
+  summary::marker {
+      content: "";
+  }
+
+  summary {
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+  }
+
+  summary::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 10px solid var(--white);
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+  }
+
+  details {
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      padding: 14px 16px;
+    background: rgba(255, 255, 255, .03);
+      user-select: none
+  }
+
+  details+details {
+      margin-top: 10px
+  }
+
+  /* details[open] {
+      background: #0e1340
+  } */
+
+  details[open] summary::before {
+      transform: rotate(90deg);
+  }
+
+  .faq {
+      margin-top: 12px;
+      margin-left: 26px;
+  }
+
+  .faqs{
+margin-top: 20px;
+  }
+
+  /* FOOTER */
+  footer>.container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  footer .footer {
+      width: 100%;
+      text-align: center;
+      font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  }
+
+
+  /* NAV layout */
+  header .nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+  }
+
+  .nav__links {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+  }
+
+  .nav__links a {
+      white-space: nowrap;
+  }
+
+  .nav__btns {
+      flex: 0 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+  }
+
+  /* кнопки-пиллы (чтобы не «круги» и не разъезжались) */
+  .nav__btns .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      width: auto;
+      padding: 10px 16px;
+      border-radius: 9999px;
+      line-height: 1.1;
+      box-shadow: 0 6px 14px rgba(88, 101, 242, .25);
+  }
+
+  @media (max-width:900px) {
+      .nav__links {
+          display: none;
+      }
+  }
+
+
+  /* burger */
+  /* === Mobile nav (min) === */
+  header {
+      z-index: 1000;
+  }
+
+  /* хедер поверх контента */
+  :root {
+      --header-h: 64px;
+  }
+
+  /* высота хедера для отступа шторки */
+
+  /* burger button (скрыт по умолчанию) */
+  .hamburger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, .25);
+      background: transparent;
+      border-radius: 10px;
+      padding: 0;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+  }
+
+  .hamburger span {
+      width: 22px;
+      height: 2px;
+      background: #fff;
+  }
+
+  /* drawer */
+  .drawer {
+      display: none;
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2000;
+      background: rgba(11, 10, 40, .98);
+      backdrop-filter: blur(8px);
+      padding: 16px 20px;
+  }
+
+  .drawer__links,
+  .drawer__btns {
+      display: grid;
+      gap: 12px;
+        margin-top: 16px;
+            margin-bottom: 8px;
+  }
+
+  .drawer__links a {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      opacity: 0.8;
+  }
+
+  .drawer__links a:hover {
+        background: rgba(255, 255, 255, .05);
+            border-radius: 8px;
+
+  }
+
+  /* открытое состояние */
+  /* header.nav-open .drawer {
+      display: block;
+      height: fit-content;
+  } */
+   body.nav-open .drawer {
+       display: block;
+       height: fit-content;
+   }
+
+   @media (min-width:900px) {
+       .drawer {
+           display: none !important;
+           
+       }
+   }
+
+   body.nav-open {
+       overflow: hidden;
+   }
+@media (min-width:900px) {
+    .drawer {
+        display: none !important;
+    }
+
+    body.nav-open {
+        overflow: auto;
+    }
+
+    /* если вдруг класс остался */
+}
+  body.menu-open {
+      overflow: hidden;
+  }
+
+  /* брейкпоинт */
+  @media (max-width:900px) {
+
+      .nav__links,
+      .nav__btns {
+          display: none;
+      }
+
+      .hamburger {
+          display: flex;
+      }
+  }
+
+
+
+
+  /* BUTTON */
+  .video-hero {
+      position: relative;
+  }
+
+  .video-sound {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      background: rgba(0, 0, 0, .35);
+      color: #fff;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      backdrop-filter: blur(4px);
+  }
+
+  .video-sound.on {
+      background: rgba(88, 101, 242, .9);
+  }
+
+  /* состояние со звуком */
+
+  .video-sound {
+      display: grid;
+      place-items: center;
+      color: #fff;
+  }
+
+  .video-sound svg {
+      width: 24px;
+      height: 22px;
+      display: block;
+      fill: currentColor;
+  }
+
+  .video-sound .icon-on {
+      display: none;
+  }
+
+  .video-sound.on .icon-on {
+      display: block;
+  }
+
+  .video-sound.on .icon-off {
+      display: none;
+  }
+
+  
+/* подсветка */
+  .nav__links a[aria-current="page"],
+  .drawer__links a[aria-current="page"] {
+      opacity: 1;
+      pointer-events: none;
+    background: rgba(255, 255, 255, .05);
+        border-radius: 16px;
+  }
+
+
+
+  /* базовая кнопка — единый стиль */
+  .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      min-height: 44px;
+      border-radius: 9999px;
+      font-weight: 700;
+      line-height: 1.1;
+      border: 1px solid transparent;
+      color: #fff;
+      background: var(--primary);
+      box-shadow: 0 6px 14px rgba(88, 101, 242, .25);
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  .btn:hover {
+      transform: none;
+      box-shadow: 0 8px 20px rgba(88, 101, 242, .35);
+  }
+
+  .btn--ghost {
+      background: rgba(255, 255, 255, .06);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: none;
+  }
+
+  .btn--ghost:hover {
+      background: rgba(255, 255, 255, .12);
+  }
+
+  /* мобильный дроуер — без «свечения», на всю ширину и одинаковой высоты */
+  @media (max-width:900px) {
+      .drawer .btn {
+          width: 100%;
+          padding: 14px 18px;
+          min-height: 52px;
+          font-size: 18px;
+          box-shadow: none;
+      }
+
+      .drawer .btn+.btn {
+          margin-top: 4px;
+      }
+
+      .drawer .btn:hover {
+        transform: none;
+        box-shadow: 0 8px 20px rgba(88, 101, 242, .35);
+    }
+
+      .drawer .btn--ghost {
+          background: transparent;
+          border-color: rgba(255, 255, 255, .25);
+      }
+
+          .drawer .btn--ghost:hover {
+              background: rgba(255, 255, 255, .12);
+          }
+  }
+
+   @media (max-width: 900px){
+  .video-hero .content{
+    /* min-height: 100%;                 занять всю высоту хиро */
+    display: grid;
+    place-items: center;              /* по центру и по горизонтали, и по вертикали */
+    text-align: center;
+    /* padding: 24px 4%; */
+  }
+  /* ряд с кнопками — по центру (переопределит inline-стиль) */
+  .video-hero .content > div{ justify-content: center; flex-wrap: wrap; }
+  /* чуть компактнее заголовок/лид на мобиле */
+  .video-hero .h1{ font-size: clamp(28px, 8vw, 40px); }
+  .video-hero .lead{ max-width: 34ch; margin-inline: auto; }
+}
+/* center hero content on small screens */
+@media (max-width:900px){
+  .video-hero{ display:grid; }  /* секция сама станет сеткой */
+  .video-hero > .container.content{
+    align-self:center;           /* по вертикали */
+    justify-self:center;         /* по горизонтали */
+    text-align:center;
+    padding:0 !important;     /* убираем padding-block из старого правила */
+  }
+  .video-hero .h1{ margin:8px 0; font-size:clamp(28px,8vw,40px); }
+  .video-hero .lead{ max-width:30ch; margin:8px auto 0; }
+
+  /* ряд с кнопками — по центру (инлайн-стиль justify-content не задаёт) */
+  .video-hero > .container.content > div{
+    display:flex; justify-content:center; gap:12px; margin-top:16px; flex-wrap:wrap;
+  }
+}
+
+@media (max-width: 900px) {
+    #about .grid {
+        grid-template-columns: 1fr;
+        /* на всякий случай */
+        place-items: center;
+        /* align-items + justify-items */
+        text-align: center;
+    }
+
+    #about .grid>* {
+        max-width: 680px;
+        width: 100%;
+    }
+
+    #about .desc-list {
+        justify-self: center;
+        margin-left: 0;
+    }
+}
+
+
+
+@media (max-width:900px) {
+     .actions {
+        justify-content: center;
+    }
+}
+
+
+/* Challenges: адаптивные колонки и ровные карточки */
+#challenges .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* планшет: 2 колонки */
+@media (max-width: 1200px) {
+    #challenges .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* мобилка: 1 колонка + центрирование */
+@media (max-width: 900px) {
+    #challenges .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #challenges .h1 {
+        font-size: clamp(26px, 8vw, 36px);
+    }
+
+    /* заголовок поменьше */
+}
+
+/* сами карточки — одинаковые, по центру текст */
+#challenges .cta {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(255, 255, 255, .03);
+}
+
+#challenges .cta span {
+    display: block;
+    max-width: 20ch;
+}
+
+      
+.cta    h2 {
+    font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    font-weight: 300;
+    /* как заголовок в начале */
+    font-size: clamp(28px, 6vw, 44px);
+            padding-bottom: 16px;
+        
+}
+    
+        /* .cta {.block
+            margin: 0;
+        } */
+
+@media (max-width: 900px) {
+    .cta {
+            justify-content: center;
+            /* вместо space-between */
+            text-align: center;
+            gap: 20px;
+        }
+        
+
+    .cta .btn {
+        margin: 0 auto;
+    }
+
+    .block{
+         padding: 42px;
+    }
+                 .h1 .logo-inline,
+                 .h2 .logo-inline,
+                 .footer .logo-inline,
+                 .brand .logo-inline {
+                     margin-right: 12px;
+                 }
+}
+/* кнопка ровно по центру */
