@@ -6,80 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <!-- Load Inter instead of Montserrat -->
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
- <title>JunctionX Lisbon — Landing (HTML/CSS)</title>
- <link rel="stylesheet" href="styles.css">
- <link rel="stylesheet" href="partners.css">
- <script src="burger.js" defer></script>
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-  <title>JunctionX Lisbon — Landing (HTML/CSS)</title>
+  <title>JunctionX Lisbon</title>
   <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="partners.css">
-  <script src="burger.js" defer></script> -->
+  <link rel="stylesheet" href="partners.css">
+  <script src="burger.js" defer></script>
+  <script src="video_btn.js" defer></script>
 </head>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const section = document.querySelector('.video-hero');
-    if (!section) return;
-
-    const video = section.querySelector('video');
-    if (!video) return;
-
-    const btn = document.querySelector('.video-sound');
-
-    if (!btn.querySelector('svg')) {
-      btn.innerHTML = `
-      <!-- mute -->
-      <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor"
-              d="M11 5 6 9H3v6h3l5 4V5zM20.5 6.9l-1.4 1.4 1.6 1.6-1.6 1.6 1.4 1.4 1.6-1.6 1.6 1.6 1.4-1.4-1.6-1.6 1.6-1.6-1.4-1.4-1.6 1.6-1.6-1.6z"/>
-      </svg>
-      <!-- unmute -->
-      <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M11 5 6 9H3v6h3l5 4V5z"/>
-        <path d="M15 9c1.6 1.6 1.6 4.4 0 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <path d="M19 7c2.6 2.6 2.6 9.4 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    `;
-
-
-      section.appendChild(btn);
-    }
-
-    btn.addEventListener('click', () => {
-      const on = video.muted;
-      video.muted = !on;
-      if (on) video.play().catch(() => { });
-      btn.classList.toggle('on', on);
-      btn.setAttribute('aria-label', on ? 'Mute video' : 'Unmute video');
-      btn.title = on ? 'Mute' : 'Unmute';
-    });
-  });
-</script>
-
 
 <body>
   <!-- ===== NAV ===== -->
   <header>
     <div class="container nav">
       <a href="#top" class="brand" aria-label="JunctionX Lisbon" aria-current="page">
-       Junction <img class="logo-inline" src="./assets/junctionx-wordmark-white-small.png" alt="JunctionX">Lisbon
+        Junction <img class="logo-inline" src="./assets/junctionx-wordmark-small.png" alt="JunctionX">Lisbon
       </a>
       <nav class="nav__links">
         <a href="challenges.html">Challenges</a>
         <a href="agenda.html">Agenda</a>
         <a href="faq.html">FAQ</a>
-        <!-- <a href="#partners">Partners</a> -->
       </nav>
       <div class="nav__btns">
         <a class="btn btn--ghost btn--partner" href="become_partner.html">Become a Partner</a>
         <a class="btn" href="https://eu.junctionplatform.com/events/junctionx-lisbon" target="_blank"
           rel="noopener">Apply now!</a>
       </div>
-      <!-- hamburger -->    
+
+      <!-- hamburger -->
       <button class="hamburger" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -89,7 +43,6 @@
           <a href="challenges.html">Challenges</a>
           <a href="agenda.html">Agenda</a>
           <a href="faq.html">FAQ</a>
-          <a href="Jointheteam.html">FAQ</a>
           <a href="#partners">Partners</a>
         </nav>
         <div class="drawer__btns">
@@ -106,31 +59,35 @@
   <main id="top" class="main">
     <div class="main__bg" aria-hidden="true"></div>
     <section id="about" class="container">
-      <div class="grid" style="align-items:center">
+      <div class="grid">
         <div>
-          <p class="eyebrow"> 18th and 19th October 2025 · Lisbon, Portugal</p>
+          <p class="eyebrow">18th and 19th October 2025 · Lisbon, Portugal</p>
           <h1 class="h1">
             <span class="nowrap">
               Junction
-              <img class="logo-inline" src="./assets/junctionx-wordmark-white-small.png" alt="JunctionX">
+              <img class="logo-inline" src="./assets/junctionx-wordmark-small.png" alt="JunctionX">
             </span>
-            Lisbon All you need to know
+            Lisbon — all you need to know
           </h1>
           <p class="lead">#1 Europe hackathon series.
             </br>
             36h time to build. </br>
-            Win prizes and get free tickets to Junction Finland, taking place from the 14th to 16th of November, where there are over €50,000 in prizes.
-          <div class="actions" style="display:flex; gap:12px; margin-top:18px">
+            Win prizes and get free tickets to Junction Finland,
+             taking place from the 14th to 16th of November, where there are
+            over €50,000 in prizes.
+          </p>
+          <div class="actions">
             <a class="btn" href="https://eu.junctionplatform.com/events/junctionx-lisbon" target="_blank"
               rel="noopener">REGISTER NOW</a>
           </div>
         </div>
+
         <!-- COLLAB (Técnico Lisboa) -->
         <section id="collab">
           <div class="container">
             <div class="collab">
               <div class="left">
-                <span class="eyebrow" style="margin:0">In collaboration with</span>
+                <span class="eyebrow">In collaboration with</span>
                 <div class="logos">
                   <div class="partner">
                     <img src="https://junctionxlisbon.my.canva.site/_assets/media/e7a215dd3d30899072e08fcd00209034.png"
@@ -150,16 +107,16 @@
     <div class="container">
       <p class="eyebrow">About</p>
       <h2 class="h2">
-        What is 
+        What is
         <span class="nowrap">
           Junction
-          <img class="logo-inline" src="./assets/junctionx-wordmark-white-small.png" alt="JunctionX">
+          <img class="logo-inline" src="./assets/junctionx-wordmark-small.png" alt="JunctionX">
         </span>
         Lisbon?
       </h2>
       <div class="prose">
         <p>An international 36-hour hackathon where teams of 1 to 5 people will work on technology projects with
-          real-world impact. Participants choose from challenges set by partner companies and institutions,
+          real-world impact. Participants will choose from challenges set by partner companies and institutions,
           focusing on areas such as:
         </p>
         <ul class="desc-list">
@@ -171,7 +128,7 @@
       </div>
     </div>
   </section>
-
+  
   <!-- ===== VIDEO ===== -->
   <section class="video-hero" id="top">
     <button class="video-sound" aria-label="Unmute video" title="Unmute"></button>
@@ -180,16 +137,16 @@
     </video>
     <div class="overlay"></div>
     <div class="container content">
-      <p class="eyebrow">October 2025 · Lisbon, Portugal</p>
+      <p class="eyebrow">18th and 19th October 2025 · Lisbon, Portugal</p>
       <h1 class="h1">
         <span class="nowrap">
           Junction
-          <img class="logo-inline" src="./assets/junctionx-wordmark-white-small.png" alt="JunctionX">
+          <img class="logo-inline" src="./assets/junctionx-wordmark-small.png" alt="JunctionX">
         </span>
         Lisbon
       </h1>
       <p class="lead">Build in 36h with mentors & partners. Win prizes.</p>
-      <div style="display:flex; gap:12px; margin-top:18px">
+      <div class="actions">
         <a class="btn" href="https://eu.junctionplatform.com/events/junctionx-lisbon" target="_blank"
           rel="noopener">REGISTER NOW</a>
         <a class="btn btn--ghost" href="agenda.html">See agenda</a>
@@ -199,131 +156,95 @@
   </section>
 
   <!-- ===== PARTNERS ===== -->
-  <!-- <section id="partners">
-    <div class="container block">
-      <p class="eyebrow">Meet our partners</p>
-      <h2 class="h2">
-        The partners that make
-        <span class="nowrap">
-          Junction <img class="logo-inline" src="./assets/junctionx-wordmark-white-small.png"
-            alt="JunctionX">
-          </span>
-        Lisbon possible
-      </h2> -->
-      <!-- 1) главный партнёр -->
-      <!-- <div class="partner-hero">
-        <div class="logo">
-          <img src="./assets/partners/main.svg" alt="Main partner">
-        </div>
-      </div> -->
-      <!-- 2) два средних партнёра -->
-      <!-- <div class="partner-mid">
-        <div class="logo"><img src="./assets/partners/mid-1.svg" alt="Partner 1"></div>
-        <div class="logo"><img src="./assets/partners/mid-2.svg" alt="Partner 2"></div>
-      </div> -->
-      <!-- 3) ряд мелких партнёров -->
-      <!-- <div class="partner-list">
-        <div class="logo"><img src="./assets/partners/s-1.svg" alt="Partner"></div>
-        <div class="logo"><img src="./assets/partners/s-2.svg" alt="Partner"></div>
-        <div class="logo"><img src="./assets/partners/s-3.svg" alt="Partner"></div>
-        <div class="logo"><img src="./assets/partners/s-4.svg" alt="Partner"></div>
-        <div class="logo"><img src="./assets/partners/s-5.svg" alt="Partner"></div>
-      </div>
-    </div>
-  </section> -->
-
-  <!-- ===== PARTNERS ===== -->
   <section id="partners">
     <div class="container block">
       <p class="eyebrow">Partners</p>
       <h2 class="h2">Challenges Partners</h2>
-  
-      <!-- 2–3 главных партнёра -->
+
+      <!-- 2–3 main partners -->
       <div class="partners-challenges">
         <article class="partner-card">
           <div class="logo-box">
-            <img src="./assets/junctionx-wordmark-white.png" alt="Partner name">
+            <img src="./assets/junctionx-wordmark.png" alt="Partner name">
           </div>
           <h3>Partner name</h3>
           <p>Short one-line description.</p>
         </article>
-
         <article class="partner-card">
           <div class="logo-box">
-            <img src="./assets/junctionx-wordmark-white.png" alt="Partner name">
+            <img src="./assets/junctionx-wordmark.png" alt="Partner name">
           </div>
           <h3>Partner name</h3>
           <p>Short one-line description.</p>
         </article>
-
         <article class="partner-card">
           <div class="logo-box">
-            <img src="./assets/junctionx-wordmark-white.png" alt="Partner name">
+            <img src="./assets/junctionx-wordmark.png" alt="Partner name">
           </div>
           <h3>Partner name</h3>
           <p>Short one-line description.</p>
         </article>
       </div>
-  
-      <!-- 5–7 медиа партнёров (только лого) -->
-      <p class="eyebrow" style="margin-top:22px">Community partners</p>
+
+      <!-- 5–7 small partners -->
+      <p class="eyebrow small">Community partners</p>
       <div class="partners-media">
         <div class="media-logo">
-          <img src="./assets/junctionx-wordmark-white.png"" alt=" Media 1">
+          <img src="./assets/junctionx-wordmark.png" alt="Media 1">
           <p>Partner name</p>
         </div>
         <div class="media-logo">
-          <img src="./assets/junctionx-wordmark-white.png"" alt="Media 2">
+          <img src="./assets/junctionx-wordmark.png" alt="Media 2">
           <p>Partner name</p>
         </div>
         <div class="media-logo">
-          <img src="./assets/junctionx-wordmark-white.png"" alt=" Media 3">
+          <img src="./assets/junctionx-wordmark.png" alt="Media 3">
           <p>Partner name</p>
         </div>
         <div class="media-logo">
-          <img src="./assets/junctionx-wordmark-white.png"" alt=" Media 4">
+          <img src="./assets/junctionx-wordmark.png" alt="Media 4">
           <p>Partner name</p>
         </div>
         <div class="media-logo">
-          <img src="./assets/junctionx-wordmark-white.png"" alt=" Media 5">
+          <img src="./assets/junctionx-wordmark.png" alt="Media 5">
           <p>Partner name</p>
         </div>
       </div>
     </div>
   </section>
 
-
   <!-- ===== CTA ===== -->
   <section id="register">
     <div class="container">
       <div class="cta block">
-        <h2>Ready to build? 
-        </br> Join the weekend hackathon in Lisbon.</h2>
+        <h2>Ready to build?
+          </br> Join the weekend hackathon in Lisbon.
+        </h2>
         <a class="btn" href="https://eu.junctionplatform.com/events/junctionx-lisbon" target="_blank"
           rel="noopener">REGISTER NOW</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="container">
-      <div class="footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 32px;">
-        <div>
-          <div>Contact us at <a href="mailto:lisbon@hackjunction.com">lisbon@hackjunction.com</a></div>
-          © 2025 
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <div class="container">
+        <div class="footer">
+          <div>Contact us an email <span class="email">&#9993;</span>lisbon@hackjunction.com</div>
+          © 2025
           <span class="nowrap">
-            Junction 
-            <img class="logo-inline" src="./assets/junctionx-wordmark-white-small.png" alt="JunctionX">
+            Junction
+            <img class="logo-inline" src="./assets/junctionx-wordmark-small.png" alt="JunctionX">
           </span>
-          Lisbon. <br/> All rights reserved.
+          Lisbon. <br /> All rights reserved.
         </div>
-        <div style="display: flex; flex-direction: column; align-items: flex-end;">
-          <div style="font-size: 0.95em; margin-bottom: 6px; color: #aaa;">This event is organized by:</div>
-          <img src="./assets/Gradient.png" alt="Gradient Descending – Associação" style="height: 40px; max-width: 180px; object-fit: contain;">
+        <div class="gradient">
+          <div>This event is organized by:</div>
+          <img class="gradient__logo" src="./assets/gradient.png" alt="Gradient Descending - Associação">
         </div>
       </div>
-    </div>
-  </footer>
-</body>
-</html>
+      </div>
+    </footer>
+    </body>
+    
+    </html>
