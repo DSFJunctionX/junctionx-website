@@ -31,7 +31,7 @@
 
 .agenda .slot {
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 132px 1fr;
     gap: 16px;
     align-items: center;
     padding: 14px 0;
