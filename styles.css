@@ -637,6 +637,7 @@ details[open] summary::before {
     color: #e5e7eb;
     text-wrap: pretty;
     hyphens: auto;
+    justify-self: center;
 }
 
 .challenge__intro p {
@@ -688,7 +689,7 @@ details[open] summary::before {
 
     .challenge__header {
         text-align: center;
-        justify-content: center;
+        justify-items: center;
     }
 
     #challenges .eyebrow {
@@ -697,6 +698,10 @@ details[open] summary::before {
 
     #challenges .h2 {
         text-align: center;
+    }
+
+    .challenge__tagline {
+        margin: 0 40px;
     }
 }
 
