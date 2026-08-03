@@ -1,0 +1,173 @@
+<!-- src/components/sections/Location.astro -->
+<section id="location" class="location">
+  <div class="container location__grid">
+    
+    <div class="location__info">
+      <h2 class="h2 h2--light-purple">Location</h2>
+      
+      <div class="location__details">
+        <h3 class="location__venue">IST - Campus Taguspark</h3>
+        <p class="location__address">
+          Av. Prof. Dr. Cavaco Silva<br>
+          2744-016 Porto Salvo, Portugal
+        </p>
+      </div>
+      
+      <div class="location__transport">
+        <p>🚌 <strong>Bus:</strong> <a href="https://www.carrismetropolitana.pt/" target="_blank" rel="noopener" class="transport-link">Carris Metropolitana</a></p>
+        <p>🚗 <strong>Car:</strong> Free parking avaliable</p>
+        <p>🚐 <strong>IST Shuttle:</strong> <span class="badge badge--pending">Pending Confirmation</span></p>
+      </div>
+    </div>
+
+    <div class="location__map">
+      <iframe 
+        src="https://maps.google.com/maps?q=Instituto%20Superior%20Tecnico%20Taguspark&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+        width="100%" 
+        height="400" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .location {
+    background: #171717;
+    padding-block: clamp(60px, 10vw, 120px);
+    /* Changed min-height from 80dvh to fit the content better as a section */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .location__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 800px) {
+    .location__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+  }
+
+  .location__info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .location__info h2 {
+    margin-bottom: 0;
+  }
+
+  .location__venue {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 0 8px 0;
+    font-weight: bold;
+  }
+
+  .location__address {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .location__transport {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+  }
+
+  .location__transport p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .actions {
+    margin-top: 10px;
+  }
+
+  .location__map {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 20px;
+    border: 3px solid rgba(60, 55, 180, 0.8); 
+    box-shadow: 0 0 30px rgba(60, 55, 180, 0.5);
+  }
+
+  .map-glow {
+    position: absolute;
+    inset: -15px; 
+    background: rgba(60, 55, 180, 0.6); 
+    filter: blur(35px);
+    z-index: 0;
+    pointer-events: none;
+    display: block; 
+  }
+
+  .location__map iframe {
+    position: relative;
+    z-index: 1; 
+    width: 100%;
+    display: block;
+    border-radius: 17px; 
+  }
+
+  /* Interactive styling for the transport link */
+  .transport-link {
+    /* Keeps the text color the same as the surrounding text by default */
+    color: inherit; 
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    transition: color 0.2s ease, transform 0.1s ease;
+  }
+
+  /* The hidden underline */
+  .transport-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    /* Uses your theme's purple for the underline */
+    background-color: #BDBDFF; 
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  /* Hover effect: text turns purple and underline slides in */
+  .transport-link:hover {
+    color: #BDBDFF;
+  }
+
+  .transport-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Click effect: pushes the text down slightly to feel like a real button press */
+  .transport-link:active {
+    transform: translateY(2px) scale(0.98);
+    opacity: 0.8;
+  }
+</style>

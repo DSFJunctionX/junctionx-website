@@ -1,0 +1,109 @@
+<!-- ===== VIDEO ===== -->
+  <section class="video-hero" id="top">
+    <video class="video" autoplay muted loop playsinline preload="metadata">
+      <source src="./assets/video.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="container content">
+      <p class="eyebrow">10th and 11th October 2026 · Lisbon, Portugal</p>
+      <h1 class="h1">
+        <span class="nowrap">
+          Junction
+          <img class="logo-inline" src="./assets/junctionx-wordmark-small.png" alt="JunctionX">
+        </span>
+        Lisbon
+      </h1>
+      <p class="lead">Build in 24h with mentors & partners. Win prizes.</p>
+      
+      <div class="actions">
+        <a class="btn" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">APPLY NOW</a>
+        <a class="btn btn--ghost" href="https://hackjunction.app/events/junctionx-lisbon-2026">See Schedule</a>
+      </div>
+
+      <!-- Updated Discord Text Link -->
+      <div class="discord-wrapper">
+        <a class="discord-link" href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener">
+          Join our Discord <span class="discord-arrow">→</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+<style>
+  /* --- Fun Button Animations --- */
+  .actions .btn {
+    /* Adding a custom cubic-bezier for a springy/bouncy hover effect */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  .actions .btn:hover {
+    /* Spring up and grow slightly on hover */
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 24px rgba(88, 101, 242, 0.4);
+  }
+
+  .actions .btn--ghost:hover {
+    box-shadow: 0 12px 24px rgba(255, 255, 255, 0.15);
+  }
+
+  .actions .btn:active {
+    /* Squish down satisfyingly when actually clicked */
+    transform: translateY(2px) scale(0.95);
+    transition: transform 0.1s ease; /* Faster transition for the click */
+    box-shadow: 0 4px 10px rgba(88, 101, 242, 0.2);
+  }
+
+  .actions .btn--ghost:active {
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  }
+
+
+  /* --- Discord Link Styles --- */
+  .discord-wrapper {
+    margin-top: 12px; 
+    padding-left: 12px; 
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .discord-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff;
+    font-size: 18px; 
+    text-decoration: none;
+    border-bottom: 1px solid transparent; 
+    padding-bottom: 2px;
+    /* Added transform to the transition list for the click effect */
+    transition: color 0.2s ease, border-bottom-color 0.2s ease, transform 0.1s ease;
+  }
+
+  .discord-link:hover {
+    color: #BDBDFF;
+    border-bottom-color: #BDBDFF; 
+  }
+
+  /* The new click/press animation for the Discord link */
+  .discord-link:active {
+    transform: translateY(2px) scale(0.98);
+    opacity: 0.8;
+  }
+
+  .discord-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .discord-link:hover .discord-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .discord-wrapper {
+      justify-content: center;
+      padding-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,117 @@
+<!-- ===== PRIZES / INFO ===== -->
+<section id="prizes" class="prizes-section">
+  <div class="container">
+    <!-- Removed the eyebrow text but kept the title exactly as requested -->
+    <h2 class="h2 h2--light-purple">ALL YOU NEED TO KNOW</h2>
+    
+    <div class="bento-grid">
+      <div class="bento-card card-40">
+        <span class="highlight">100+</span>
+        <p>participants</p>
+      </div>
+      
+      <div class="bento-card card-60">
+        <span class="highlight">Epic Prizes</span>
+        <p>Cash, freebies, and free tickets to</p>
+        <p>Junction 2026, in Finland</p>
+      </div>
+      
+      <div class="bento-card card-60">
+        <span class="highlight">#1 Europe</span>
+        <p>hackathon series</p>
+      </div>
+      
+      <div class="bento-card card-40">
+        <span class="highlight">24h</span>
+        <p>time to build</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Renamed from .block to .prizes-section to give you fine-tuned control over spacing without affecting the rest of the site */
+  .prizes-section {
+    background-color: transparent; 
+    /* Significantly reduced padding to bring sections much closer together */
+    padding-top: clamp(20px, 4vw, 40px);
+    padding-bottom: clamp(30px, 5vw, 60px);
+    color: #ffffff;
+  }
+
+  .container {
+    max-width: 1050px; 
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+  }
+
+  /* Bento Box Grid */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(16px, 2.5vw, 24px);
+    /* Reduced this from 3.5rem to pull the boxes up closer to the title */
+    margin-top: 2rem; 
+  }
+
+  .bento-card {
+    background: #111111; 
+    border-radius: 28px;
+    padding: clamp(2rem, 4vw, 3.5rem) 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(189, 189, 255, 0.2);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6);
+  }
+
+  /* 40% width cards (Span 2 of 5 columns) */
+  .card-40 {
+    grid-column: span 2;
+  }
+
+  /* 60% width cards (Span 3 of 5 columns) */
+  .card-60 {
+    grid-column: span 3;
+  }
+
+  .bento-card .highlight {
+    color: #BDBDFF;
+    font-size: clamp(3.2rem, 5vw, 4.8rem);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.03em;
+  }
+
+  .bento-card p {
+    color: #e0e0e0;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 800px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+    .card-40, 
+    .card-60 {
+      grid-column: span 1; 
+    }
+    .bento-card {
+      padding: 2.5rem 1.5rem;
+    }
+  }
+</style>

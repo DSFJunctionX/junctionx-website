@@ -1,0 +1,173 @@
+---
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header id="site-header">
+  <nav>
+    <a href="/#top" class="brand" aria-label="JunctionX Lisbon">
+      <img src="/assets/junctionx-logo.png" alt="JunctionX" class="nav-logo">
+    </a>
+    
+    <!-- Desktop Links -->
+    <div class="internal-links">
+      <HeaderLink href="/#top">Home</HeaderLink>
+      <HeaderLink href="/#prizes">Prizes</HeaderLink>
+      <HeaderLink href="/#sponsors">Sponsors</HeaderLink>
+      <HeaderLink href="/#location">Location</HeaderLink>
+      <HeaderLink href="/#faq">FAQs</HeaderLink>
+      <HeaderLink href="/#our-team">Our Team</HeaderLink>
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="drawer" id="mobile-drawer">
+    <div class="drawer__links">
+      <HeaderLink href="/#top">Home</HeaderLink>
+      <HeaderLink href="/#prizes">Prizes</HeaderLink>
+      <HeaderLink href="/#sponsors">Sponsors</HeaderLink>
+      <HeaderLink href="/#location">Location</HeaderLink>
+      <HeaderLink href="/#faq">FAQs</HeaderLink>
+      <HeaderLink href="/#our-team">Our Team</HeaderLink>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const updateHeader = () => {
+    header?.classList.toggle('header--scrolled', window.scrollY > 0);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  // Mobile Menu Logic
+  const hamburger = document.getElementById('hamburger-btn');
+  const drawerLinks = document.querySelectorAll('.drawer__links a');
+
+  hamburger?.addEventListener('click', () => {
+    document.body.classList.toggle('nav-open');
+  });
+
+  drawerLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      document.body.classList.remove('nav-open');
+    });
+  });
+</script>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    backdrop-filter: none;
+    transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+  }
+  header.header--scrolled {
+    backdrop-filter: saturate(160%) blur(8px);
+    background: rgba(11, 10, 40, .7);
+    border-bottom-color: rgba(255, 255, 255, .06);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    gap: 16px;
+    padding: 12px 0 12px clamp(28px, 5vw, 64px); 
+    position: relative;
+  }
+  .nav-logo {
+    height: 80px;
+    width: auto;
+  }
+  .internal-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+  .internal-links a {
+    opacity: 0.8;
+    padding: 8px 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-decoration: none;
+    color: white;
+    border-radius: 16px;
+    transition: opacity 0.2s, background 0.2s;
+    text-shadow: var(--text-shadow);
+  }
+  .internal-links a:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .internal-links a.active {
+    opacity: 1;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .hamburger span {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  
+  @media (max-width: 900px) {
+    .internal-links {
+      display: none;
+    }
+
+    /* Puts the hamburger on the right, vertically centered with the logo */
+    .hamburger {
+      display: flex !important;
+      position: absolute;
+      right: clamp(28px, 5vw, 64px);
+      top: 30px; /* Fixed distance from top */
+      transform: none; /* Removes automatic centering so it stays perfectly still */
+      z-index: 2005;
+    }
+
+    /* Animates to an 'X' */
+    :global(body.nav-open) .hamburger span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    :global(body.nav-open) .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+    :global(body.nav-open) .hamburger span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Drawer overlaps logo, but only takes the space it needs */
+    .drawer {
+      top: 0 !important;
+      bottom: auto !important; /* Removes the full-screen stretch */
+      height: auto !important; /* Shrinks to fit the links */
+      padding: 30px clamp(28px, 5vw, 64px) 32px !important;
+      background: rgba(11, 10, 40, 0.98) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Drops a shadow below the menu */
+    }
+
+    /* Aligns the links perfectly with the X */
+    .drawer__links {
+      margin: 0 !important; 
+      padding-right: 50px; /* Prevents text from overlapping the X */
+    }
+
+    .drawer__links a {
+      padding: 10px 0; /* This vertical padding perfectly aligns the first word with the X */
+      font-size: 1.15rem;
+    }
+  }
+</style>

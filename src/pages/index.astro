@@ -1,0 +1,475 @@
+---
+import Layout from '../layouts/Layout.astro';
+import About from "../components/sections/About.astro";
+import Prizes from "../components/sections/Prizes.astro";
+import Sponsors from "../components/sections/Sponsors.astro";
+import Video from "../components/sections/Video.astro";
+import Location from "../components/sections/Location.astro";
+import FAQs from "../components/sections/FAQs.astro";
+import Team from "../components/sections/Team.astro";
+---
+
+<Layout>
+  <main id="top" class="main">
+    <canvas id="hero-canvas" class="main__canvas"></canvas>
+    <div class="main__bg" aria-hidden="true"></div>
+
+    <section id="about" class="container">
+      <div class="hero-content">
+        <div class="text-column">
+          <img src="/assets/junctionx-banner.png" alt="JunctionX" class="logo-banner">
+          <h1 class="h1">LISBON</h1>
+          <p class="lead">
+            Portugal's largest student hackathon<br>
+            10-11 October 2026, in Lisbon
+          </p>
+          <div class="actions">
+            <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
+              APPLY <span class="btn--apply-arrow"> > </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="countdown-column">
+          <div class="countdown">
+            <div class="time-box">
+              <span id="days">00</span>
+              <label>DAYS</label>
+            </div>
+            <div class="colon">:</div>
+            <div class="time-box">
+              <span id="hours">00</span>
+              <label>HOURS</label>
+            </div>
+            <div class="colon">:</div>
+            <div class="time-box">
+              <span id="minutes">00</span>
+              <label>MIN</label>
+            </div>
+            <div class="colon">:</div>
+            <div class="time-box">
+              <span id="seconds">00</span>
+              <label>SEC</label>
+            </div>
+          </div>
+          <p class="countdown-label">UNTIL APPLICATIONS CLOSE</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <About />
+  <Prizes />
+  <Sponsors />
+  <Video />
+  <Location />
+  <FAQs />
+  <Team />
+</Layout>
+
+<style>
+  .main {
+    position: relative;
+    width: 100%;
+    min-height: 75vh;
+    min-height: 75svh;
+    background: linear-gradient(180deg, #0a0f1d 0%, #000000 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-block: clamp(2rem, 6vh, 4rem);
+    box-sizing: border-box;
+  }
+
+  .main__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    display: block;
+  }
+
+  .main__bg {
+    display: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: clamp(1.25rem, 6vw, 120px);
+    padding-right: clamp(1.25rem, 6vw, 120px);
+    box-sizing: border-box;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .text-column {
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .logo-banner {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  .lead {
+    font-size: clamp(0.9rem, 2vw, 1.125rem);
+  }
+
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+
+  .btn--apply {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border-radius: 50px;
+    /* Restored the color transitions */
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+
+  .btn--apply:hover,
+  .btn--apply:focus-visible {
+    /* Restored your original hover colors */
+    background-color: #BDBDFF;
+    color: #0a0f1d;
+    transform: translateY(-2px);
+  }
+
+  .btn--apply-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #151515;
+    color: #ffffff;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.25s ease;
+  }
+
+  .btn--apply:hover .btn--apply-arrow {
+    transform: translateX(4px);
+  }
+
+  .countdown-column {
+    width: 100%;
+    max-width: 360px;
+    flex-shrink: 0;
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    background: rgba(255, 255, 255, 0.03);
+    padding: clamp(10px, 3vw, 20px) clamp(10px, 4vw, 30px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(189, 189, 255, 0.15);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: clamp(32px, 8vw, 60px);
+    flex: 1 1 0;
+  }
+
+  .time-box span {
+    font-size: clamp(1.1rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #ff007f;
+    line-height: 1;
+    font-family: monospace;
+  }
+
+  .time-box label {
+    font-size: clamp(0.55rem, 1.6vw, 0.7rem);
+    color: #a0aec0;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .colon {
+    font-size: clamp(0.9rem, 4vw, 2.5rem);
+    color: #BDBDFF;
+    margin: 0 clamp(2px, 1vw, 10px);
+    padding-bottom: 20px;
+    animation: pulse 1.5s infinite;
+    flex: 0 0 auto;
+  }
+
+  .countdown-label {
+    text-align: right;
+    color: #BDBDFF;
+    margin-top: 15px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  @media (max-width: 960px) {
+    .hero-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+
+    .countdown-column {
+      max-width: 100%;
+    }
+
+    .countdown-label {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .main {
+      padding-block: 2rem;
+    }
+
+    .countdown {
+      padding: 12px;
+      gap: 4px;
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .colon {
+      margin: 0 2px;
+    }
+
+    .time-box {
+      min-width: 38px;
+    }
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  const countDownDate = new Date("Sep 30, 2026 23:59:00").getTime();
+
+  const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    if (distance < 0) {
+      daysEl.innerText = "00";
+      hoursEl.innerText = "00";
+      minutesEl.innerText = "00";
+      secondsEl.innerText = "00";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    daysEl.innerText = String(days).padStart(2, '0');
+    hoursEl.innerText = String(hours).padStart(2, '0');
+    minutesEl.innerText = String(minutes).padStart(2, '0');
+    secondsEl.innerText = String(seconds).padStart(2, '0');
+  };
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  const mainContainer = document.querySelector('.main');
+  const canvas = document.getElementById('hero-canvas');
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    mainContainer.clientWidth / mainContainer.clientHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 5;
+
+  const starCount = 1200;
+  const positions = new Float32Array(starCount * 3);
+
+  for (let i = 0; i < starCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+  }
+
+  const starGeometry = new THREE.BufferGeometry();
+  starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const starMaterial = new THREE.PointsMaterial({
+    color: 0xBDBDFF,
+    size: 0.05,
+    transparent: true,
+    opacity: 1,
+    depthWrite: false
+  });
+
+  const stars = new THREE.Points(starGeometry, starMaterial);
+  scene.add(stars);
+
+  const SHOOTING_STAR_COUNT = 12; 
+  const shootingStars = [];
+
+  const resetShootingStar = (star) => {
+    const direction = new THREE.Vector3(1, -1, 0).normalize();
+
+    star.origin.set(
+      -5 - Math.random() * 5,
+      5 + Math.random() * 5,  
+      0
+    );
+    
+    star.direction = direction;
+    star.speed = 15 + Math.random() * 10;
+    star.length = 4 + Math.random() * 2;
+    star.delay = Math.random() * 2;
+    star.duration = 1.5;
+    star.age = 0;
+  };
+
+  for (let i = 0; i < SHOOTING_STAR_COUNT; i++) {
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(),
+      new THREE.Vector3()
+    ]);
+    const material = new THREE.LineBasicMaterial({
+      color: 0xBDBDFF,
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending 
+    });
+    const line = new THREE.Line(geometry, material);
+    scene.add(line);
+
+    const star = { line, origin: new THREE.Vector3() };
+    resetShootingStar(star);
+    shootingStars.push(star);
+  }
+
+  const updateShootingStars = (delta) => {
+    shootingStars.forEach((star) => {
+      star.age += delta;
+
+      if (star.age < star.delay) {
+        star.line.material.opacity = 0;
+        return;
+      }
+
+      const t = (star.age - star.delay) / star.duration;
+
+      if (t >= 1) {
+        resetShootingStar(star);
+        return;
+      }
+
+      const travelled = star.direction.clone().multiplyScalar(star.speed * (star.age - star.delay));
+      const head = star.origin.clone().add(travelled);
+      const tail = head.clone().sub(star.direction.clone().multiplyScalar(star.length));
+
+      const positionsAttr = star.line.geometry.attributes.position;
+      positionsAttr.setXYZ(0, head.x, head.y, head.z);
+      positionsAttr.setXYZ(1, tail.x, tail.y, tail.z);
+      positionsAttr.needsUpdate = true;
+
+      star.line.material.opacity = Math.sin(t * Math.PI) * 0.9;
+    });
+  };
+
+  const resize = () => {
+    const width = mainContainer.clientWidth;
+    const height = mainContainer.clientHeight;
+
+    if (width === 0 || height === 0) return;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  };
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  const clock = new THREE.Clock();
+
+  const animate = () => {
+    requestAnimationFrame(animate);
+    const elapsed = clock.getElapsedTime();
+    const delta = clock.getDelta();
+
+    stars.rotation.y = elapsed * 0.02;
+    stars.rotation.x = elapsed * 0.01;
+
+    updateShootingStars(delta);
+
+    renderer.render(scene, camera);
+  };
+
+  animate();
+</script>

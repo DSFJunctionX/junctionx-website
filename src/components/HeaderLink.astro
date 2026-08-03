@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'>;
+
+const { href, class: className, ...props } = Astro.props;
+---
+
+<a href={href} class:list={[className]} {...props}>
+  <slot />
+</a>
+<style>
+  a {
+    opacity: .8;
+    padding: 8px 10px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  a:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, .05);
+    border-radius: 16px;
+  }
+</style>

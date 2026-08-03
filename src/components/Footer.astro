@@ -1,0 +1,252 @@
+---
+// src/components/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      
+      <!-- Column 1: Brand & Organizer -->
+      <div class="footer__brand-col">
+        <a href="/#top" class="footer__logo-link">
+          <img src="/assets/junctionx-banner.png" alt="JunctionX" class="footer__logo" />
+          <span class="footer__logo-text">LISBON</span>
+        </a>
+        <p class="footer__tagline">Portugal's largest student hackathon.</p>
+        
+        <div class="footer__organizer">
+          <span class="eyebrow">Organized by</span>
+          <img src="/assets/gradient.png" alt="Gradient" class="gradient-logo" />
+        </div>
+      </div>
+
+      <!-- Column 2: Explore -->
+      <div class="footer__links-col">
+        <h4 class="footer__title">Explore</h4>
+        <nav class="footer__nav">
+          <a href="/#about">About</a>
+          <a href="/#prizes">Prizes</a>
+          <a href="/#sponsors">Sponsors</a>
+          <a href="/#location">Location</a>
+          <a href="https://hackjunction.app/events/junctionx-lisbon-2026">Schedule</a>
+        </nav>
+      </div>
+
+      <!-- Column 3: Connect -->
+      <div class="footer__links-col">
+        <h4 class="footer__title">Connect</h4>
+        <nav class="footer__nav">
+          <a href="https://www.linkedin.com/company/junctionx-lisbon" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span>LinkedIn</span> ↗
+          </a>
+          <a href="https://www.instagram.com/junctionxlisbon/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span>Instagram</span> ↗
+          </a>
+          <a href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span>Discord</span> ↗
+          </a>
+          
+          <!-- Email with icon -->
+          <a href="mailto:lisbon@hackjunction.com" class="email-link">
+            <svg class="mail-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            lisbon@hackjunction.com
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright -->
+    <div class="footer__bottom">
+      <p>© {year} JunctionX Lisbon. All rights reserved.</p>
+      <a href="/#top" class="back-to-top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #0a0f1d;
+    position: relative;
+    overflow: hidden;
+    /* Added nice healthy padding to the top so it breathes */
+    padding: clamp(60px, 8vw, 100px) 0 2rem 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* MAGIC FIX: This stops global.css from flipping the footer upside down */
+  .site-footer > .container {
+    display: block !important;
+  }
+
+  .container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.2fr;
+    gap: clamp(30px, 4vw, 60px);
+    margin-bottom: 3rem;
+  }
+
+  /* --- Brand Column & New Logo Text --- */
+  .footer__brand-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0; /* let this column shrink instead of overflowing into the next one */
+    margin-top: -0.5rem; /* nudge the brand block up a touch */
+  }
+
+  .footer__logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    max-width: 100%;
+    flex-wrap: wrap; /* wrap to a second line instead of overflowing horizontally */
+  }
+
+  .footer__logo {
+    height: clamp(34px, 4.5vw, 44px);
+    width: auto;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .footer__logo-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem); /* slightly smaller so it fits its column */
+    color: #ffffff;
+    line-height: 1;
+    text-transform: uppercase;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .footer__logo-link:hover .footer__logo,
+  .footer__logo-link:hover .footer__logo-text {
+    opacity: 1;
+  }
+
+  .footer__tagline {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    margin: 0 0 2rem 0;
+    max-width: 250px;
+  }
+
+  .eyebrow {
+    color: #BDBDFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .gradient-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+
+  /* --- Links Columns --- */
+  .footer__title {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer__nav a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    width: fit-content;
+  }
+
+  .footer__nav a:hover {
+    color: #BDBDFF;
+    transform: translateX(4px);
+  }
+
+  /* --- Special Links --- */
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .email-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mail-icon {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .email-link:hover .mail-icon {
+    opacity: 1;
+  }
+
+  /* --- Bottom Bar --- */
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+  }
+
+  .back-to-top {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .back-to-top:hover {
+    color: #BDBDFF;
+  }
+
+  /* --- Mobile Responsive --- */
+  @media (max-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .footer__bottom {
+      flex-direction: column-reverse;
+      gap: 1.5rem;
+      text-align: center;
+    }
+  }
+</style>

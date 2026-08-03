@@ -1,0 +1,171 @@
+<!-- ===== FAQs ===== -->
+  <section id="faq" class="faqs">
+    <div class="container">
+      <h2 class="h2 h2--black">FAQS</h2>
+      <h3 class="h3">Find answers to commonly asked questions about JunctionX Lisbon</h3>
+
+      <div class="faq-list">
+      <!-- Item 1 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            What are the benefits of the hackathon?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Build fast, learn from mentors, network with partners, get feedback and win prizes. 
+              The winner will get tickets and a chance to participate in Junction Finland, taking place from the 13th to 15th of November,
+              where there are +50,000 euros in prizes!
+            </p>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            Do I need to bring a team?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Come solo or form a team on-site. Both are welcome.
+            </p>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            Will there be a remote option?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              The event is in-person in Lisbon for this edition.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            Who can participate?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Anyone with an interest in technology, design, or entrepreneurship. You can join individually
+              or in teams of up to 5 people.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            Do I need to have previous experience?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              No. Beginners are welcome! Mentors and workshops will be available during the event.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .faqs {
+      width: min(var(--max), 92%);
+      border: none;
+      border-radius: 20px;
+      margin: 60px auto;
+      padding: 50px;
+      background: #BDBDFF;
+      position: relative;
+      overflow: hidden;
+
+    }
+
+    .faq-list {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      border: 1px solid #171717;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 1rem;
+      background: white;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.8s ease-in-out;
+      padding: 0 1rem;
+      background: #FFFFFF;
+    }
+
+    .faq-answer p {
+      margin: 1rem 0;
+      color: #171717;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-item.active .icon {
+      transform: rotate(45deg);
+    }
+
+    .icon {
+      transition: transform 0.8s ease-in-out;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .faqs {
+        padding: 24px 16px; /* Reduces the inner spacing on small screens */
+        margin: 30px auto;  /* Reduces the outer spacing */
+      }
+
+      .faq-question {
+        font-size: 0.95rem; /* Slightly smaller text to fit better */
+        padding: 0.8rem;
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 400px; /* Increased to ensure text doesn't cut off when wrapping */
+      }
+    }
+  </style>
+
+  <script>
+    const items = document.querySelectorAll(".faq-item");
+
+    items.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+
+      button.addEventListener("click", () => {
+        item.classList.toggle("active");
+      });
+    });
+  </script>
