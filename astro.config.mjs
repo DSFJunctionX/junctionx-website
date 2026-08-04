@@ -6,6 +6,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://lisbon.hackjunction.com/',
+	site: 'https://dsfjunctionx.github.io',
+	base: '/junctionx-website',
 	integrations: [mdx(), sitemap()],
 });
