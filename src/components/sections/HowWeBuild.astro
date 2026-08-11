@@ -1,0 +1,229 @@
+<!-- ===== HOW WE BUILD ===== -->
+<section id="how-we-build" class="build-section">
+  <div class="container">
+    <h2 class="h2 h2--light-purple">How We Build</h2>
+
+    <div class="build-list">
+      <article class="build-principle" data-reveal style="transition-delay: 0ms">
+        <div class="build-principle__inner">
+          <span class="build-principle__num">01</span>
+          <h3 class="build-principle__title">Fall in Love with the Problem</h3>
+          <blockquote class="build-principle__quote">
+            &ldquo;Fall in love with the problem, not the solution.&rdquo;
+          </blockquote>
+          <p class="build-principle__note">
+            Start with something worth solving. Let the problem shape the solution.
+          </p>
+          <p class="build-principle__attribution">
+            <span class="build-principle__source">— Uri Levine</span>
+            <span class="build-principle__work">Fall in Love with the Problem, Not the Solution</span>
+          </p>
+        </div>
+      </article>
+
+      <article class="build-principle" data-reveal style="transition-delay: 80ms">
+        <div class="build-principle__inner">
+          <span class="build-principle__num">02</span>
+          <h3 class="build-principle__title">Build &middot; Measure &middot; Learn</h3>
+          <p class="build-principle__note">
+            Build something real. Put it in front of people. Learn what happens.
+          </p>
+          <p class="build-principle__attribution">
+            <span class="build-principle__source">Eric Ries</span>
+            <span class="build-principle__work">The Lean Startup</span>
+          </p>
+        </div>
+      </article>
+
+      <article class="build-principle" data-reveal style="transition-delay: 160ms">
+        <div class="build-principle__inner">
+          <span class="build-principle__num">03</span>
+          <h3 class="build-principle__title">Make Something People Want</h3>
+          <p class="build-principle__note">
+            Technology is the means. Impact is the point.
+          </p>
+          <p class="build-principle__attribution">
+            <span class="build-principle__source">Y Combinator</span>
+          </p>
+        </div>
+      </article>
+
+      <article class="build-principle" data-reveal style="transition-delay: 240ms">
+        <div class="build-principle__inner">
+          <span class="build-principle__num">04</span>
+          <h3 class="build-principle__title">Ship</h3>
+          <p class="build-principle__note">
+            Start with an idea.<br>
+            Test it.<br>
+            Kill it if it's wrong.<br>
+            Build something better.
+          </p>
+          <p class="build-principle__attribution build-principle__attribution--ship">
+            <span class="build-principle__source">24 Hours.</span>
+            <span class="build-principle__work">Make it real.</span>
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .build-section {
+    background-color: transparent;
+    color: #ffffff;
+    /* Tight padding to keep the rhythm with About above and Prizes below */
+    padding-top: clamp(20px, 4vw, 40px);
+    padding-bottom: clamp(30px, 5vw, 60px);
+  }
+
+  .container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+    text-align: center;
+  }
+
+  .build-list {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .build-principle {
+    position: relative;
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .build-principle__inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Progressive enhancement: only hidden once JS has armed the observer */
+  .build-principle.reveal-pending {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .build-principle.reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .build-principle__num {
+    display: block;
+    font-family: monospace;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #BDBDFF;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .build-principle__title {
+    font-family: "Press Start 2P", monospace, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    line-height: 1.5;
+    color: #ffffff;
+    margin: 0 0 1.25rem 0;
+    text-wrap: balance;
+    transition: text-shadow 0.3s ease;
+  }
+
+  .build-principle:hover .build-principle__title {
+    text-shadow: 0 0 16px rgba(189, 189, 255, 0.35);
+  }
+
+  .build-principle__quote {
+    margin: 0 0 1rem 0;
+    padding: 0;
+    border: none;
+    font-style: italic;
+    color: #e0e0e0;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .build-principle__note {
+    margin: 0 0 1.25rem 0;
+    color: #e0e0e0;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .build-principle__attribution {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+    font-family: monospace;
+  }
+
+  .build-principle__source {
+    color: #BDBDFF;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .build-principle__work {
+    color: var(--soft, #9ca3af);
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+
+  .build-principle__attribution--ship .build-principle__source,
+  .build-principle__attribution--ship .build-principle__work {
+    color: #BDBDFF;
+    text-transform: uppercase;
+  }
+
+  .build-principle__attribution--ship .build-principle__work {
+    opacity: 0.75;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .build-principle__inner {
+      max-width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .build-principle,
+    .build-principle.reveal-pending {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const principles = document.querySelectorAll('.build-principle[data-reveal]');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion && 'IntersectionObserver' in window && principles.length) {
+    principles.forEach((el) => el.classList.add('reveal-pending'));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+    );
+
+    principles.forEach((el) => observer.observe(el));
+  }
+</script>
