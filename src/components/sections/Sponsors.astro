@@ -1,27 +1,54 @@
 ---
 // src/components/Sponsors.astro
-const mysteryTexts = Array(8).fill("TO BE ANNOUNCED");
+
+// Set `revealed: true` for any sponsor to replace the "?" with their logo and name
+const tiers = [
+  {
+    level: "very-high",
+    items: [
+      { name: "NOS", logo: "/assets/nos.png", revealed: false },
+    ],
+  },
+  {
+    level: "high",
+    items: [
+      { name: "Sensei", logo: "/assets/sensei.png", revealed: false },
+      { name: "Inspiring Solutions", logo: "/assets/inspiring-solutions.png", revealed: false },
+    ],
+  },
+  {
+    level: "basic",
+    items: [
+      { name: "Albatroz Engenharia", logo: "/assets/albatroz-engenharia.png", revealed: false },
+      { name: "Jane Street", logo: "/assets/jane-street.jpg", revealed: false },
+      { name: "Lovable", logo: "/assets/lovable.png", revealed: false },
+      { name: "n8n", logo: "/assets/n8n.svg", revealed: false },
+    ],
+  },
+];
 ---
 
-<!-- Add id="sponsors" right here! -->
 <section id="sponsors" class="Sponsors">
   <div class="container">
     <h2 class="h2 h2--light-purple">Sponsors</h2>
-  </div>
 
-  <div class="Sponsors__track-wrapper">
-    <div class="Sponsors__track">
-      <div class="Sponsors__group">
-        {mysteryTexts.map((text) => (
-          <div class="sponsors__mystery-text">{text}</div>
-        ))}
-      </div>
-
-      <div class="Sponsors__group" aria-hidden="true">
-        {mysteryTexts.map((text) => (
-          <div class="sponsors__mystery-text">{text}</div>
-        ))}
-      </div>
+    <div class="Sponsors__tiers">
+      {tiers.map((tier) => (
+        <div class={`Sponsors__grid Sponsors__grid--${tier.level}`}>
+          {tier.items.map((sponsor) => (
+            <div class={`Sponsors__box Sponsors__box--${tier.level}`}>
+              {sponsor.revealed ? (
+                <div class="Sponsors__revealed">
+                  <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                  <span class="Sponsors__name">{sponsor.name}</span>
+                </div>
+              ) : (
+                <div class="Sponsors__mystery">?</div>
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -29,7 +56,6 @@ const mysteryTexts = Array(8).fill("TO BE ANNOUNCED");
 <style>
   .Sponsors {
     background: #171717;
-    /* Reduced padding here to match the tightened spacing from Prizes */
     padding-block: clamp(40px, 5vw, 60px);
     overflow: hidden;
   }
@@ -40,68 +66,126 @@ const mysteryTexts = Array(8).fill("TO BE ANNOUNCED");
     padding: 0 clamp(20px, 5vw, 40px);
   }
 
-  .Sponsors__track-wrapper {
+  .h2--light-purple {
+    color: #BDBDFF;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .Sponsors__tiers {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     width: 100%;
-    overflow: hidden;
-    margin-top: 40px;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      #000 10%,
-      #000 90%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      #000 10%,
-      #000 90%,
-      transparent 100%
-    );
   }
 
-  .Sponsors__track {
-    display: flex;
-    width: max-content;
-    /* Sped up the scroll slightly since it's text, not large images */
-    animation: scroll 20s linear infinite; 
+  /* Grid Layouts for different tiers */
+  .Sponsors__grid {
+    display: grid;
+    gap: 24px;
+    width: 100%;
   }
 
-  .Sponsors__group {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    flex-shrink: 0;
-    padding-right: 80px;
+  .Sponsors__grid--very-high {
+    grid-template-columns: 1fr;
   }
 
-  @keyframes scroll {
-    to {
-      transform: translateX(calc(-40% / 2));
-    }
+  .Sponsors__grid--high {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
-  .Sponsors__track:hover {
-    animation-play-state: paused;
+  .Sponsors__grid--basic {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
-  /* New styling for the mystery text instead of logos */
-  .sponsors__mystery-text {
-    flex: 0 0 auto;
+  /* Box Styling */
+  .Sponsors__box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(189, 189, 255, 0.1);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .Sponsors__box:hover {
+    transform: translateY(-4px);
+    border-color: rgba(189, 189, 255, 0.3);
+  }
+
+  /* Box Heights based on tier */
+  .Sponsors__box--very-high {
+    min-height: 240px;
+  }
+
+  .Sponsors__box--high {
+    min-height: 180px;
+  }
+
+  .Sponsors__box--basic {
+    min-height: 140px;
+  }
+
+  /* Mystery Question Mark State */
+  .Sponsors__mystery {
+    font-size: clamp(3rem, 5vw, 5rem);
     font-weight: 800;
     color: #BDBDFF;
-    opacity: 0.4;
-    letter-spacing: 4px;
+    opacity: 0.3;
     font-family: monospace;
-    text-transform: uppercase;
     transition: opacity 0.3s ease;
   }
 
-  .sponsors__mystery-text:hover {
-    opacity: 1;
+  .Sponsors__box:hover .Sponsors__mystery {
+    opacity: 0.8;
+  }
+
+  /* Revealed State */
+  .Sponsors__revealed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .Sponsors__logo {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+  }
+
+  .Sponsors__box--very-high .Sponsors__logo {
+    max-height: 140px;
+  }
+
+  .Sponsors__box--basic .Sponsors__logo {
+    max-height: 70px;
+  }
+
+  .Sponsors__name {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  /* Mobile responsiveness adjustments */
+  @media (max-width: 600px) {
+    .Sponsors__grid--high,
+    .Sponsors__grid--basic {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .Sponsors__box--very-high { min-height: 180px; }
+    .Sponsors__box--high { min-height: 140px; }
+    .Sponsors__box--basic { min-height: 100px; }
+    
+    .Sponsors__name {
+      font-size: 0.9rem;
+    }
   }
 </style>
