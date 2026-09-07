@@ -140,70 +140,95 @@ import Team from "../components/sections/Team.astro";
 
   .prize-callout {
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    margin: 0 auto 1.5rem;
-    padding: 0.75rem 1.25rem;
-    border: 1px solid rgba(255, 0, 127, 0.7);
-    border-radius: 8px;
-    background: linear-gradient(100deg, rgba(255, 0, 127, 0.18), rgba(189, 189, 255, 0.08));
-    box-shadow: 0 0 28px rgba(255, 0, 127, 0.2);
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto 2rem;
+    padding: 1.25rem 2rem;
+    border: 2px solid #ff007f;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(10, 15, 29, 0.9));
     transform: rotate(-2deg);
+    animation: neon-pulse 2s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    backdrop-filter: blur(10px);
   }
 
   .prize-callout__amount {
     color: #ffffff;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    line-height: 0.95;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 0.9;
     letter-spacing: -0.04em;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 0, 127, 0.4);
   }
 
   .prize-callout__label {
     color: #ff78b9;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 800;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
   }
 
-.actions {
+  @keyframes neon-pulse {
+    0% {
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.3), inset 0 0 10px rgba(255, 0, 127, 0.1);
+      transform: scale(1) rotate(-2deg);
+    }
+    100% {
+      box-shadow: 0 0 40px rgba(255, 0, 127, 0.8), inset 0 0 25px rgba(255, 0, 127, 0.5);
+      transform: scale(1.04) rotate(-2deg);
+    }
+  }
+
+  .actions {
     display: flex;
     justify-content: flex-start;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     width: 100%;
   }
 
   .btn--apply {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    background: transparent;
+    gap: 1.5rem;
+    background: rgba(10, 15, 29, 0.6);
     color: #ffffff;
     font-weight: 800;
-    font-size: 0.95rem;
-    letter-spacing: 0.12em;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
     text-decoration: none;
-    padding: 0.5rem 0 0.65rem;
-    border-bottom: 1px solid #ff007f;
-    transition: color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border: 2px solid #ff007f;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
   }
 
   .btn--apply:hover,
   .btn--apply:focus-visible {
-    color: #ff78b9;
-    border-color: #ff78b9;
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
     transform: translateY(-2px);
+    border-color: #ff78b9;
   }
 
   .btn--apply-arrow {
+    background: #111111;
     color: #ff007f;
-    font-size: 1.4rem;
-    line-height: 1;
-    transition: transform 0.25s ease;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
   }
 
   .btn--apply:hover .btn--apply-arrow {
     transform: translateX(4px);
+    background: #ff007f;
+    color: #ffffff;
   }
 
   .countdown-column {
