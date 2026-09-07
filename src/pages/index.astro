@@ -31,10 +31,6 @@ import Team from "../components/sections/Team.astro";
         </div>
 
         <div class="countdown-column">
-          <div class="prize-callout" aria-label="More than 15,000 euros in prizes">
-            <span class="prize-callout__amount">+15.000€</span>
-            <span class="prize-callout__label">IN PRIZES</span>
-          </div>
           <div class="countdown">
             <div class="time-box">
               <span id="days">00</span>
@@ -57,6 +53,11 @@ import Team from "../components/sections/Team.astro";
             </div>
           </div>
           <p class="countdown-label">UNTIL APPLICATIONS CLOSE</p>
+          
+          <div class="prize-callout" aria-label="More than 15,000 euros in prizes">
+            <span class="prize-callout__amount">+15.000€</span>
+            <span class="prize-callout__label">IN PRIZES</span>
+          </div>
         </div>
       </div>
     </section>
@@ -138,6 +139,125 @@ import Team from "../components/sections/Team.astro";
     font-size: clamp(0.9rem, 2vw, 1.125rem);
   }
 
+  .actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .btn--apply {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(10, 15, 29, 0.6);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border: 2px solid #BDBDFF;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+
+  .btn--apply-arrow {
+    background: #BDBDFF;
+    color: #0a0f1d;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+  }
+
+  .btn--apply:hover,
+  .btn--apply:focus-visible {
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
+    transform: translateY(-2px);
+    border-color: #ff007f;
+  }
+
+  .btn--apply:hover .btn--apply-arrow {
+    transform: translateX(4px);
+    background: #ff007f;
+    color: #ffffff;
+  }
+
+  .countdown-column {
+    width: 100%;
+    max-width: 380px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    background: rgba(255, 255, 255, 0.03);
+    padding: clamp(10px, 3vw, 20px) clamp(10px, 4vw, 30px);
+    border-radius: 12px;
+    border: 1px solid rgba(189, 189, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(189, 189, 255, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: clamp(32px, 8vw, 60px);
+    flex: 1 1 0;
+  }
+
+  .time-box span {
+    font-size: clamp(1.1rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(189, 189, 255, 0.4);
+    line-height: 1;
+    font-family: monospace;
+  }
+
+  .time-box label {
+    font-size: clamp(0.55rem, 1.6vw, 0.7rem);
+    color: #a0aec0;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .colon {
+    font-size: clamp(0.9rem, 4vw, 2.5rem);
+    color: #BDBDFF;
+    margin: 0 clamp(2px, 1vw, 10px);
+    padding-bottom: 20px;
+    animation: pulse 1.5s infinite;
+    flex: 0 0 auto;
+  }
+
+  .countdown-label {
+    text-align: center;
+    color: #BDBDFF;
+    margin-top: 15px;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
   .prize-callout {
     display: inline-flex;
     align-items: center;
@@ -181,120 +301,6 @@ import Team from "../components/sections/Team.astro";
     }
   }
 
-  .actions {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 2rem;
-    width: 100%;
-  }
-
-  .btn--apply {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: rgba(10, 15, 29, 0.6);
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    padding: 0.5rem 0.5rem 0.5rem 2rem;
-    border: 2px solid #ff007f;
-    border-radius: 50px;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-  }
-
-  .btn--apply:hover,
-  .btn--apply:focus-visible {
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
-    transform: translateY(-2px);
-    border-color: #ff78b9;
-  }
-
-  .btn--apply-arrow {
-    background: #111111;
-    color: #ff007f;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.6rem;
-    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
-  }
-
-  .btn--apply:hover .btn--apply-arrow {
-    transform: translateX(4px);
-    background: #ff007f;
-    color: #ffffff;
-  }
-
-  .countdown-column {
-    width: 100%;
-    max-width: 360px;
-    flex-shrink: 0;
-  }
-
-  .countdown {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    background: rgba(255, 255, 255, 0.03);
-    padding: clamp(10px, 3vw, 20px) clamp(10px, 4vw, 30px);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(189, 189, 255, 0.15);
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .time-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: clamp(32px, 8vw, 60px);
-    flex: 1 1 0;
-  }
-
-  .time-box span {
-    font-size: clamp(1.1rem, 5vw, 3rem);
-    font-weight: 700;
-    color: #ff007f;
-    line-height: 1;
-    font-family: monospace;
-  }
-
-  .time-box label {
-    font-size: clamp(0.55rem, 1.6vw, 0.7rem);
-    color: #a0aec0;
-    margin-top: 5px;
-    letter-spacing: 2px;
-    white-space: nowrap;
-  }
-
-  .colon {
-    font-size: clamp(0.9rem, 4vw, 2.5rem);
-    color: #BDBDFF;
-    margin: 0 clamp(2px, 1vw, 10px);
-    padding-bottom: 20px;
-    animation: pulse 1.5s infinite;
-    flex: 0 0 auto;
-  }
-
-  .countdown-label {
-    text-align: right;
-    color: #BDBDFF;
-    margin-top: 15px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
-    width: 100%;
-  }
-
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.2; }
@@ -309,10 +315,6 @@ import Team from "../components/sections/Team.astro";
 
     .countdown-column {
       max-width: 100%;
-    }
-
-    .countdown-label {
-      text-align: left;
     }
   }
 
