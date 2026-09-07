@@ -14,7 +14,7 @@ import Team from "../components/sections/Team.astro";
     <canvas id="hero-canvas" class="main__canvas"></canvas>
     <div class="main__bg" aria-hidden="true"></div>
 
-    <section id="about" class="container">
+    <section id="home" class="container">
       <div class="hero-content">
         <div class="text-column">
           <img src="/assets/junctionx-banner.png" alt="JunctionX" class="logo-banner">
@@ -23,18 +23,18 @@ import Team from "../components/sections/Team.astro";
             Portugal's largest student hackathon<br>
             10-11 October 2026, in Lisbon
           </p>
-          <div class="prize-callout" aria-label="More than 15,000 euros in prizes">
-            <span class="prize-callout__amount">+15.000€</span>
-            <span class="prize-callout__label">IN PRIZES</span>
-          </div>
           <div class="actions">
             <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
-              APPLY <span class="btn--apply-arrow"> > </span>
+              APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
             </a>
           </div>
         </div>
 
         <div class="countdown-column">
+          <div class="prize-callout" aria-label="More than 15,000 euros in prizes">
+            <span class="prize-callout__amount">+15.000€</span>
+            <span class="prize-callout__label">IN PRIZES</span>
+          </div>
           <div class="countdown">
             <div class="time-box">
               <span id="days">00</span>
@@ -142,7 +142,7 @@ import Team from "../components/sections/Team.astro";
     display: inline-flex;
     align-items: baseline;
     gap: 0.75rem;
-    margin-top: 1.25rem;
+    margin: 0 auto 1.5rem;
     padding: 0.75rem 1.25rem;
     border: 1px solid rgba(255, 0, 127, 0.7);
     border-radius: 8px;
@@ -176,39 +176,29 @@ import Team from "../components/sections/Team.astro";
   .btn--apply {
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    background-color: #ffffff;
-    color: #000000;
+    gap: 0.75rem;
+    background: transparent;
+    color: #ffffff;
     font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
     text-decoration: none;
-    padding: 0.5rem 0.5rem 0.5rem 2rem;
-    border-radius: 50px;
-    /* Restored the color transitions */
-    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    padding: 0.5rem 0 0.65rem;
+    border-bottom: 1px solid #ff007f;
+    transition: color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
   }
 
   .btn--apply:hover,
   .btn--apply:focus-visible {
-    /* Restored your original hover colors */
-    background-color: #BDBDFF;
-    color: #0a0f1d;
+    color: #ff78b9;
+    border-color: #ff78b9;
     transform: translateY(-2px);
   }
 
   .btn--apply-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #151515;
-    color: #ffffff;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 1.2rem;
+    color: #ff007f;
+    font-size: 1.4rem;
+    line-height: 1;
     transition: transform 0.25s ease;
   }
 
