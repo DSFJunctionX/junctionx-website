@@ -23,7 +23,8 @@ import Team from "../components/sections/Team.astro";
             Portugal's largest student hackathon<br>
             10-11 October 2026, in Lisbon
           </p>
-          <div class="actions">
+          <!-- Desktop Button -->
+          <div class="actions desktop-actions">
             <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
               APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
             </a>
@@ -58,6 +59,13 @@ import Team from "../components/sections/Team.astro";
             </div>
           </div>
           <p class="countdown-label">UNTIL APPLICATIONS CLOSE</p>
+
+          <!-- Mobile Button (Shows under timer on small screens) -->
+          <div class="actions mobile-actions">
+            <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
+              APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -146,6 +154,10 @@ import Team from "../components/sections/Team.astro";
     width: 100%;
   }
 
+  .mobile-actions {
+    display: none; /* Hidden on Desktop */
+  }
+
   .btn--apply {
     display: inline-flex;
     align-items: center;
@@ -195,7 +207,7 @@ import Team from "../components/sections/Team.astro";
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    align-items: center; /* This centers both the prize callout and the countdown */
+    align-items: center; 
   }
 
   .prize-callout {
@@ -203,7 +215,7 @@ import Team from "../components/sections/Team.astro";
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin: 0 0 2rem 0; /* Removed auto margins so flexbox centers it perfectly */
+    margin: 0 0 2rem 0; 
     padding: 1.25rem 2rem;
     border: 2px solid #ff007f;
     border-radius: 16px;
@@ -315,6 +327,16 @@ import Team from "../components/sections/Team.astro";
 
     .countdown-column {
       max-width: 100%;
+    }
+    
+    .desktop-actions {
+      display: none; /* Hide the top apply button on mobile */
+    }
+
+    .mobile-actions {
+      display: flex; /* Show the bottom apply button on mobile */
+      justify-content: center;
+      margin-top: 1.5rem;
     }
   }
 
