@@ -195,7 +195,40 @@ import Team from "../components/sections/Team.astro";
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    align-items: center; /* This centers both the prize callout and the countdown */
+  }
+
+  .prize-callout {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 0 2rem 0; /* Removed auto margins so flexbox centers it perfectly */
+    padding: 1.25rem 2rem;
+    border: 2px solid #ff007f;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(10, 15, 29, 0.9));
+    transform: rotate(-2deg);
+    animation: neon-pulse 2s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .prize-callout__amount {
+    color: #ffffff;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 0, 127, 0.4);
+  }
+
+  .prize-callout__label {
+    color: #ff78b9;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
   }
 
   .countdown {
@@ -255,38 +288,6 @@ import Team from "../components/sections/Team.astro";
     letter-spacing: 2px;
     font-size: 0.8rem;
     width: 100%;
-  }
-
-  .prize-callout {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 0 auto 2rem;
-    padding: 1.25rem 2rem;
-    border: 2px solid #ff007f;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(10, 15, 29, 0.9));
-    transform: rotate(-2deg);
-    animation: neon-pulse 2s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
-    backdrop-filter: blur(10px);
-  }
-
-  .prize-callout__amount {
-    color: #ffffff;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 0, 127, 0.4);
-  }
-
-  .prize-callout__label {
-    color: #ff78b9;
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
   }
 
   @keyframes neon-pulse {
