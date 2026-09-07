@@ -23,6 +23,10 @@ import Team from "../components/sections/Team.astro";
             Portugal's largest student hackathon<br>
             10-11 October 2026, in Lisbon
           </p>
+          <div class="prize-callout" aria-label="More than 15,000 euros in prizes">
+            <span class="prize-callout__amount">+15.000€</span>
+            <span class="prize-callout__label">IN PRIZES</span>
+          </div>
           <div class="actions">
             <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
               APPLY <span class="btn--apply-arrow"> > </span>
@@ -132,6 +136,34 @@ import Team from "../components/sections/Team.astro";
 
   .lead {
     font-size: clamp(0.9rem, 2vw, 1.125rem);
+  }
+
+  .prize-callout {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 0, 127, 0.7);
+    border-radius: 8px;
+    background: linear-gradient(100deg, rgba(255, 0, 127, 0.18), rgba(189, 189, 255, 0.08));
+    box-shadow: 0 0 28px rgba(255, 0, 127, 0.2);
+    transform: rotate(-2deg);
+  }
+
+  .prize-callout__amount {
+    color: #ffffff;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .prize-callout__label {
+    color: #ff78b9;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
   }
 
 .actions {
@@ -272,6 +304,11 @@ import Team from "../components/sections/Team.astro";
   @media (max-width: 600px) {
     .main {
       padding-block: 2rem;
+    }
+
+    .prize-callout {
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
     }
 
     .countdown {
