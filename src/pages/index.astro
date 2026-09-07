@@ -450,24 +450,41 @@ import Team from "../components/sections/Team.astro";
   const stars = new THREE.Points(starGeometry, starMaterial);
   scene.add(stars);
 
-  const SHOOTING_STAR_COUNT = 12; 
+  /* --- UPGRADED COMETS --- */
+  const SHOOTING_STAR_COUNT = 6; 
   const shootingStars = [];
 
   const resetShootingStar = (star) => {
-    const direction = new THREE.Vector3(1, -1, 0).normalize();
+    // Uniform angle (falling diagonally down-right)
+    const direction = new THREE.Vector3(1, -0.6, 0).normalize();
 
+    // Spawn further out, with varied Z depth
     star.origin.set(
-      -5 - Math.random() * 5,
-      5 + Math.random() * 5,  
-      0
+      -10 - Math.random() * 5,
+      5 + Math.random() * 8,  
+      (Math.random() - 0.5) * 5 
     );
     
     star.direction = direction;
-    star.speed = 15 + Math.random() * 10;
-    star.length = 4 + Math.random() * 2;
-    star.delay = Math.random() * 2;
-    star.duration = 1.5;
+    star.speed = 20 + Math.random() * 15; 
+    star.length = 4 + Math.random() * 6; 
+    
+    star.delay = Math.random() * 12; 
+    
+    star.duration = 1.0 + Math.random() * 1.5; 
     star.age = 0;
+
+    // Fixed color matching the background stars
+    const c = new THREE.Color(0xBDBDFF);
+    
+    star.head.material.color.copy(c);
+    star.headGlow.material.color.copy(c);
+
+    // Update vertex colors (Head uses color, Tail uses black which translates to transparent in AdditiveBlending)
+    const colors = star.line.geometry.attributes.color;
+    colors.setXYZ(0, c.r, c.g, c.b); 
+    colors.setXYZ(1, 0, 0, 0);       
+    colors.needsUpdate = true;
   };
 
   for (let i = 0; i < SHOOTING_STAR_COUNT; i++) {
@@ -475,16 +492,38 @@ import Team from "../components/sections/Team.astro";
       new THREE.Vector3(),
       new THREE.Vector3()
     ]);
+    
+    // Add vertex colors buffer to geometry for the fading tail effect
+    const colors = new Float32Array([1, 1, 1,  0, 0, 0]);
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
     const material = new THREE.LineBasicMaterial({
-      color: 0xBDBDFF,
+      vertexColors: true, 
       transparent: true,
       opacity: 0,
-      blending: THREE.AdditiveBlending 
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
     });
+    
     const line = new THREE.Line(geometry, material);
-    scene.add(line);
 
-    const star = { line, origin: new THREE.Vector3() };
+    // Small bright core
+    const head = new THREE.Mesh(
+      new THREE.SphereGeometry(0.04, 8, 8),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+
+    // Larger softer glow
+    const headGlow = new THREE.Mesh(
+      new THREE.SphereGeometry(0.12, 12, 12),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+
+    scene.add(line);
+    scene.add(head);
+    scene.add(headGlow);
+
+    const star = { line, head, headGlow, origin: new THREE.Vector3() };
     resetShootingStar(star);
     shootingStars.push(star);
   }
@@ -495,6 +534,8 @@ import Team from "../components/sections/Team.astro";
 
       if (star.age < star.delay) {
         star.line.material.opacity = 0;
+        star.head.material.opacity = 0;
+        star.headGlow.material.opacity = 0;
         return;
       }
 
@@ -506,15 +547,23 @@ import Team from "../components/sections/Team.astro";
       }
 
       const travelled = star.direction.clone().multiplyScalar(star.speed * (star.age - star.delay));
-      const head = star.origin.clone().add(travelled);
-      const tail = head.clone().sub(star.direction.clone().multiplyScalar(star.length));
+      const headPos = star.origin.clone().add(travelled);
+      const tailPos = headPos.clone().sub(star.direction.clone().multiplyScalar(star.length));
 
       const positionsAttr = star.line.geometry.attributes.position;
-      positionsAttr.setXYZ(0, head.x, head.y, head.z);
-      positionsAttr.setXYZ(1, tail.x, tail.y, tail.z);
+      positionsAttr.setXYZ(0, headPos.x, headPos.y, headPos.z);
+      positionsAttr.setXYZ(1, tailPos.x, tailPos.y, tailPos.z);
       positionsAttr.needsUpdate = true;
 
-      star.line.material.opacity = Math.sin(t * Math.PI) * 0.9;
+      // Pulse opacity throughout the duration
+      const currentOpacity = Math.sin(t * Math.PI);
+      star.line.material.opacity = currentOpacity;
+      
+      star.head.position.copy(headPos);
+      star.head.material.opacity = currentOpacity;
+
+      star.headGlow.position.copy(headPos);
+      star.headGlow.material.opacity = currentOpacity * 0.5; 
     });
   };
 
@@ -536,8 +585,8 @@ import Team from "../components/sections/Team.astro";
 
   const animate = () => {
     requestAnimationFrame(animate);
-    const elapsed = clock.getElapsedTime();
     const delta = clock.getDelta();
+    const elapsed = clock.elapsedTime;
 
     stars.rotation.y = elapsed * 0.02;
     stars.rotation.x = elapsed * 0.01;
