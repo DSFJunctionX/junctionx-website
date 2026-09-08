@@ -6,23 +6,23 @@ const tiers = [
   {
     level: "very-high",
     items: [
-      { name: "NOS", logo: "/assets/sponsors/nos.png", revealed: false },
+      { name: "NOS", logo: "/assets/sponsors/nos.png", website: "https://www.nos.pt/en/welcome", revealed: false },
     ],
   },
   {
     level: "high",
     items: [
-      { name: "Sensei", logo: "/assets/sponsors/sensei.png", revealed: false },
-      { name: "Inspiring Solutions", logo: "/assets/sponsors/inspiring-solutions.png", revealed: false },
+      { name: "Sensei", logo: "/assets/sponsors/sensei.png", website: "https://www.sensei.tech/", revealed: false },
+      { name: "Inspiring Solutions", logo: "/assets/sponsors/inspiring-solutions.png", website: "https://inspiringsolutions.pt/en/home-english/", revealed: false },
     ],
   },
   {
     level: "basic",
     items: [
-      { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", revealed: false },
-      { name: "Jane Street", logo: "/assets/sponsors/jane-street.jpg", revealed: false },
-      { name: "Lovable", logo: "/assets/sponsors/lovable.png", revealed: false },
-      { name: "n8n", logo: "/assets/sponsors/n8n.svg", revealed: true },
+      { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", website: "https://albatroz-eng.com/", revealed: false },
+      { name: "Jane Street", logo: "/assets/sponsors/jane-street.jpg", website: "https://www.janestreet.com/", revealed: false },
+      { name: "Lovable", logo: "/assets/sponsors/lovable.png", website: "https://lovable.dev/", revealed: false },
+      { name: "n8n", logo: "/assets/sponsors/n8n.svg", website: "https://n8n.io", revealed: true },
     ],
   },
 ];
@@ -39,7 +39,13 @@ const tiers = [
             <div class={`Sponsors__box Sponsors__box--${tier.level}`}>
               {sponsor.revealed ? (
                 <div class="Sponsors__revealed">
-                  <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                  {sponsor.website ? (
+                    <a href={sponsor.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${sponsor.name} website`}>
+                      <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                    </a>
+                  ) : (
+                    <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                  )}
                 </div>
               ) : (
                 <div class="Sponsors__mystery">?</div>
