@@ -40,7 +40,6 @@ const tiers = [
               {sponsor.revealed ? (
                 <div class="Sponsors__revealed">
                   <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
-                  <span class="Sponsors__name">{sponsor.name}</span>
                 </div>
               ) : (
                 <div class="Sponsors__mystery">?</div>
@@ -165,14 +164,6 @@ const tiers = [
     max-height: 70px;
   }
 
-  .Sponsors__name {
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    text-align: center;
-  }
-
   /* Mobile responsiveness adjustments */
   @media (max-width: 600px) {
     .Sponsors__grid--high,
@@ -184,8 +175,5 @@ const tiers = [
     .Sponsors__box--high { min-height: 140px; }
     .Sponsors__box--basic { min-height: 100px; }
     
-    .Sponsors__name {
-      font-size: 0.9rem;
-    }
   }
 </style>
