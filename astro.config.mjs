@@ -7,6 +7,6 @@ import { defineConfig, fontProviders } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://lisbon.hackjunction.com',
-	outDir: './dist',
+	outDir: './docs',
 	integrations: [mdx(), sitemap()],
 });
