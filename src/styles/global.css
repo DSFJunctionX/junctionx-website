@@ -740,7 +740,7 @@ details[open] summary::before {
     }
 
     .video-hero {
-        background: #0b0a28 url('./assets/hero-poster.jpg') center/cover no-repeat;
+        background: #0b0a28 url('/assets/initial-image.jpg') center/cover no-repeat;
     }
 }
 

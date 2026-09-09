@@ -19,16 +19,16 @@ const tiers = [
   {
     level: "side",
     items: [
-      { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", website: "https://albatroz-eng.com/", revealed: false, challenge: true },
+      { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", website: "https://albatroz-eng.com/", revealed: false},
     ],
   },
   {
     level: "community",
     items: [
       { name: "Jane Street", logo: "/assets/sponsors/jane-street.jpg", website: "https://www.janestreet.com/", revealed: false },
+      { name: "SSOJet", logo: "/assets/sponsors/ssojet.png", website: "https://ssojet.com/", revealed: false },
       { name: "Lovable", logo: "/assets/sponsors/lovable.png", website: "https://lovable.dev/", revealed: true },
       { name: "n8n", logo: "/assets/sponsors/n8n.svg", website: "https://n8n.io", revealed: true },
-      { name: "SSOJet", logo: "/assets/sponsors/ssojet.png", website: "https://ssojet.com/", revealed: true },
     ],
   },
 ];
@@ -54,12 +54,10 @@ const tiers = [
                       aria-label={`Visit ${sponsor.name} website`}
                     >
                       <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
-                      {sponsor.challenge && <span class="Sponsors__badge">Challenge</span>}
                     </a>
                   ) : (
                     <div class="Sponsors__link">
                       <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
-                      {sponsor.challenge && <span class="Sponsors__badge">Challenge</span>}
                     </div>
                   )}
                 </div>
