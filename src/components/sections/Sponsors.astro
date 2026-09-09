@@ -4,25 +4,31 @@
 // Set `revealed: true` for any sponsor to replace the "?" with their logo and name
 const tiers = [
   {
-    level: "very-high",
+    level: "premium",
     items: [
       { name: "NOS", logo: "/assets/sponsors/nos.png", website: "https://www.nos.pt/en/welcome", revealed: false },
     ],
   },
   {
-    level: "high",
+    level: "main",
     items: [
       { name: "Sensei", logo: "/assets/sponsors/sensei.png", website: "https://www.sensei.tech/", revealed: false },
       { name: "Inspiring Solutions", logo: "/assets/sponsors/inspiring-solutions.png", website: "https://inspiringsolutions.pt/en/home-english/", revealed: false },
     ],
   },
   {
-    level: "basic",
+    level: "side",
     items: [
-      { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", website: "https://albatroz-eng.com/", revealed: false },
+      { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", website: "https://albatroz-eng.com/", revealed: false, challenge: true },
+    ],
+  },
+  {
+    level: "community",
+    items: [
       { name: "Jane Street", logo: "/assets/sponsors/jane-street.jpg", website: "https://www.janestreet.com/", revealed: false },
       { name: "Lovable", logo: "/assets/sponsors/lovable.png", website: "https://lovable.dev/", revealed: true },
       { name: "n8n", logo: "/assets/sponsors/n8n.svg", website: "https://n8n.io", revealed: true },
+      { name: "SSOJet", logo: "/assets/sponsors/ssojet.png", website: "https://ssojet.com/", revealed: true },
     ],
   },
 ];
@@ -40,11 +46,21 @@ const tiers = [
               {sponsor.revealed ? (
                 <div class="Sponsors__revealed">
                   {sponsor.website ? (
-                    <a href={sponsor.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${sponsor.name} website`}>
+                    <a
+                      href={sponsor.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="Sponsors__link"
+                      aria-label={`Visit ${sponsor.name} website`}
+                    >
                       <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                      {sponsor.challenge && <span class="Sponsors__badge">Challenge</span>}
                     </a>
                   ) : (
-                    <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                    <div class="Sponsors__link">
+                      <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                      {sponsor.challenge && <span class="Sponsors__badge">Challenge</span>}
+                    </div>
                   )}
                 </div>
               ) : (
@@ -60,13 +76,15 @@ const tiers = [
 
 <style>
   .Sponsors {
-    background: #171717;
-    padding-block: clamp(40px, 5vw, 60px);
+    background:
+      radial-gradient(circle at top, rgba(109, 114, 255, 0.22), transparent 34%),
+      linear-gradient(180deg, rgba(23, 23, 23, 1) 0%, rgba(20, 20, 29, 1) 100%);
+    padding-block: clamp(40px, 5vw, 72px);
     overflow: hidden;
   }
 
   .container {
-    max-width: 1050px; 
+    max-width: 1050px;
     margin: 0 auto;
     padding: 0 clamp(20px, 5vw, 40px);
   }
@@ -80,106 +98,180 @@ const tiers = [
   .Sponsors__tiers {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
     width: 100%;
   }
 
-  /* Grid Layouts for different tiers */
   .Sponsors__grid {
     display: grid;
     gap: 24px;
     width: 100%;
   }
 
-  .Sponsors__grid--very-high {
+  .Sponsors__grid--premium {
     grid-template-columns: 1fr;
   }
 
-  .Sponsors__grid--high {
+  .Sponsors__grid--main {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
-  .Sponsors__grid--basic {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .Sponsors__grid--side,
+  .Sponsors__grid--community {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
-  /* Box Styling */
   .Sponsors__box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(189, 189, 255, 0.1);
-    border-radius: 16px;
+    position: relative;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(189, 189, 255, 0.14);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 20px 45px rgba(12, 14, 24, 0.28);
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .Sponsors__box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(189, 189, 255, 0.08), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
   }
 
   .Sponsors__box:hover {
     transform: translateY(-4px);
-    border-color: rgba(189, 189, 255, 0.3);
+    border-color: rgba(189, 189, 255, 0.38);
+    box-shadow: 0 24px 50px rgba(12, 14, 24, 0.4);
   }
 
-  /* Box Heights based on tier */
-  .Sponsors__box--very-high {
-    min-height: 240px;
+  .Sponsors__box:hover::before {
+    opacity: 1;
   }
 
-  .Sponsors__box--high {
-    min-height: 180px;
+  .Sponsors__box--premium {
+    min-height: 280px;
   }
 
-  .Sponsors__box--basic {
-    min-height: 140px;
+  .Sponsors__box--main {
+    min-height: 220px;
   }
 
-  /* Mystery Question Mark State */
+  .Sponsors__box--side,
+  .Sponsors__box--community {
+    min-height: 170px;
+  }
+
   .Sponsors__mystery {
-    font-size: clamp(3rem, 5vw, 5rem);
+    position: relative;
+    z-index: 1;
+    font-size: clamp(3.2rem, 5vw, 5rem);
     font-weight: 800;
     color: #BDBDFF;
-    opacity: 0.3;
+    opacity: 0.32;
     font-family: monospace;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   .Sponsors__box:hover .Sponsors__mystery {
-    opacity: 0.8;
+    opacity: 0.82;
+    transform: scale(1.05);
   }
 
-  /* Revealed State */
   .Sponsors__revealed {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .Sponsors__link {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    padding: 24px;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 16px;
+    transition: background 0.2s ease, transform 0.2s ease;
+    position: relative;
+  }
+
+  .Sponsors__link:hover {
+    background: rgba(255, 255, 255, 0.02);
+    transform: scale(1.01);
   }
 
   .Sponsors__logo {
     max-width: 100%;
     max-height: 100px;
     object-fit: contain;
+    filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.28));
   }
 
-  .Sponsors__box--very-high .Sponsors__logo {
-    max-height: 140px;
+  .Sponsors__badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(189, 189, 255, 0.16);
+    border: 1px solid rgba(189, 189, 255, 0.35);
+    color: #e9e9ff;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.6rem;
   }
 
-  .Sponsors__box--basic .Sponsors__logo {
-    max-height: 70px;
+  .Sponsors__box--premium .Sponsors__logo {
+    max-height: 150px;
   }
 
-  /* Mobile responsiveness adjustments */
+  .Sponsors__box--main .Sponsors__logo {
+    max-height: 90px;
+  }
+
+  .Sponsors__box--side .Sponsors__logo,
+  .Sponsors__box--community .Sponsors__logo {
+    max-height: 72px;
+  }
+
   @media (max-width: 600px) {
-    .Sponsors__grid--high,
-    .Sponsors__grid--basic {
+    .Sponsors__grid--main,
+    .Sponsors__grid--side,
+    .Sponsors__grid--community {
       grid-template-columns: 1fr 1fr;
     }
-    
-    .Sponsors__box--very-high { min-height: 180px; }
-    .Sponsors__box--high { min-height: 140px; }
-    .Sponsors__box--basic { min-height: 100px; }
-    
+
+    .Sponsors__box--premium {
+      min-height: 200px;
+    }
+
+    .Sponsors__box--main {
+      min-height: 150px;
+    }
+
+    .Sponsors__box--side,
+    .Sponsors__box--community {
+      min-height: 120px;
+    }
+
+    .Sponsors__badge {
+      font-size: 0.58rem;
+      top: 10px;
+      right: 10px;
+      padding: 0.25rem 0.5rem;
+    }
   }
 </style>
