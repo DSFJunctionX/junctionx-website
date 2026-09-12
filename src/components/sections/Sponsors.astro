@@ -18,6 +18,7 @@ const tiers = [
   {
     level: "standard",
     items: [
+      { name: "ElevenLabs", logo: "/assets/sponsors/elevenlabs.svg", website: "https://elevenlabs.io/", revealed: false },
       { name: "Albatroz Engenharia", logo: "/assets/sponsors/albatroz-engenharia.png", website: "https://albatroz-eng.com/", revealed: false},
       { name: "MongoDB", logo: "/assets/sponsors/mongodb.png", website: "https://www.mongodb.com/", revealed: false },
       { name: "Jane Street", logo: "/assets/sponsors/jane-street.jpg", website: "https://www.janestreet.com/", revealed: true },
@@ -34,42 +35,90 @@ const tiers = [
     <h2 class="h2 h2--light-purple">Sponsors</h2>
 
     <div class="Sponsors__wall">
-      {tiers.map((tier) => (
-        <div class={`Sponsors__grid Sponsors__grid--${tier.level}`}>
-          {tier.items.map((sponsor) => (
-            <div class={`Sponsors__box Sponsors__box--${tier.level} ${sponsor.revealed ? 'is-revealed' : 'is-mystery'}`}>
-              {sponsor.revealed ? (
-                <div class="Sponsors__revealed">
-                  {sponsor.website ? (
-                    <a
-                      href={sponsor.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="Sponsors__link"
-                      aria-label={`Visit ${sponsor.name} website`}
-                    >
-                      <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
-                    </a>
-                  ) : (
-                    <div class="Sponsors__link">
-                      <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+      {tiers.map((tier) => {
+        // Intercept standard tier to apply precise row splitting
+        if (tier.level === 'standard') {
+          const total = tier.items.length;
+          const firstRowCount = total <= 3 ? total : Math.floor(total / 2);
+          
+          const splitItems = [
+            tier.items.slice(0, firstRowCount),
+            tier.items.slice(firstRowCount)
+          ].filter(row => row.length > 0);
+
+          return (
+            <div class="Sponsors__tier-container">
+              {splitItems.map(row => (
+                <div class="Sponsors__flex-row">
+                  {row.map(sponsor => (
+                    <div class={`Sponsors__box Sponsors__box--${tier.level} ${sponsor.revealed ? 'is-revealed' : 'is-mystery'}`}>
+                      {sponsor.revealed ? (
+                        <div class="Sponsors__revealed">
+                          {sponsor.website ? (
+                            <a
+                              href={sponsor.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="Sponsors__link"
+                              aria-label={`Visit ${sponsor.name} website`}
+                            >
+                              <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                            </a>
+                          ) : (
+                            <div class="Sponsors__link">
+                              <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div class="Sponsors__mystery">?</div>
+                      )}
                     </div>
-                  )}
+                  ))}
                 </div>
-              ) : (
-                <div class="Sponsors__mystery">?</div>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
-      ))}
+          );
+        }
+
+        // Default grid logic for other tiers
+        return (
+          <div class={`Sponsors__grid Sponsors__grid--${tier.level}`}>
+            {tier.items.map((sponsor) => (
+              <div class={`Sponsors__box Sponsors__box--${tier.level} ${sponsor.revealed ? 'is-revealed' : 'is-mystery'}`}>
+                {sponsor.revealed ? (
+                  <div class="Sponsors__revealed">
+                    {sponsor.website ? (
+                      <a
+                        href={sponsor.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="Sponsors__link"
+                        aria-label={`Visit ${sponsor.name} website`}
+                      >
+                        <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                      </a>
+                    ) : (
+                      <div class="Sponsors__link">
+                        <img src={sponsor.logo} alt={`${sponsor.name} logo`} class="Sponsors__logo" />
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div class="Sponsors__mystery">?</div>
+                )}
+              </div>
+            ))}
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>
 
 <style>
   .Sponsors {
-    background-color: transparent; /* Matches Team.astro */
+    background-color: transparent;
     padding-block: clamp(40px, 5vw, 60px);
     overflow: hidden;
   }
@@ -99,12 +148,30 @@ const tiers = [
     width: 100%;
   }
 
-  /* Grid Layouts */
+  /* Grid Layouts for Premium and Main */
   .Sponsors__grid--premium { grid-template-columns: 1fr; }
   .Sponsors__grid--main { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .Sponsors__grid--standard { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 
-  /* Base Box Styling - perfectly matching Team cards */
+  /* Flex Layouts for Standard */
+  .Sponsors__tier-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .Sponsors__flex-row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+  }
+
+  /* This forces all rows to be the exact same width by stretching the items */
+  .Sponsors__flex-row .Sponsors__box {
+    flex: 1;
+  }
+
+  /* Base Box Styling */
   .Sponsors__box {
     background: #111111;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -131,7 +198,7 @@ const tiers = [
   .Sponsors__box--main { min-height: 180px; }
   .Sponsors__box--standard { min-height: 140px; }
 
-  /* Mystery State - Matches the 'text-only' Team cards */
+  /* Mystery State */
   .Sponsors__box.is-mystery {
     background: linear-gradient(145deg, #111111 0%, #1a1a2e 100%);
     border: 1px solid rgba(189, 189, 255, 0.15);
@@ -185,9 +252,16 @@ const tiers = [
 
   /* Mobile Adjustments */
   @media (max-width: 600px) {
-    .Sponsors__grid--main,
-    .Sponsors__grid--standard {
+    .Sponsors__grid--main {
       grid-template-columns: 1fr 1fr;
+    }
+    
+    .Sponsors__flex-row {
+      flex-wrap: wrap;
+    }
+
+    .Sponsors__flex-row .Sponsors__box {
+      flex: 1 1 140px;
     }
 
     .Sponsors__box--premium { min-height: 180px; }
