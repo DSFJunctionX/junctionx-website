@@ -30,6 +30,7 @@ const year = new Date().getFullYear();
           <a href="#sponsors">Sponsors</a>
           <a href="#location">Location</a>
           <a href="https://hackjunction.app/events/junctionx-lisbon-2026">Schedule</a>
+          <a href="/assets/JunctionX%20Lisbon%202026%20-%20Official%20Regulations.pdf" target="_blank" rel="noopener noreferrer">Official Regulations</a>
         </nav>
       </div>
 
@@ -73,12 +74,10 @@ const year = new Date().getFullYear();
     background-color: #0a0f1d;
     position: relative;
     overflow: hidden;
-    /* Added nice healthy padding to the top so it breathes */
     padding: clamp(60px, 8vw, 100px) 0 2rem 0 !important;
     border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
 
-  /* MAGIC FIX: This stops global.css from flipping the footer upside down */
   .site-footer > .container {
     display: block !important;
   }
@@ -101,8 +100,8 @@ const year = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-width: 0; /* let this column shrink instead of overflowing into the next one */
-    margin-top: -0.5rem; /* nudge the brand block up a touch */
+    min-width: 0; 
+    margin-top: -0.5rem; 
   }
 
   .footer__logo-link {
@@ -112,7 +111,7 @@ const year = new Date().getFullYear();
     text-decoration: none;
     margin-bottom: 1rem;
     max-width: 100%;
-    flex-wrap: wrap; /* wrap to a second line instead of overflowing horizontally */
+    flex-wrap: wrap; 
   }
 
   .footer__logo {
@@ -126,7 +125,7 @@ const year = new Date().getFullYear();
   .footer__logo-text {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
-    font-size: clamp(1.6rem, 3.2vw, 2.4rem); /* slightly smaller so it fits its column */
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem); 
     color: #ffffff;
     line-height: 1;
     text-transform: uppercase;
