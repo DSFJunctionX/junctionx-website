@@ -33,13 +33,15 @@
 
     <div class="location__schedule">
       <div class="location__schedule-heading">
-        <h3>Event Schedule</h3>
+        <h2 class="h2 h2--light-purple">Schedule</h2>
         <p>10–11 October 2026 <span>UTC+01:00</span></p>
       </div>
 
       <div class="location__schedule-days">
         <section class="schedule-day" aria-labelledby="schedule-day-one">
-          <h4 id="schedule-day-one">Saturday, 10 October</h4>
+          <h3 class="schedule-day__heading" id="schedule-day-one">
+            <span class="schedule-day__date"><span>Saturday</span><time datetime="2026-10-10">10 October</time></span>
+          </h3>
           <ol class="schedule-list">
             <li><time datetime="2026-10-10T10:00:00+01:00">10:00</time><span>Doors Open &amp; Check-in</span></li>
             <li><time datetime="2026-10-10T10:45:00+01:00">10:45</time><span>Opening Ceremony</span></li>
@@ -51,7 +53,9 @@
         </section>
 
         <section class="schedule-day" aria-labelledby="schedule-day-two">
-          <h4 id="schedule-day-two">Sunday, 11 October</h4>
+          <h3 class="schedule-day__heading" id="schedule-day-two">
+            <span class="schedule-day__date"><span>Sunday</span><time datetime="2026-10-11">11 October</time></span>
+          </h3>
           <ol class="schedule-list">
             <li><time datetime="2026-10-11T13:00:00+01:00">13:00</time><span>Hacking Ends &amp; Submissions Close</span></li>
             <li><time datetime="2026-10-11T13:05:00+01:00">13:05</time><span>Lunch</span></li>
@@ -94,53 +98,84 @@
 
   .location__schedule {
     grid-column: 1 / -1;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-    padding-top: 32px;
+    border-top: 1px solid rgba(189, 189, 255, 0.3);
+    padding-top: clamp(32px, 5vw, 56px);
   }
 
   .location__schedule-heading {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: 8px 24px;
-    margin-bottom: 24px;
+    gap: 12px 24px;
+    margin-bottom: clamp(28px, 4vw, 44px);
   }
 
-  .location__schedule-heading h3 {
+  .location__schedule-heading .h2 {
     margin: 0;
-    color: white;
-    font-size: 1.5rem;
+    padding: 0;
   }
 
   .location__schedule-heading p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.75);
+    font-family: monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
   }
 
   .location__schedule-heading p span {
-    margin-left: 8px;
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px 9px;
+    border: 1px solid rgba(189, 189, 255, 0.3);
     color: #BDBDFF;
     white-space: nowrap;
   }
 
   .location__schedule-days {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
 
-  @media (min-width: 800px) {
+  @media (min-width: 960px) {
     .location__schedule-days {
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  .schedule-day h4 {
-    margin: 0 0 12px;
-    color: #BDBDFF;
-    font-size: 1rem;
+  .schedule-day {
+    min-width: 0;
+    padding: clamp(22px, 3vw, 32px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 3px solid #BDBDFF;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #111111 0%, #19191f 100%);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.24);
+  }
+
+  .schedule-day__heading {
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px;
+  }
+
+  .schedule-day__date {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.25;
+  }
+
+  .schedule-day__date span {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   .schedule-list {
@@ -151,19 +186,50 @@
 
   .schedule-list li {
     display: grid;
-    grid-template-columns: 3.5rem minmax(0, 1fr);
-    gap: 12px;
-    align-items: baseline;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
     padding: 12px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.88);
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .schedule-list time {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 3px 5px;
+    border: 1px solid rgba(189, 189, 255, 0.24);
+    border-radius: 4px;
+    background: rgba(189, 189, 255, 0.08);
     color: #BDBDFF;
-    font-variant-numeric: tabular-nums;
+    font-family: monospace;
+    font-size: 0.85rem;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    .location__schedule-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .schedule-day {
+      padding: 20px 16px;
+    }
+
+    .location__schedule-heading p span {
+      margin-left: 6px;
+    }
+
+    .schedule-list li {
+      grid-template-columns: 3.75rem minmax(0, 1fr);
+      gap: 10px;
+    }
   }
 
   .location__info {
