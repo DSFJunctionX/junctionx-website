@@ -31,6 +31,40 @@
       </iframe>
     </div>
 
+    <div class="location__schedule">
+      <div class="location__schedule-heading">
+        <h3>Event Schedule</h3>
+        <p>10–11 October 2026 <span>UTC+01:00</span></p>
+      </div>
+
+      <div class="location__schedule-days">
+        <section class="schedule-day" aria-labelledby="schedule-day-one">
+          <h4 id="schedule-day-one">Saturday, 10 October</h4>
+          <ol class="schedule-list">
+            <li><time datetime="2026-10-10T10:00:00+01:00">10:00</time><span>Doors Open &amp; Check-in</span></li>
+            <li><time datetime="2026-10-10T10:45:00+01:00">10:45</time><span>Opening Ceremony</span></li>
+            <li><time datetime="2026-10-10T12:00:00+01:00">12:00</time><span>Hacking Begins!</span></li>
+            <li><time datetime="2026-10-10T13:00:00+01:00">13:00</time><span>Lunch</span></li>
+            <li><time datetime="2026-10-10T19:00:00+01:00">19:00</time><span>Submissions Open</span></li>
+            <li><time datetime="2026-10-10T20:00:00+01:00">20:00</time><span>Dinner &amp; Midnight Activities</span></li>
+          </ol>
+        </section>
+
+        <section class="schedule-day" aria-labelledby="schedule-day-two">
+          <h4 id="schedule-day-two">Sunday, 11 October</h4>
+          <ol class="schedule-list">
+            <li><time datetime="2026-10-11T13:00:00+01:00">13:00</time><span>Hacking Ends &amp; Submissions Close</span></li>
+            <li><time datetime="2026-10-11T13:05:00+01:00">13:05</time><span>Lunch</span></li>
+            <li><time datetime="2026-10-11T14:30:00+01:00">14:30</time><span>Project Pitching &amp; Judging</span></li>
+            <li><time datetime="2026-10-11T17:00:00+01:00">17:00</time><span>Finalists Announcement</span></li>
+            <li><time datetime="2026-10-11T17:30:00+01:00">17:30</time><span>Finalists Presentation &amp; Judging</span></li>
+            <li><time datetime="2026-10-11T19:00:00+01:00">19:00</time><span>Winners Announcement &amp; Closing Ceremony</span></li>
+            <li><time datetime="2026-10-11T20:00:00+01:00">20:00</time><span>Event Ends / Venue Closes</span></li>
+          </ol>
+        </section>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -56,6 +90,80 @@
       grid-template-columns: 1fr 1fr;
       gap: 60px;
     }
+  }
+
+  .location__schedule {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    padding-top: 32px;
+  }
+
+  .location__schedule-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 24px;
+    margin-bottom: 24px;
+  }
+
+  .location__schedule-heading h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .location__schedule-heading p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .location__schedule-heading p span {
+    margin-left: 8px;
+    color: #BDBDFF;
+    white-space: nowrap;
+  }
+
+  .location__schedule-days {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @media (min-width: 800px) {
+    .location__schedule-days {
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+  }
+
+  .schedule-day h4 {
+    margin: 0 0 12px;
+    color: #BDBDFF;
+    font-size: 1rem;
+  }
+
+  .schedule-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .schedule-list li {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.4;
+  }
+
+  .schedule-list time {
+    color: #BDBDFF;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
   }
 
   .location__info {
