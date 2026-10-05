@@ -1,0 +1,383 @@
+---
+const challenges = [
+  {
+    title: "Untrace - Data privacy in the new era",
+    description:
+      "Build an automated tool to detect anonymise and remove sensitive personal data across documents, records and reports",
+    sponsor: "NOS",
+    logo: "/assets/sponsors/nos.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/untrace.pdf", /* placeholder */
+  },
+  {
+    title: "Fresh eyes on fresh produce!",
+    description:
+      "Use the ceiling cameras of an autonomous store to detect, count and check the fruits and vegetables on each gondola against the planogram.",
+    sponsor: "Sensei",
+    logo: "/assets/sponsors/sensei.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/fresh-produce.pdf",
+  },
+  {
+    title: "QuantumTrace - Uncovering Cryptographic Debt in the Quantum Dawn",
+    description:
+      "Build an automated discovery and assessment engine to detect, classify, and visualize quantum-vulnerable cryptographic algorithms across network traffic, application code, and cloud environments.",
+    sponsor: "Inspiring Solutions",
+    logo: "/assets/sponsors/inspiring-solutions.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/quantumtrace.pdf",
+  },
+  {
+    title: "Am I at a unique place? Where in the world could here be?",
+    description:
+      "Identify plausible locations of a given 360º panorama using interaction with AI agents.",
+    sponsor: "Albatroz Engenharia",
+    logo: "/assets/sponsors/albatroz-engenharia.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/unique-place.pdf",
+  },
+];
+---
+
+<section id="challenges" class="challenge-page">
+  <div class="challenge-page__inner">
+    <div class="section-head">
+      <p class="eyebrow">Challenges</p>
+      <h1>Get to know the challenges you will build</h1>
+      <p class="lead">
+        Choose a project that inspires your team and turn bold ideas into real-world impact.
+      </p>
+    </div>
+
+    <div class="carousel" id="carousel">
+      <button class="carousel__btn carousel__btn--prev" aria-label="Previous challenge" type="button">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+      </button>
+
+      <div class="carousel__viewport">
+        <div class="challenge-grid" id="carousel-track">
+          {challenges.map((c) => (
+            <a
+              class="challenge-card challenge-card--gold"
+              href={c.pdf}
+              target="_blank"
+              rel="noopener"
+              aria-label={`Open the full description of ${c.title} (PDF)`}
+            >
+              <div class="challenge-card__head">
+                <h2>{c.title}</h2>
+                <img
+                  class="challenge-card__logo"
+                  src={c.logo}
+                  alt={`${c.sponsor} logo`}
+                  style={c.logoStyle || ""}
+                  draggable="false"
+                />
+              </div>
+              <p>{c.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <button class="carousel__btn carousel__btn--next" aria-label="Next challenge" type="button">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .challenge-page {
+    position: relative;
+    padding: clamp(4rem, 8vw, 7rem) 1.25rem;
+    background:
+      radial-gradient(circle at top, rgba(255, 0, 127, 0.12), transparent 36%),
+      linear-gradient(180deg, #0f1220 0%, #0b0d16 100%);
+    color: #f5f7ff;
+  }
+
+  .challenge-page__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-head {
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #bdbdff;
+    font-weight: 800;
+  }
+
+  .section-head h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .lead {
+    margin: 1rem auto 0;
+    max-width: 640px;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.7;
+    text-wrap: balance;
+  }
+
+  /* ---------- Carousel ---------- */
+  .carousel {
+    position: relative;
+    padding: 0 3.5rem;
+    max-width: 880px;   /* smaller = tighter cards */
+    margin: 0 auto;     /* keeps it centered */
+  }
+
+  .carousel__viewport {
+    overflow: hidden;
+    padding: 0.75rem 0 1.5rem;
+    touch-action: pan-y;
+  }
+
+  .challenge-grid {
+    --gap: 1.5rem;
+    display: flex;
+    gap: var(--gap);
+    will-change: transform;
+  }
+
+  /* 2 cards visible */
+  .challenge-card {
+    flex: 0 0 calc((100% - var(--gap)) / 2);
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .challenge-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 52%);
+    pointer-events: none;
+  }
+
+  .challenge-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .challenge-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .challenge-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .challenge-card:focus-visible {
+    outline: 2px solid #bdbdff;
+    outline-offset: 3px;
+  }
+
+  .challenge-card--gold {
+    background:
+      linear-gradient(180deg, rgba(255, 0, 127, 0.2), rgba(255, 0, 127, 0.12)),
+      #111111;
+    border-color: #ff007f;
+  }
+
+  .challenge-card--gold:hover {
+    border-color: #ff78b9;
+    box-shadow: 0 15px 30px rgba(196, 143, 32, 0.22);
+  }
+
+  /* Title + sponsor logo (top right) */
+  .challenge-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .challenge-card__logo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 56px;
+    object-fit: contain;
+    padding: 6px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    user-select: none;
+  }
+
+  .challenge-card h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.9);
+    text-wrap: balance;
+  }
+
+  .challenge-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    text-wrap: balance;
+  }
+
+  /* ---------- Arrow buttons ---------- */
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 0, 127, 0.7);
+    background: rgba(17, 17, 17, 0.85);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .carousel__btn:hover {
+    background: #ff007f;
+    border-color: #ff78b9;
+    transform: translateY(-50%) scale(1.08);
+  }
+  .carousel__btn:focus-visible {
+    outline: 2px solid #bdbdff;
+    outline-offset: 3px;
+  }
+  .carousel__btn--prev { left: 0; }
+  .carousel__btn--next { right: 0; }
+
+  @media (max-width: 900px) {
+    .carousel { padding: 0 2.75rem; }
+    .challenge-card { flex-basis: 100%; } /* 1 card on mobile */
+    .carousel__btn { width: 38px; height: 38px; }
+    .challenge-card__logo { width: 48px; height: 48px; }
+  }
+</style>
+
+<script>
+  const AUTOPLAY_MS = 3000;  // time between slides
+  const SLIDE_MS = 700;      // slide animation duration
+
+  const track = document.getElementById("carousel-track");
+  const carousel = document.getElementById("carousel");
+  const prev = carousel?.querySelector<HTMLButtonElement>(".carousel__btn--prev");
+  const next = carousel?.querySelector<HTMLButtonElement>(".carousel__btn--next");
+
+  if (track && carousel && prev && next) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = reduceMotion ? 0 : SLIDE_MS;
+    let animating = false;
+
+    const step = () => {
+      const card = track.firstElementChild as HTMLElement;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card.offsetWidth + gap;
+    };
+
+    const goNext = () => {
+      if (animating) return;
+      animating = true;
+      track.style.transition = `transform ${duration}ms ease`;
+      track.style.transform = `translateX(${-step()}px)`;
+
+      setTimeout(() => {
+        // Move the first card to the end, then reset position invisibly
+        track.style.transition = "none";
+        track.appendChild(track.firstElementChild!);
+        track.style.transform = "translateX(0)";
+        track.getBoundingClientRect(); // force reflow
+        animating = false;
+      }, duration);
+    };
+
+    const goPrev = () => {
+      if (animating) return;
+      animating = true;
+      // Move the last card to the front, offset so nothing visibly jumps
+      track.style.transition = "none";
+      track.insertBefore(track.lastElementChild!, track.firstElementChild);
+      track.style.transform = `translateX(${-step()}px)`;
+      track.getBoundingClientRect(); // force reflow
+
+      track.style.transition = `transform ${duration}ms ease`;
+      track.style.transform = "translateX(0)";
+      setTimeout(() => { animating = false; }, duration);
+    };
+
+    // Autoplay
+    let timer: number | undefined;
+    const stop = () => window.clearInterval(timer);
+    const start = () => {
+      stop();
+      timer = window.setInterval(goNext, AUTOPLAY_MS);
+    };
+
+    next.addEventListener("click", () => { goNext(); start(); });
+    prev.addEventListener("click", () => { goPrev(); start(); });
+
+    // Pause while the user is interacting
+    carousel.addEventListener("mouseenter", stop);
+    carousel.addEventListener("mouseleave", start);
+    carousel.addEventListener("focusin", stop);
+    carousel.addEventListener("focusout", start);
+
+    // Swipe support (a swipe must not open the PDF)
+    let startX = 0;
+    let swiped = false;
+    carousel.addEventListener("pointerdown", (e) => {
+      startX = e.clientX;
+      swiped = false;
+      stop();
+    });
+    carousel.addEventListener("pointerup", (e) => {
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 50) {
+        swiped = true;
+        dx < 0 ? goNext() : goPrev();
+      }
+      start();
+    });
+    track.addEventListener("click", (e) => {
+      if (swiped) {
+        e.preventDefault();
+        swiped = false;
+      }
+    });
+
+    // Don't run in background tabs
+    document.addEventListener("visibilitychange", () => {
+      document.hidden ? stop() : start();
+    });
+
+    start();
+  }
+</script>
