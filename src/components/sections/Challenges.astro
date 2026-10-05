@@ -1,3 +1,44 @@
+---
+const challenges = [
+  {
+    title: "Untrace - Data privacy in the new era",
+    description:
+      "Build an automated tool to detect anonymise and remove sensitive personal data across documents, records and reports",
+    sponsor: "NOS",
+    logo: "/assets/sponsors/nos.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/untrace.pdf", /* placeholder */
+  },
+  {
+    title: "Fresh eyes on fresh produce!",
+    description:
+      "Use the ceiling cameras of an autonomous store to detect, count and check the fruits and vegetables on each gondola against the planogram.",
+    sponsor: "Sensei",
+    logo: "/assets/sponsors/sensei.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/fresh-produce.pdf",
+  },
+  {
+    title: "QuantumTrace - Uncovering Cryptographic Debt in the Quantum Dawn",
+    description:
+      "Build an automated discovery and assessment engine to detect, classify, and visualize quantum-vulnerable cryptographic algorithms across network traffic, application code, and cloud environments.",
+    sponsor: "Inspiring Solutions",
+    logo: "/assets/sponsors/inspiring-solutions.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/quantumtrace.pdf",
+  },
+  {
+    title: "Am I at a unique place? Where in the world could here be?",
+    description:
+      "Identify plausible locations of a given 360º panorama using interaction with AI agents.",
+    sponsor: "Albatroz Engenharia",
+    logo: "/assets/sponsors/albatroz-engenharia.png",
+    logoStyle: "",
+    pdf: "/assets/challenges/unique-place.pdf",
+  },
+];
+---
+
 <section id="challenges" class="challenge-page">
   <div class="challenge-page__inner">
     <div class="section-head">
@@ -15,54 +56,27 @@
 
       <div class="carousel__viewport">
         <div class="challenge-grid" id="carousel-track">
-          <article class="challenge-card challenge-card--gold">
-            <h2>AI for a Sustainable Future</h2>
-            <p>
-              Design solutions that improve how communities use energy, reduce waste, and create
-              smarter, more resilient systems.
-            </p>
-            <ul>
-              <li>Climate and resource insight</li>
-              <li>Smarter urban systems</li>
-              <li>Positive environmental impact</li>
-            </ul>
-          </article>
-
-          <article class="challenge-card challenge-card--gold">
-            <h2>Inclusive Digital Experiences</h2>
-            <p>
-              Build tools that make everyday life easier, more accessible, and more human for people
-              from all backgrounds and abilities.
-            </p>
-            <ul>
-              <li>Accessibility-first design</li>
-              <li>Community wellbeing</li>
-              <li>Trust and inclusion</li>
-            </ul>
-          </article>
-
-          <article class="challenge-card challenge-card--gold">
-            <h2>Build Beyond Limits</h2>
-            <p>
-              Turn any ambitious idea into a product prototype that pushes creativity, technology, and
-              experimentation forward.
-            </p>
-            <ul>
-              <li>Experimental thinking</li>
-              <li>Creative prototyping</li>
-              <li>Big ideas, fast execution</li>
-            </ul>
-          </article>
-
-          <article class="challenge-card challenge-card--gold">
-            <h2>Your Fourth Challenge</h2>
-            <p>Replace this with your fourth challenge description.</p>
-            <ul>
-              <li>Point one</li>
-              <li>Point two</li>
-              <li>Point three</li>
-            </ul>
-          </article>
+          {challenges.map((c) => (
+            <a
+              class="challenge-card challenge-card--gold"
+              href={c.pdf}
+              target="_blank"
+              rel="noopener"
+              aria-label={`Open the full description of ${c.title} (PDF)`}
+            >
+              <div class="challenge-card__head">
+                <h2>{c.title}</h2>
+                <img
+                  class="challenge-card__logo"
+                  src={c.logo}
+                  alt={`${c.sponsor} logo`}
+                  style={c.logoStyle || ""}
+                  draggable="false"
+                />
+              </div>
+              <p>{c.description}</p>
+            </a>
+          ))}
         </div>
       </div>
 
@@ -124,11 +138,13 @@
   .carousel {
     position: relative;
     padding: 0 3.5rem;
+    max-width: 880px;   /* smaller = tighter cards */
+    margin: 0 auto;     /* keeps it centered */
   }
 
   .carousel__viewport {
     overflow: hidden;
-    padding: 0.75rem 0 1.5rem; 
+    padding: 0.75rem 0 1.5rem;
     touch-action: pan-y;
   }
 
@@ -142,7 +158,9 @@
   /* 2 cards visible */
   .challenge-card {
     flex: 0 0 calc((100% - var(--gap)) / 2);
-    scroll-snap-align: start;
+    display: block;
+    color: inherit;
+    text-decoration: none;
     position: relative;
     overflow: hidden;
     padding: 1.5rem;
@@ -176,6 +194,11 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   }
 
+  .challenge-card:focus-visible {
+    outline: 2px solid #bdbdff;
+    outline-offset: 3px;
+  }
+
   .challenge-card--gold {
     background:
       linear-gradient(180deg, rgba(255, 0, 127, 0.2), rgba(255, 0, 127, 0.12)),
@@ -188,8 +211,28 @@
     box-shadow: 0 15px 30px rgba(196, 143, 32, 0.22);
   }
 
+  /* Title + sponsor logo (top right) */
+  .challenge-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .challenge-card__logo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 56px;
+    object-fit: contain;
+    padding: 6px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    user-select: none;
+  }
+
   .challenge-card h2 {
-    margin: 0 0 0.9rem;
+    margin: 0;
     font-size: clamp(1.4rem, 2vw, 2rem);
     line-height: 1.2;
     color: rgba(255, 255, 255, 0.9);
@@ -201,18 +244,6 @@
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.7;
     text-wrap: balance;
-  }
-
-  .challenge-card ul {
-    margin: 1.2rem 0 0;
-    padding-left: 1.1rem;
-    color: rgba(255, 255, 255, 0.86);
-    display: grid;
-    gap: 0.55rem;
-  }
-
-  .challenge-card li::marker {
-    color: #ff007f;
   }
 
   /* ---------- Arrow buttons ---------- */
@@ -248,10 +279,7 @@
     .carousel { padding: 0 2.75rem; }
     .challenge-card { flex-basis: 100%; } /* 1 card on mobile */
     .carousel__btn { width: 38px; height: 38px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .challenge-grid { scroll-behavior: auto; }
+    .challenge-card__logo { width: 48px; height: 48px; }
   }
 </style>
 
@@ -322,13 +350,27 @@
     carousel.addEventListener("focusin", stop);
     carousel.addEventListener("focusout", start);
 
-    // Swipe support
+    // Swipe support (a swipe must not open the PDF)
     let startX = 0;
-    carousel.addEventListener("pointerdown", (e) => { startX = e.clientX; stop(); });
+    let swiped = false;
+    carousel.addEventListener("pointerdown", (e) => {
+      startX = e.clientX;
+      swiped = false;
+      stop();
+    });
     carousel.addEventListener("pointerup", (e) => {
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > 50) dx < 0 ? goNext() : goPrev();
+      if (Math.abs(dx) > 50) {
+        swiped = true;
+        dx < 0 ? goNext() : goPrev();
+      }
       start();
+    });
+    track.addEventListener("click", (e) => {
+      if (swiped) {
+        e.preventDefault();
+        swiped = false;
+      }
     });
 
     // Don't run in background tabs
