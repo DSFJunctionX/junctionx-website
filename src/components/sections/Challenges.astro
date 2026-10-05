@@ -608,14 +608,21 @@ const challenges = [
 
     // Swipe support (a swipe must not open the PDF)
     let startX = 0;
+    let activePointerId: number | undefined;
     let swiped = false;
-    carousel.addEventListener("pointerdown", (e) => {
+    const viewport = carousel.querySelector<HTMLElement>(".carousel__viewport");
+    viewport?.addEventListener("pointerdown", (e) => {
+      if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
+      activePointerId = e.pointerId;
       startX = e.clientX;
       swiped = false;
+      viewport.setPointerCapture(e.pointerId);
       stop();
     });
-    carousel.addEventListener("pointerup", (e) => {
+    viewport?.addEventListener("pointerup", (e) => {
+      if (e.pointerId !== activePointerId) return;
       const dx = e.clientX - startX;
+      activePointerId = undefined;
       if (navigatingToDot) return;
       if (Math.abs(dx) > 50) {
         swiped = true;
@@ -623,6 +630,36 @@ const challenges = [
       }
       if (Math.abs(dx) <= 50) start();
     });
+    const cancelSwipe = (e: PointerEvent) => {
+      if (e.pointerId !== activePointerId) return;
+      activePointerId = undefined;
+      start();
+    };
+    viewport?.addEventListener("pointercancel", cancelSwipe);
+    viewport?.addEventListener("lostpointercapture", cancelSwipe);
+
+    let wheelDeltaX = 0;
+    let wheelTimer: number | undefined;
+    viewport?.addEventListener("wheel", (e) => {
+      const deltaX = Math.abs(e.deltaX) > Math.abs(e.deltaY)
+        ? e.deltaX
+        : e.shiftKey ? e.deltaY : 0;
+      if (Math.abs(deltaX) < 1) return;
+
+      e.preventDefault();
+      stop();
+      wheelDeltaX += deltaX;
+      window.clearTimeout(wheelTimer);
+      wheelTimer = window.setTimeout(() => {
+        if (Math.abs(wheelDeltaX) > 35) {
+          queueDirection(wheelDeltaX > 0 ? 1 : -1);
+        } else {
+          start();
+        }
+        wheelDeltaX = 0;
+      }, 120);
+    }, { passive: false });
+
     track.addEventListener("click", (e) => {
       if (swiped) {
         e.preventDefault();
