@@ -2,39 +2,39 @@
 const challenges = [
   {
     title: "Untrace - Data privacy in the new era",
-    description:
-      "Build an automated tool to detect anonymise and remove sensitive personal data across documents, records and reports",
+    summary: "Find and remove sensitive personal data from documents, records and reports.",
+    revealed: false,
     sponsor: "NOS",
     logo: "/assets/sponsors/nos.png",
-    logoStyle: "",
-    pdf: "/assets/challenges/untrace.pdf", /* placeholder */
+    logoVariant: "nos",
+    pdf: "/assets/challenges/nos-data-privacy-challenge.pdf",
   },
   {
     title: "Fresh eyes on fresh produce!",
-    description:
-      "Use the ceiling cameras of an autonomous store to detect, count and check the fruits and vegetables on each gondola against the planogram.",
+    summary: "Use store cameras to count produce and check shelf layouts against the planogram.",
+    revealed: false,
     sponsor: "Sensei",
     logo: "/assets/sponsors/sensei.png",
-    logoStyle: "",
-    pdf: "/assets/challenges/fresh-produce.pdf",
+    logoVariant: "wide",
+    pdf: "/assets/challenges/sensei-fresh-produce-challenge.pdf",
   },
   {
     title: "QuantumTrace - Uncovering Cryptographic Debt in the Quantum Dawn",
-    description:
-      "Build an automated discovery and assessment engine to detect, classify, and visualize quantum-vulnerable cryptographic algorithms across network traffic, application code, and cloud environments.",
+    summary: "Find quantum-vulnerable cryptography across code, network traffic and cloud environments.",
+    revealed: false,
     sponsor: "Inspiring Solutions",
     logo: "/assets/sponsors/inspiring-solutions.png",
-    logoStyle: "",
-    pdf: "/assets/challenges/quantumtrace.pdf",
+    logoVariant: "wide",
+    pdf: "/assets/challenges/inspiring-solutions-quantumtrace-challenge.pdf",
   },
   {
     title: "Am I at a unique place? Where in the world could here be?",
-    description:
-      "Identify plausible locations of a given 360º panorama using interaction with AI agents.",
+    summary: "Use AI agents to identify where a 360º panorama was taken.",
+    revealed: false,
     sponsor: "Albatroz Engenharia",
     logo: "/assets/sponsors/albatroz-engenharia.png",
-    logoStyle: "",
-    pdf: "/assets/challenges/unique-place.pdf",
+    logoVariant: "square",
+    pdf: "/assets/challenges/albatroz-unique-place-challenge.pdf",
   },
 ];
 ---
@@ -42,8 +42,7 @@ const challenges = [
 <section id="challenges" class="challenge-page">
   <div class="challenge-page__inner">
     <div class="section-head">
-      <p class="eyebrow">Challenges</p>
-      <h1>Get to know the challenges you will build</h1>
+      <h2 class="h2 h2--light-purple">Challenges</h2>
       <p class="lead">
         Choose a project that inspires your team and turn bold ideas into real-world impact.
       </p>
@@ -56,28 +55,45 @@ const challenges = [
 
       <div class="carousel__viewport">
         <div class="challenge-grid" id="carousel-track">
-          {challenges.map((c) => (
-            <a
-              class="challenge-card challenge-card--gold"
-              href={c.pdf}
-              target="_blank"
-              rel="noopener"
-              aria-label={`Open the full description of ${c.title} (PDF)`}
+          {challenges.map((c, index) => (
+            <article
+              class:list={["challenge-card", c.revealed && "challenge-card--revealed"]}
+              data-challenge-index={index}
             >
+              {c.revealed && (
+                <a
+                  class="challenge-card__link"
+                  href={c.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open the full description of ${c.title} (PDF)`}
+                />
+              )}
               <div class="challenge-card__head">
                 <h2>{c.title}</h2>
                 <img
-                  class="challenge-card__logo"
+                  class:list={["challenge-card__logo", `challenge-card__logo--${c.logoVariant}`]}
                   src={c.logo}
                   alt={`${c.sponsor} logo`}
-                  style={c.logoStyle || ""}
                   draggable="false"
                 />
               </div>
-              <p>{c.description}</p>
-            </a>
+              <p>{c.summary}</p>
+            </article>
           ))}
         </div>
+      </div>
+
+      <div class="carousel__pagination" aria-label="Choose a challenge">
+        {challenges.map((c, index) => (
+          <button
+            class="carousel__dot"
+            type="button"
+            aria-label={`Show challenge ${index + 1}: ${c.sponsor}`}
+            aria-current={index === 0 ? "true" : undefined}
+            data-carousel-dot={index}
+          />
+        ))}
       </div>
 
       <button class="carousel__btn carousel__btn--next" aria-label="Next challenge" type="button">
@@ -90,56 +106,42 @@ const challenges = [
 <style>
   .challenge-page {
     position: relative;
-    padding: clamp(4rem, 8vw, 7rem) 1.25rem;
+    padding: clamp(48px, 7vw, 96px) 1.25rem;
+    color: var(--white);
     background:
-      radial-gradient(circle at top, rgba(255, 0, 127, 0.12), transparent 36%),
-      linear-gradient(180deg, #0f1220 0%, #0b0d16 100%);
-    color: #f5f7ff;
+      radial-gradient(ellipse at 12% 45%, rgba(88, 101, 242, 0.16), transparent 38%),
+      radial-gradient(ellipse at 88% 55%, rgba(189, 189, 255, 0.12), transparent 36%);
   }
 
   .challenge-page__inner {
-    max-width: 1200px;
+    max-width: 1050px;
     margin: 0 auto;
   }
 
   .section-head {
-    max-width: 720px;
-    margin: 0 auto 3rem;
+    max-width: 900px;
+    margin: 0 auto 2rem;
     text-align: center;
   }
 
-  .eyebrow {
+  .section-head .h2 {
     margin: 0 0 1rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #bdbdff;
-    font-weight: 800;
-  }
-
-  .section-head h1 {
-    margin: 0;
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    text-wrap: balance;
   }
 
   .lead {
-    margin: 1rem auto 0;
-    max-width: 640px;
-    font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.78);
-    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 760px;
+    color: var(--muted);
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    line-height: 1.6;
     text-wrap: balance;
   }
 
-  /* ---------- Carousel ---------- */
   .carousel {
     position: relative;
     padding: 0 3.5rem;
-    max-width: 880px;   /* smaller = tighter cards */
-    margin: 0 auto;     /* keeps it centered */
+    max-width: 1050px;
+    margin: 0 auto;
   }
 
   .carousel__viewport {
@@ -151,102 +153,98 @@ const challenges = [
   .challenge-grid {
     --gap: 1.5rem;
     display: flex;
+    align-items: flex-start;
     gap: var(--gap);
     will-change: transform;
   }
 
-  /* 2 cards visible */
   .challenge-card {
-    flex: 0 0 calc((100% - var(--gap)) / 2);
-    display: block;
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     color: inherit;
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    padding: 1.5rem;
+    min-height: clamp(240px, 20vw, 300px);
+    padding: clamp(2rem, 4vw, 3rem);
     border-radius: 20px;
-    background: #111111;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    background: linear-gradient(135deg, #211b3d 0%, #19182e 52%, #14232e 100%);
+    border: 1px solid rgba(189, 189, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
 
-  .challenge-card::before {
-    content: "";
+  .challenge-card--revealed:hover {
+    transform: translateY(-6px);
+    border-color: rgba(189, 189, 255, 0.55);
+    box-shadow: 0 30px 50px rgba(49, 39, 91, 0.38);
+  }
+
+  .challenge-card--revealed:active {
+    transform: translateY(-2px);
+  }
+
+  .challenge-card__link {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 52%);
-    pointer-events: none;
+    z-index: 2;
+    border-radius: inherit;
   }
 
-  .challenge-card > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .challenge-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-  }
-
-  .challenge-card:active {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  }
-
-  .challenge-card:focus-visible {
+  .challenge-card__link:focus-visible {
     outline: 2px solid #bdbdff;
-    outline-offset: 3px;
+    outline-offset: -4px;
   }
 
-  .challenge-card--gold {
-    background:
-      linear-gradient(180deg, rgba(255, 0, 127, 0.2), rgba(255, 0, 127, 0.12)),
-      #111111;
-    border-color: #ff007f;
-  }
-
-  .challenge-card--gold:hover {
-    border-color: #ff78b9;
-    box-shadow: 0 15px 30px rgba(196, 143, 32, 0.22);
-  }
-
-  /* Title + sponsor logo (top right) */
   .challenge-card__head {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.9rem;
+    gap: 2rem;
+    margin-bottom: 1.25rem;
   }
 
   .challenge-card__logo {
     flex-shrink: 0;
-    width: 80px;
-    height: 56px;
     object-fit: contain;
-    padding: 6px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.06);
     user-select: none;
   }
 
+  .challenge-card__logo--wide {
+    width: 168px;
+    height: 88px;
+  }
+
+  .challenge-card__logo--nos {
+    width: 176px;
+    height: 96px;
+    object-fit: cover;
+  }
+
+  .challenge-card__logo--square {
+    width: 104px;
+    height: 104px;
+  }
+
   .challenge-card h2 {
+    max-width: 72%;
     margin: 0;
-    font-size: clamp(1.4rem, 2vw, 2rem);
-    line-height: 1.2;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    line-height: 1.25;
+    color: var(--white);
     text-wrap: balance;
   }
 
   .challenge-card p {
+    max-width: 780px;
     margin: 0;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-    text-wrap: balance;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--muted);
+    line-height: 1.6;
   }
 
-  /* ---------- Arrow buttons ---------- */
   .carousel__btn {
     position: absolute;
     top: 50%;
@@ -257,15 +255,16 @@ const challenges = [
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 0, 127, 0.7);
-    background: rgba(17, 17, 17, 0.85);
+    border: 1px solid rgba(189, 189, 255, 0.35);
+    background: #211b3d;
+    box-shadow: 0 8px 20px rgba(22, 18, 42, 0.35);
     color: #fff;
     cursor: pointer;
     transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   }
   .carousel__btn:hover {
-    background: #ff007f;
-    border-color: #ff78b9;
+    background: #332b58;
+    border-color: #bdbdff;
     transform: translateY(-50%) scale(1.08);
   }
   .carousel__btn:focus-visible {
@@ -275,11 +274,148 @@ const challenges = [
   .carousel__btn--prev { left: 0; }
   .carousel__btn--next { right: 0; }
 
+  .carousel__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
+    padding-top: 0.25rem;
+  }
+
+  .carousel__dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 1px solid rgba(189, 189, 255, 0.65);
+    border-radius: 999px;
+    background: rgba(189, 189, 255, 0.18);
+    cursor: pointer;
+    transition: width 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .carousel__dot[aria-current="true"] {
+    width: 28px;
+    background: #bdbdff;
+    border-color: #bdbdff;
+  }
+
+  .carousel__dot:focus-visible {
+    outline: 2px solid #bdbdff;
+    outline-offset: 4px;
+  }
+
   @media (max-width: 900px) {
-    .carousel { padding: 0 2.75rem; }
-    .challenge-card { flex-basis: 100%; } /* 1 card on mobile */
-    .carousel__btn { width: 38px; height: 38px; }
-    .challenge-card__logo { width: 48px; height: 48px; }
+    .carousel { padding: 0; }
+    .carousel__btn { width: 42px; height: 42px; }
+    .challenge-card__logo--wide { width: 136px; height: 68px; }
+    .challenge-card__logo--nos { width: 140px; height: 76px; }
+    .challenge-card__logo--square { width: 76px; height: 76px; }
+  }
+
+  @media (max-width: 600px) {
+    .challenge-page {
+      padding: 3rem 1rem;
+    }
+
+    .section-head {
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head .h2 {
+      margin-bottom: 0.75rem;
+    }
+
+    .lead {
+      max-width: 34rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .carousel {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+
+    .carousel__viewport {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      padding: 0.5rem 0 0.75rem;
+    }
+
+    .carousel__pagination {
+      grid-column: 2;
+      grid-row: 2;
+      padding: 0;
+    }
+
+    .challenge-grid {
+      align-items: flex-start;
+    }
+
+    .challenge-card {
+      align-self: flex-start;
+      min-height: 0;
+      padding: 1.25rem;
+      border-radius: 16px;
+    }
+
+    .challenge-card__head {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .challenge-card__logo {
+      align-self: center;
+    }
+
+    .challenge-card h2 {
+      max-width: none;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    .challenge-card p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .challenge-card__logo--wide { width: 104px; height: 52px; }
+    .challenge-card__logo--nos { width: 112px; height: 60px; }
+    .challenge-card__logo--square { width: 60px; height: 60px; }
+
+    .carousel__btn {
+      position: relative;
+      top: auto;
+      transform: none;
+      grid-row: 2;
+      width: 40px;
+      height: 40px;
+    }
+
+    .carousel__btn:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel__btn--prev {
+      grid-column: 1;
+      justify-self: start;
+    }
+
+    .carousel__btn--next {
+      grid-column: 3;
+      justify-self: end;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .challenge-card,
+    .carousel__btn,
+    .carousel__dot {
+      transition: none;
+    }
   }
 </style>
 
@@ -291,11 +427,25 @@ const challenges = [
   const carousel = document.getElementById("carousel");
   const prev = carousel?.querySelector<HTMLButtonElement>(".carousel__btn--prev");
   const next = carousel?.querySelector<HTMLButtonElement>(".carousel__btn--next");
+  const dots = carousel?.querySelectorAll<HTMLButtonElement>("[data-carousel-dot]");
 
-  if (track && carousel && prev && next) {
+  if (track && carousel && prev && next && dots) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const duration = reduceMotion ? 0 : SLIDE_MS;
+    const challengeCount = track.children.length;
     let animating = false;
+    let navigatingToDot = false;
+    let activeIndex = 0;
+
+    const updateDots = () => {
+      dots.forEach((dot) => {
+        if (Number(dot.dataset.carouselDot) === activeIndex) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+    };
 
     const step = () => {
       const card = track.firstElementChild as HTMLElement;
@@ -304,8 +454,10 @@ const challenges = [
     };
 
     const goNext = () => {
-      if (animating) return;
+      if (animating) return false;
       animating = true;
+      activeIndex = (activeIndex + 1) % challengeCount;
+      updateDots();
       track.style.transition = `transform ${duration}ms ease`;
       track.style.transform = `translateX(${-step()}px)`;
 
@@ -317,11 +469,14 @@ const challenges = [
         track.getBoundingClientRect(); // force reflow
         animating = false;
       }, duration);
+      return true;
     };
 
     const goPrev = () => {
-      if (animating) return;
+      if (animating) return false;
       animating = true;
+      activeIndex = (activeIndex - 1 + challengeCount) % challengeCount;
+      updateDots();
       // Move the last card to the front, offset so nothing visibly jumps
       track.style.transition = "none";
       track.insertBefore(track.lastElementChild!, track.firstElementChild);
@@ -331,6 +486,37 @@ const challenges = [
       track.style.transition = `transform ${duration}ms ease`;
       track.style.transform = "translateX(0)";
       setTimeout(() => { animating = false; }, duration);
+      return true;
+    };
+
+    const goTo = (index: number) => {
+      if (navigatingToDot || index === activeIndex) return;
+      stop();
+      navigatingToDot = true;
+
+      const forwardSteps = (index - activeIndex + challengeCount) % challengeCount;
+      const backwardSteps = (activeIndex - index + challengeCount) % challengeCount;
+      const direction = forwardSteps <= backwardSteps ? 1 : -1;
+      let remaining = Math.min(forwardSteps, backwardSteps);
+
+      const moveNext = () => {
+        if (remaining === 0) {
+          navigatingToDot = false;
+          start();
+          return;
+        }
+
+        const moved = direction === 1 ? goNext() : goPrev();
+        if (!moved) {
+          window.setTimeout(moveNext, 20);
+          return;
+        }
+
+        remaining -= 1;
+        window.setTimeout(moveNext, duration + 20);
+      };
+
+      moveNext();
     };
 
     // Autoplay
@@ -341,8 +527,19 @@ const challenges = [
       timer = window.setInterval(goNext, AUTOPLAY_MS);
     };
 
-    next.addEventListener("click", () => { goNext(); start(); });
-    prev.addEventListener("click", () => { goPrev(); start(); });
+    next.addEventListener("click", () => {
+      if (navigatingToDot) return;
+      goNext();
+      start();
+    });
+    prev.addEventListener("click", () => {
+      if (navigatingToDot) return;
+      goPrev();
+      start();
+    });
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => goTo(Number(dot.dataset.carouselDot)));
+    });
 
     // Pause while the user is interacting
     carousel.addEventListener("mouseenter", stop);
@@ -360,6 +557,7 @@ const challenges = [
     });
     carousel.addEventListener("pointerup", (e) => {
       const dx = e.clientX - startX;
+      if (navigatingToDot) return;
       if (Math.abs(dx) > 50) {
         swiped = true;
         dx < 0 ? goNext() : goPrev();
