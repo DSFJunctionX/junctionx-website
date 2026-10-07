@@ -27,13 +27,17 @@ const applicationsClosed = true; // Set to true after applications close.
             10-11 October 2026, in Lisbon
           </p>
           <!-- Desktop Button -->
-          {!applicationsClosed && (
-            <div class="actions desktop-actions">
+          <div class="actions desktop-actions">
+            {applicationsClosed ? (
+              <a class="btn btn--apply" href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener noreferrer">
+                JOIN DISCORD <span class="btn--apply-arrow" aria-hidden="true">→</span>
+              </a>
+            ) : (
               <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
                 APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
               </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div class="countdown-column">
@@ -70,13 +74,17 @@ const applicationsClosed = true; // Set to true after applications close.
           )}
 
           <!-- Mobile Button (Shows under timer on small screens) -->
-          {!applicationsClosed && (
-            <div class="actions mobile-actions">
+          <div class="actions mobile-actions">
+            {applicationsClosed ? (
+              <a class="btn btn--apply" href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener noreferrer">
+                JOIN DISCORD <span class="btn--apply-arrow" aria-hidden="true">→</span>
+              </a>
+            ) : (
               <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
                 APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
               </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>
