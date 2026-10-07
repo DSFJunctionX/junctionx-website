@@ -8,6 +8,8 @@ import Location from "../components/sections/Location.astro";
 import FAQs from "../components/sections/FAQs.astro";
 import Team from "../components/sections/Team.astro";
 import Challenges from '../components/sections/Challenges.astro';
+
+const applicationsClosed = true; // Set to true after applications close.
 ---
 
 <Layout>
@@ -25,11 +27,13 @@ import Challenges from '../components/sections/Challenges.astro';
             10-11 October 2026, in Lisbon
           </p>
           <!-- Desktop Button -->
-          <div class="actions desktop-actions">
-            <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
-              APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
+          {!applicationsClosed && (
+            <div class="actions desktop-actions">
+              <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
+                APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          )}
         </div>
 
         <div class="countdown-column">
@@ -59,14 +63,20 @@ import Challenges from '../components/sections/Challenges.astro';
               <label>SEC</label>
             </div>
           </div>
-          <p class="countdown-label">UNTIL APPLICATIONS CLOSE</p>
+          <p class="countdown-label">UNTIL THE HACKATHON STARTS</p>
+
+          {applicationsClosed && (
+            <p class="application-notice" role="status">Applications are closed.</p>
+          )}
 
           <!-- Mobile Button (Shows under timer on small screens) -->
-          <div class="actions mobile-actions">
-            <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
-              APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
+          {!applicationsClosed && (
+            <div class="actions mobile-actions">
+              <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
+                APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -304,6 +314,15 @@ import Challenges from '../components/sections/Challenges.astro';
     width: 100%;
   }
 
+  .application-notice {
+    margin: 0.5rem 0 0;
+    color: #ff78b9;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   @keyframes neon-pulse {
     0% {
       box-shadow: 0 0 15px rgba(255, 0, 127, 0.3), inset 0 0 10px rgba(255, 0, 127, 0.1);
@@ -376,7 +395,7 @@ import Challenges from '../components/sections/Challenges.astro';
 <script>
   import * as THREE from 'three';
 
-  const countDownDate = new Date("2026-10-07T23:59:00+01:00").getTime();
+  const countDownDate = new Date("2026-10-10T10:00:00+01:00").getTime();
 
   const updateCountdown = () => {
     const now = new Date().getTime();
