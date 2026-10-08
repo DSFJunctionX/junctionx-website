@@ -1,3 +1,4 @@
+```astro
 ---
 const challenges = [
   {
@@ -7,7 +8,7 @@ const challenges = [
     sponsor: "NOS",
     logo: "/assets/sponsors/nos.png",
     logoVariant: "nos",
-    pdf: "/assets/challenges/nos-data-privacy-challenge.pdf",
+    pdf: "/assets/challenges/NOS - JunctionX Lisbon 2026.pdf",
   },
   {
     title: "Fresh eyes on fresh produce!",
@@ -16,7 +17,7 @@ const challenges = [
     sponsor: "Sensei",
     logo: "/assets/sponsors/sensei.png",
     logoVariant: "wide",
-    pdf: "/assets/challenges/sensei-fresh-produce-challenge.pdf",
+    pdf: "/assets/challenges/Sensei - JunctionX Lisbon 2026.pdf",
   },
   {
     title: "QuantumTrace - Uncovering Cryptographic Debt in the Quantum Dawn",
@@ -25,7 +26,7 @@ const challenges = [
     sponsor: "Inspiring Solutions",
     logo: "/assets/sponsors/inspiring-solutions.png",
     logoVariant: "wide",
-    pdf: "/assets/challenges/inspiring-solutions-quantumtrace-challenge.pdf",
+    pdf: "/assets/challenges/Inspiring Solutions - JunctionX Lisbon 2026.pdf",
   },
   {
     title: "Am I at a unique place? Where in the world could here be?",
@@ -34,7 +35,7 @@ const challenges = [
     sponsor: "Albatroz Engenharia",
     logo: "/assets/sponsors/albatroz-engenharia.png",
     logoVariant: "square",
-    pdf: "/assets/challenges/albatroz-unique-place-challenge.pdf",
+    pdf: "/assets/challenges/Albatroz Challenge - JunctionX Lisbon 2026.pdf",
   },
 ];
 ---
@@ -49,8 +50,23 @@ const challenges = [
     </div>
 
     <div class="carousel" id="carousel">
-      <button class="carousel__btn carousel__btn--prev" aria-label="Previous challenge" type="button">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+      <button
+        class="carousel__btn carousel__btn--prev"
+        aria-label="Previous challenge"
+        type="button"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="22"
+          height="22"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
       </button>
 
       <div class="carousel__viewport">
@@ -62,16 +78,27 @@ const challenges = [
             >
               <div class="challenge-card__head">
                 <h2>{c.title}</h2>
+
                 <img
-                  class:list={["challenge-card__logo", `challenge-card__logo--${c.logoVariant}`]}
+                  class:list={[
+                    "challenge-card__logo",
+                    `challenge-card__logo--${c.logoVariant}`,
+                  ]}
                   src={c.logo}
                   alt={`${c.sponsor} logo`}
                   draggable="false"
                 />
               </div>
+
               <p>{c.summary}</p>
+
               {c.revealed && (
-                <a class="challenge-card__action" href={c.pdf} target="_blank" rel="noopener noreferrer">
+                <a
+                  class="challenge-card__action"
+                  href={c.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   View challenge PDF
                   <span aria-hidden="true">↗</span>
                 </a>
@@ -93,8 +120,23 @@ const challenges = [
         ))}
       </div>
 
-      <button class="carousel__btn carousel__btn--next" aria-label="Next challenge" type="button">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+      <button
+        class="carousel__btn carousel__btn--next"
+        aria-label="Next challenge"
+        type="button"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="22"
+          height="22"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M9 18l6-6-6-6" />
+        </svg>
       </button>
     </div>
   </div>
@@ -263,17 +305,25 @@ const challenges = [
     cursor: pointer;
     transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   }
+
   .carousel__btn:hover {
     background: #332b58;
     border-color: #bdbdff;
     transform: translateY(-50%) scale(1.08);
   }
+
   .carousel__btn:focus-visible {
     outline: 2px solid #bdbdff;
     outline-offset: 3px;
   }
-  .carousel__btn--prev { left: 0; }
-  .carousel__btn--next { right: 0; }
+
+  .carousel__btn--prev {
+    left: 0;
+  }
+
+  .carousel__btn--next {
+    right: 0;
+  }
 
   .carousel__pagination {
     display: flex;
@@ -306,11 +356,29 @@ const challenges = [
   }
 
   @media (max-width: 900px) {
-    .carousel { padding: 0; }
-    .carousel__btn { width: 42px; height: 42px; }
-    .challenge-card__logo--wide { width: 136px; height: 68px; }
-    .challenge-card__logo--nos { width: 220px; height: 120px; }
-    .challenge-card__logo--square { width: 76px; height: 76px; }
+    .carousel {
+      padding: 0;
+    }
+
+    .carousel__btn {
+      width: 42px;
+      height: 42px;
+    }
+
+    .challenge-card__logo--wide {
+      width: 136px;
+      height: 68px;
+    }
+
+    .challenge-card__logo--nos {
+      width: 220px;
+      height: 120px;
+    }
+
+    .challenge-card__logo--square {
+      width: 76px;
+      height: 76px;
+    }
   }
 
   @media (max-width: 600px) {
@@ -388,9 +456,20 @@ const challenges = [
       margin-top: 1rem;
     }
 
-    .challenge-card__logo--wide { width: 104px; height: 52px; }
-    .challenge-card__logo--nos { width: 176px; height: 96px; }
-    .challenge-card__logo--square { width: 60px; height: 60px; }
+    .challenge-card__logo--wide {
+      width: 104px;
+      height: 52px;
+    }
+
+    .challenge-card__logo--nos {
+      width: 176px;
+      height: 96px;
+    }
+
+    .challenge-card__logo--square {
+      width: 60px;
+      height: 60px;
+    }
 
     .carousel__btn {
       position: relative;
@@ -432,6 +511,7 @@ const challenges = [
 
   const track = document.getElementById("carousel-track");
   const carousel = document.getElementById("carousel");
+
   const prev = carousel?.querySelector<HTMLButtonElement>(".carousel__btn--prev");
   const next = carousel?.querySelector<HTMLButtonElement>(".carousel__btn--next");
   const dots = carousel?.querySelectorAll<HTMLButtonElement>("[data-carousel-dot]");
@@ -439,14 +519,23 @@ const challenges = [
   if (track && carousel && prev && next && dots) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const duration = reduceMotion ? 0 : SLIDE_MS;
+
     const cards = Array.from(track.children) as HTMLElement[];
+
     cards
-      .sort((a, b) => Number(a.dataset.challengeIndex) - Number(b.dataset.challengeIndex))
+      .sort(
+        (a, b) =>
+          Number(a.dataset.challengeIndex) - Number(b.dataset.challengeIndex)
+      )
       .forEach((card) => track.appendChild(card));
+
     const challengeCount = track.children.length;
+
     let animating = false;
     let navigatingToDot = false;
-    let activeIndex = Number((track.firstElementChild as HTMLElement | null)?.dataset.challengeIndex ?? 0);
+    let activeIndex = Number(
+      (track.firstElementChild as HTMLElement | null)?.dataset.challengeIndex ?? 0
+    );
     let pendingDirection: number | undefined;
     let isHovered = false;
     let hasFocus = false;
@@ -471,48 +560,56 @@ const challenges = [
 
     const goNext = () => {
       if (animating) return false;
+
       animating = true;
       activeIndex = (activeIndex + 1) % challengeCount;
       updateDots();
+
       track.style.transition = `transform ${duration}ms ease`;
       track.style.transform = `translateX(${-step()}px)`;
 
       setTimeout(() => {
-        // Move the first card to the end, then reset position invisibly
         track.style.transition = "none";
         track.appendChild(track.firstElementChild!);
         track.style.transform = "translateX(0)";
-        track.getBoundingClientRect(); // force reflow
+        track.getBoundingClientRect();
+
         animating = false;
         processPendingDirections();
       }, duration);
+
       return true;
     };
 
     const goPrev = () => {
       if (animating) return false;
+
       animating = true;
       activeIndex = (activeIndex - 1 + challengeCount) % challengeCount;
       updateDots();
-      // Move the last card to the front, offset so nothing visibly jumps
+
       track.style.transition = "none";
       track.insertBefore(track.lastElementChild!, track.firstElementChild);
       track.style.transform = `translateX(${-step()}px)`;
-      track.getBoundingClientRect(); // force reflow
+      track.getBoundingClientRect();
 
       track.style.transition = `transform ${duration}ms ease`;
       track.style.transform = "translateX(0)";
+
       setTimeout(() => {
         animating = false;
         processPendingDirections();
       }, duration);
+
       return true;
     };
 
     const processPendingDirections = () => {
       if (animating || navigatingToDot) return;
+
       const direction = pendingDirection;
       pendingDirection = undefined;
+
       if (direction === undefined) {
         start();
         return;
@@ -527,6 +624,7 @@ const challenges = [
 
     const queueDirection = (direction: number) => {
       if (navigatingToDot) return;
+
       stop();
       pendingDirection = direction;
       processPendingDirections();
@@ -534,12 +632,16 @@ const challenges = [
 
     const goTo = (index: number) => {
       if (navigatingToDot || index === activeIndex) return;
+
       stop();
       pendingDirection = undefined;
       navigatingToDot = true;
 
-      const forwardSteps = (index - activeIndex + challengeCount) % challengeCount;
-      const backwardSteps = (activeIndex - index + challengeCount) % challengeCount;
+      const forwardSteps =
+        (index - activeIndex + challengeCount) % challengeCount;
+      const backwardSteps =
+        (activeIndex - index + challengeCount) % challengeCount;
+
       const direction = forwardSteps <= backwardSteps ? 1 : -1;
       let remaining = Math.min(forwardSteps, backwardSteps);
 
@@ -551,6 +653,7 @@ const challenges = [
         }
 
         const moved = direction === 1 ? goNext() : goPrev();
+
         if (!moved) {
           window.setTimeout(moveNext, 20);
           return;
@@ -563,11 +666,21 @@ const challenges = [
       moveNext();
     };
 
-    // Autoplay
     const stop = () => window.clearTimeout(timer);
+
     const start = () => {
       stop();
-      if (document.hidden || !isInView || isHovered || hasFocus || navigatingToDot) return;
+
+      if (
+        document.hidden ||
+        !isInView ||
+        isHovered ||
+        hasFocus ||
+        navigatingToDot
+      ) {
+        return;
+      }
+
       timer = window.setTimeout(() => {
         goNext();
         start();
@@ -579,86 +692,131 @@ const challenges = [
     next.addEventListener("click", () => {
       queueDirection(1);
     });
+
     prev.addEventListener("click", () => {
       queueDirection(-1);
     });
+
     dots.forEach((dot) => {
-      dot.addEventListener("click", () => goTo(Number(dot.dataset.carouselDot)));
+      dot.addEventListener("click", () =>
+        goTo(Number(dot.dataset.carouselDot))
+      );
     });
 
-    // Pause while the user is interacting
     carousel.addEventListener("mouseenter", () => {
       isHovered = true;
       stop();
     });
+
     carousel.addEventListener("mouseleave", () => {
       isHovered = false;
       start();
     });
+
     carousel.addEventListener("focusin", (event) => {
-      hasFocus = event.target instanceof HTMLElement && event.target.matches(":focus-visible");
+      hasFocus =
+        event.target instanceof HTMLElement &&
+        event.target.matches(":focus-visible");
+
       if (hasFocus) stop();
     });
+
     carousel.addEventListener("focusout", (event) => {
-      if (!(event.relatedTarget instanceof Node) || !carousel.contains(event.relatedTarget)) {
+      if (
+        !(event.relatedTarget instanceof Node) ||
+        !carousel.contains(event.relatedTarget)
+      ) {
         hasFocus = false;
         start();
       }
     });
 
-    // Swipe support (a swipe must not open the PDF)
+    // Swipe support
     let startX = 0;
     let activePointerId: number | undefined;
     let swiped = false;
+
     const viewport = carousel.querySelector<HTMLElement>(".carousel__viewport");
+
     viewport?.addEventListener("pointerdown", (e) => {
-      if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
+      if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) {
+        return;
+      }
+
       activePointerId = e.pointerId;
       startX = e.clientX;
       swiped = false;
-      viewport.setPointerCapture(e.pointerId);
+
+      // Only capture touch/pen pointers.
+      // Mouse clicks must remain available for normal link activation.
+      if (e.pointerType === "touch" || e.pointerType === "pen") {
+        viewport.setPointerCapture(e.pointerId);
+      }
+
       stop();
     });
+
     viewport?.addEventListener("pointerup", (e) => {
       if (e.pointerId !== activePointerId) return;
+
       const dx = e.clientX - startX;
       activePointerId = undefined;
+
       if (navigatingToDot) return;
+
       if (Math.abs(dx) > 50) {
         swiped = true;
         queueDirection(dx < 0 ? 1 : -1);
       }
-      if (Math.abs(dx) <= 50) start();
+
+      if (Math.abs(dx) <= 50) {
+        start();
+      }
     });
+
     const cancelSwipe = (e: PointerEvent) => {
       if (e.pointerId !== activePointerId) return;
+
       activePointerId = undefined;
       start();
     };
+
     viewport?.addEventListener("pointercancel", cancelSwipe);
     viewport?.addEventListener("lostpointercapture", cancelSwipe);
 
     let wheelDeltaX = 0;
     let wheelTimer: number | undefined;
-    viewport?.addEventListener("wheel", (e) => {
-      const deltaX = Math.abs(e.deltaX) > Math.abs(e.deltaY)
-        ? e.deltaX
-        : e.shiftKey ? e.deltaY : 0;
-      if (Math.abs(deltaX) < 1) return;
 
-      e.preventDefault();
-      stop();
-      wheelDeltaX += deltaX;
-      window.clearTimeout(wheelTimer);
-      wheelTimer = window.setTimeout(() => {
-        if (Math.abs(wheelDeltaX) > 35) {
-          queueDirection(wheelDeltaX > 0 ? 1 : -1);
-        } else {
-          start();
-        }
-        wheelDeltaX = 0;
-      }, 120);
-    }, { passive: false });
+    viewport?.addEventListener(
+      "wheel",
+      (e) => {
+        const deltaX =
+          Math.abs(e.deltaX) > Math.abs(e.deltaY)
+            ? e.deltaX
+            : e.shiftKey
+              ? e.deltaY
+              : 0;
+
+        if (Math.abs(deltaX) < 1) return;
+
+        e.preventDefault();
+        stop();
+
+        wheelDeltaX += deltaX;
+        window.clearTimeout(wheelTimer);
+
+        wheelTimer = window.setTimeout(() => {
+          if (Math.abs(wheelDeltaX) > 35) {
+            queueDirection(wheelDeltaX > 0 ? 1 : -1);
+          } else {
+            start();
+          }
+
+          wheelDeltaX = 0;
+        }, 120);
+      },
+      { passive: false }
+    );
 
     track.addEventListener("click", (e) => {
       if (swiped) {
@@ -667,15 +825,21 @@ const challenges = [
       }
     });
 
-    // Don't run in background tabs
     document.addEventListener("visibilitychange", () => {
       document.hidden ? stop() : start();
     });
 
-    const observer = new IntersectionObserver(([entry]) => {
-      isInView = entry.isIntersecting && entry.intersectionRatio >= 0.25;
-      isInView ? start() : stop();
-    }, { threshold: 0.25 });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView =
+          entry.isIntersecting && entry.intersectionRatio >= 0.25;
+
+        isInView ? start() : stop();
+      },
+      { threshold: 0.25 }
+    );
+
     observer.observe(carousel);
   }
 </script>
+```
