@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import OrganiseCard from '../components/OrganiseCard.astro';
 
 const photo = '/assets/winners/junctionx-lisbon-2026-winners.jpg';
 const photoAlt = "The five members of No Other Choice smiling on stage at JunctionX Lisbon 2026, holding the winner's cheque for €1,500.";
-const contactEmail = 'descendinggradient@gmail.com';
 ---
 
 <Layout
@@ -46,23 +46,7 @@ const contactEmail = 'descendinggradient@gmail.com';
 
     <section class="winners__organise" aria-labelledby="organise-title">
       <div class="container">
-        <div class="organise-card">
-          <h2 id="organise-title" class="organise-card__title">Want to organise the next edition?</h2>
-          <p>
-            Interested in helping organise the next JunctionX Lisbon? We'd love to hear from you.
-            Get in touch at <a class="organise-card__inline-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
-          </p>
-
-          <a class="btn--contact" href={`mailto:${contactEmail}`}>
-            GET IN TOUCH <span class="btn--contact-arrow" aria-hidden="true">→</span>
-          </a>
-
-          <div class="organise-card__signature">
-            <p class="organise-card__name">Diogo Franquinho</p>
-            <p class="organise-card__role">President of Gradient</p>
-            <img src="/assets/gradient.png" alt="Gradient" class="organise-card__logo" />
-          </div>
-        </div>
+        <OrganiseCard titleId="organise-title" />
       </div>
     </section>
   </main>
@@ -146,110 +130,5 @@ const contactEmail = 'descendinggradient@gmail.com';
   .winners__organise {
     padding-top: clamp(20px, 4vw, 40px);
     padding-bottom: clamp(60px, 8vw, 100px);
-  }
-
-  .organise-card {
-    max-width: 760px;
-    margin: 0 auto;
-    background: #111111;
-    border-radius: 28px;
-    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 5vw, 3.5rem);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    text-align: center;
-  }
-
-  .organise-card__title {
-    margin: 0 0 1rem;
-    color: #BDBDFF;
-    font-size: clamp(1.4rem, 3.5vw, 2rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-
-  .organise-card p {
-    margin: 0;
-    color: #e0e0e0;
-    font-size: clamp(1rem, 2vw, 1.1rem);
-  }
-
-  .organise-card__inline-link {
-    color: #BDBDFF;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    overflow-wrap: anywhere;
-  }
-
-  .organise-card__inline-link:hover {
-    color: #ff78b9;
-  }
-
-  .btn--contact {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    background: rgba(10, 15, 29, 0.6);
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    padding: 0.5rem 0.5rem 0.5rem 2rem;
-    border: 2px solid #BDBDFF;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-  }
-
-  .btn--contact-arrow {
-    background: #BDBDFF;
-    color: #0a0f1d;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
-  }
-
-  .btn--contact:hover,
-  .btn--contact:focus-visible {
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
-    transform: translateY(-2px);
-    border-color: #ff007f;
-  }
-
-  .btn--contact:hover .btn--contact-arrow {
-    transform: translateX(4px);
-    background: #ff007f;
-    color: #ffffff;
-  }
-
-  .organise-card__signature {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .organise-card .organise-card__name {
-    color: #ffffff;
-    font-weight: 700;
-  }
-
-  .organise-card .organise-card__role {
-    color: #a0aec0;
-    font-size: 0.9rem;
-  }
-
-  .organise-card__logo {
-    height: 36px;
-    width: auto;
-    margin-top: 1rem;
   }
 </style>

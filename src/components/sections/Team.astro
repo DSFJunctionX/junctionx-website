@@ -1,5 +1,7 @@
 ---
 // src/components/sections/Team.astro
+import OrganiseCard from '../OrganiseCard.astro';
+
 const team = [
   { name: "Daniel Borges", role: "Lead Organizer", image: "/assets/team/daniel.jpeg", linkedin: "https://www.linkedin.com/in/daniel-borgs/" },
   { name: "Duarte Pereira da Cruz", role: "Lead Organizer", image: "/assets/team/duarte.jpg", linkedin: "https://www.linkedin.com/in/duartepcruz/" }, 
@@ -37,6 +39,10 @@ const team = [
         </a>
       ))}
     </div>
+
+    <div class="team-next-organisers">
+      <OrganiseCard title="We're looking for the next organisers" titleId="next-organisers-title" />
+    </div>
   </div>
 </section>
 
@@ -69,6 +75,10 @@ const team = [
     text-transform: uppercase;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
+  }
+
+  .team-next-organisers {
+    margin-top: clamp(48px, 7vw, 80px);
   }
 
   .team-grid {
