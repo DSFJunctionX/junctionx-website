@@ -9,7 +9,7 @@ import FAQs from "../components/sections/FAQs.astro";
 import Team from "../components/sections/Team.astro";
 import Challenges from '../components/sections/Challenges.astro';
 
-const applicationsClosed = true; // Set to true after applications close.
+const winnersHref = '/winners-2026/';
 ---
 
 <Layout>
@@ -28,15 +28,9 @@ const applicationsClosed = true; // Set to true after applications close.
           </p>
           <!-- Desktop Button -->
           <div class="actions desktop-actions">
-            {applicationsClosed ? (
-              <a class="btn btn--apply" href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener noreferrer">
-                JOIN DISCORD <span class="btn--apply-arrow" aria-hidden="true">→</span>
-              </a>
-            ) : (
-              <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
-                APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
-              </a>
-            )}
+            <a class="btn btn--apply" href={winnersHref}>
+              MEET THE WINNERS <span class="btn--apply-arrow" aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
 
@@ -46,44 +40,17 @@ const applicationsClosed = true; // Set to true after applications close.
             <span class="prize-callout__label">IN PRIZES</span>
           </div>
           
-          <div class="countdown">
-            <div class="time-box">
-              <span id="days">00</span>
-              <label>DAYS</label>
-            </div>
-            <div class="colon">:</div>
-            <div class="time-box">
-              <span id="hours">00</span>
-              <label>HOURS</label>
-            </div>
-            <div class="colon">:</div>
-            <div class="time-box">
-              <span id="minutes">00</span>
-              <label>MIN</label>
-            </div>
-            <div class="colon">:</div>
-            <div class="time-box">
-              <span id="seconds">00</span>
-              <label>SEC</label>
-            </div>
+          <div class="concluded" role="status">
+            <p class="concluded__eyebrow">EDITION CONCLUDED</p>
+            <p class="concluded__title">Thank you, Lisbon!</p>
+            <p class="concluded__text">JunctionX Lisbon 2026 took place on 10-11 October. Congratulations to <strong>No Other Choice</strong>, this year's winning team.</p>
           </div>
-          <p class="countdown-label">UNTIL THE HACKATHON STARTS</p>
 
-          {applicationsClosed && (
-            <p class="application-notice" role="status">Applications are closed.</p>
-          )}
-
-          <!-- Mobile Button (Shows under timer on small screens) -->
+          <!-- Mobile Button (Shows under the concluded panel on small screens) -->
           <div class="actions mobile-actions">
-            {applicationsClosed ? (
-              <a class="btn btn--apply" href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener noreferrer">
-                JOIN DISCORD <span class="btn--apply-arrow" aria-hidden="true">→</span>
-              </a>
-            ) : (
-              <a class="btn btn--apply" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">
-                APPLY NOW <span class="btn--apply-arrow" aria-hidden="true">→</span>
-              </a>
-            )}
+            <a class="btn btn--apply" href={winnersHref}>
+              MEET THE WINNERS <span class="btn--apply-arrow" aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </div>
@@ -94,7 +61,7 @@ const applicationsClosed = true; // Set to true after applications close.
   <Prizes />
   <Sponsors />
   <Challenges />
-  <Video applicationsClosed={applicationsClosed} />
+  <Video winnersHref={winnersHref} />
   <Location />
   <FAQs />
   <Team />
@@ -263,72 +230,43 @@ const applicationsClosed = true; // Set to true after applications close.
     text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
   }
 
-  .countdown {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
+  .concluded {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
     background: rgba(255, 255, 255, 0.03);
-    padding: clamp(10px, 3vw, 20px) clamp(10px, 4vw, 30px);
+    padding: clamp(16px, 3vw, 24px) clamp(16px, 4vw, 30px);
     border-radius: 12px;
     border: 1px solid rgba(189, 189, 255, 0.2);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 30px rgba(189, 189, 255, 0.1);
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  .time-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: clamp(32px, 8vw, 60px);
-    flex: 1 1 0;
-  }
-
-  .time-box span {
-    font-size: clamp(1.1rem, 5vw, 3rem);
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 0 15px rgba(189, 189, 255, 0.4);
-    line-height: 1;
-    font-family: monospace;
-  }
-
-  .time-box label {
-    font-size: clamp(0.55rem, 1.6vw, 0.7rem);
-    color: #a0aec0;
-    margin-top: 5px;
-    letter-spacing: 2px;
-    white-space: nowrap;
-  }
-
-  .colon {
-    font-size: clamp(0.9rem, 4vw, 2.5rem);
+  .concluded__eyebrow {
+    margin: 0;
     color: #BDBDFF;
-    margin: 0 clamp(2px, 1vw, 10px);
-    padding-bottom: 20px;
-    animation: pulse 1.5s infinite;
-    flex: 0 0 auto;
-  }
-
-  .countdown-label {
-    text-align: center;
-    color: #BDBDFF;
-    margin-top: 15px;
     font-weight: 600;
     letter-spacing: 2px;
     font-size: 0.8rem;
-    width: 100%;
   }
 
-  .application-notice {
-    margin: 0.5rem 0 0;
+  .concluded__title {
+    margin: 0.5rem 0;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 0 15px rgba(189, 189, 255, 0.4);
+  }
+
+  .concluded__text {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+  }
+
+  .concluded__text strong {
     color: #ff78b9;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-align: center;
-    text-transform: uppercase;
   }
 
   @keyframes neon-pulse {
@@ -340,11 +278,6 @@ const applicationsClosed = true; // Set to true after applications close.
       box-shadow: 0 0 40px rgba(255, 0, 127, 0.8), inset 0 0 25px rgba(255, 0, 127, 0.5);
       transform: scale(1.04) rotate(-2deg);
     }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
   }
 
   @media (max-width: 960px) {
@@ -378,63 +311,24 @@ const applicationsClosed = true; // Set to true after applications close.
       gap: 0.5rem;
       padding: 0.65rem 1rem;
     }
-
-    .countdown {
-      padding: 12px;
-      gap: 4px;
-    }
-
-    .countdown-label {
-      font-size: 0.7rem;
-    }
   }
 
+  /* Small phones: stack the callout so it doesn't force the page wider than the screen */
   @media (max-width: 400px) {
-    .colon {
-      margin: 0 2px;
+    .prize-callout {
+      flex-direction: column;
+      gap: 0.35rem;
     }
 
-    .time-box {
-      min-width: 38px;
+    .prize-callout__amount {
+      font-size: clamp(2rem, 10vw, 2.5rem);
     }
   }
+
 </style>
 
 <script>
   import * as THREE from 'three';
-
-  const countDownDate = new Date("2026-10-10T10:00:00+01:00").getTime();
-
-  const updateCountdown = () => {
-    const now = new Date().getTime();
-    const distance = countDownDate - now;
-
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
-
-    if (distance < 0) {
-      daysEl.innerText = "00";
-      hoursEl.innerText = "00";
-      minutesEl.innerText = "00";
-      secondsEl.innerText = "00";
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    daysEl.innerText = String(days).padStart(2, '0');
-    hoursEl.innerText = String(hours).padStart(2, '0');
-    minutesEl.innerText = String(minutes).padStart(2, '0');
-    secondsEl.innerText = String(seconds).padStart(2, '0');
-  };
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
 
   const mainContainer = document.querySelector('.main');
   const canvas = document.getElementById('hero-canvas');

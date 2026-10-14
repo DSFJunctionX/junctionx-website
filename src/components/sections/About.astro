@@ -125,4 +125,11 @@
       display: none;
     }
   }
+
+  /* Small phones: "JUNCTIONX" can't wrap, so scale the pixel font to fit the screen */
+  @media (max-width: 400px) {
+    .h2 {
+      font-size: clamp(1.25rem, 6.5vw, 2rem);
+    }
+  }
 </style>

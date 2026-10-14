@@ -1,9 +1,9 @@
 ---
 interface Props {
-  applicationsClosed: boolean;
+  winnersHref: string;
 }
 
-const { applicationsClosed } = Astro.props;
+const { winnersHref } = Astro.props;
 ---
 
 <!-- ===== VIDEO ===== -->
@@ -21,14 +21,10 @@ const { applicationsClosed } = Astro.props;
         </span>
         Lisbon
       </h1>
-      <p class="lead">Build in 24h with mentors & partners. Win prizes.</p>
+      <p class="lead">24 hours of building with mentors & partners. Thank you to everyone who made it happen.</p>
       
       <div class="actions">
-        {applicationsClosed ? (
-          <a class="btn" href="https://discord.gg/wBaUtGQwfn" target="_blank" rel="noopener noreferrer">JOIN DISCORD</a>
-        ) : (
-          <a class="btn" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener">APPLY NOW</a>
-        )}
+        <a class="btn" href={winnersHref}>MEET THE WINNERS</a>
         <a class="btn btn--ghost" href="https://hackjunction.app/events/junctionx-lisbon-2026" target="_blank" rel="noopener noreferrer">GO TO PLATFORM</a>
       </div>
 

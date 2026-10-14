@@ -114,4 +114,14 @@
       padding: 2.5rem 1.5rem;
     }
   }
+
+  /* Small phones: keep "+25.000€" from forcing the page wider than the screen */
+  @media (max-width: 380px) {
+    .bento-card {
+      padding: 2rem 1rem;
+    }
+    .bento-card .highlight {
+      font-size: clamp(2.2rem, 11vw, 3.2rem);
+    }
+  }
 </style>
