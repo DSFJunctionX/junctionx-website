@@ -36,7 +36,8 @@ export interface ProgrammeDay {
 
 export interface TeamMember {
   name: string;
-  role: string;
+  /** Leave out when the role is not documented; never guess one. */
+  role?: string;
   linkedin?: string;
   image?: string;
 }

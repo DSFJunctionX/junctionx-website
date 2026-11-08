@@ -142,8 +142,11 @@ export const team2025: TeamMember[] = [
   { name: 'Diogo Franquinho', role: 'Event lead', linkedin: 'https://www.linkedin.com/in/diogofranquinho/' },
   { name: 'Diogo Andrade', role: 'Event lead', linkedin: 'https://www.linkedin.com/in/diogofreiredeandrade/' },
   { name: 'Aleksey Pyrko', role: 'Tech lead', linkedin: 'https://www.linkedin.com/in/aleksei-pyrko/' },
-  { name: 'João Pinto', role: 'Partnerships' },
+  { name: 'João Pinto', role: 'Partnerships', linkedin: 'https://www.linkedin.com/in/joao-pinto-future-engineer/' },
   { name: 'Anastasiya Yelkhovenka', role: 'Front-end developer', linkedin: 'https://www.linkedin.com/in/anastasiyayelkhovenka/' },
+  // Not listed on the original website; their roles are not recorded, so none is shown.
+  { name: 'Samuel Babjak', linkedin: 'https://www.linkedin.com/in/samuelbabjak/' },
+  { name: 'Francisco Agostinho', linkedin: 'https://www.linkedin.com/in/fcagostinho/' },
 ];
 
 export const faq2025: FaqItem[] = [
