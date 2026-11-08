@@ -29,6 +29,13 @@ import {
 } from '../../../data/editions/2025';
 
 const event = getEvent(2025);
+const collage = {
+  png: '/assets/events/2025/junctionx-lisbon-2025-collage.png',
+  webp: '/assets/events/2025/junctionx-lisbon-2025-collage.webp',
+  alt: event.image?.alt ?? '',
+  width: 800,
+  height: 640,
+};
 
 const nav = [
   { href: '#about', label: 'About' },
@@ -48,6 +55,7 @@ const nav = [
   nav={nav}
   title="JunctionX Lisbon 2025 · Founding Edition"
   description="Archive of JunctionX Lisbon 2025, the founding edition: a 36-hour hackathon held on 18–19 October 2025 at Técnico’s Oeiras campus, with challenges from Glintt, Albatroz Engenharia and the Gulbenkian Institute for Molecular Medicine."
+  image={{ src: collage.png, alt: collage.alt, width: collage.width, height: collage.height }}
 >
   <p slot="brand" class="lockup-2025" aria-hidden="true">
     Junction<img src="/assets/junctionx-wordmark-small.png" alt="" width="108" height="108" />Lisbon
@@ -74,6 +82,21 @@ const nav = [
           first time. The winners earned tickets to <a href="https://hackjunction.com" target="_blank" rel="noopener noreferrer">Junction</a> in Finland.
         </p>
       </div>
+
+      <figure class="collage-2025">
+        <picture>
+          <source srcset={collage.webp} type="image/webp" />
+          <img
+            src={collage.png}
+            alt={collage.alt}
+            width={collage.width}
+            height={collage.height}
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <figcaption>JunctionX Lisbon 2025: the venue, teams at work and a speaker on stage.</figcaption>
+      </figure>
 
       <dl class="highlights">
         {
@@ -226,6 +249,25 @@ const nav = [
   .about-2025 {
     display: grid;
     gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  /* Shown at up to its native 800px width so it is never upscaled. */
+  .collage-2025 {
+    max-width: 50rem;
+    margin: 0;
+  }
+
+  .collage-2025 img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .collage-2025 figcaption {
+    margin-top: 0.75rem;
+    color: var(--text-subtle);
+    font-size: 0.875rem;
   }
 
   .highlights {

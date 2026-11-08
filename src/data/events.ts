@@ -93,6 +93,12 @@ export const PAST_EVENTS: PastEvent[] = [
       { label: 'Venue', value: 'Técnico – Oeiras Campus' },
       { label: 'Winners', value: 'Três Mosqueteiros' },
     ],
+    image: {
+      src: '/assets/events/2025/junctionx-lisbon-2025-collage.webp',
+      alt: "Collage of five photographs from JunctionX Lisbon 2025: the bright venue with palm trees and participants talking at a table, a team working on laptops, a speaker in a JunctionX Lisbon T-shirt presenting at a lectern, an audience seated in a lecture room, and participants smiling during a session.",
+      width: 800,
+      height: 640,
+    },
     coverMark: '/assets/junctionx-wordmark.png',
     links: [{ href: '/past-events/2025/#winners', label: 'Meet the winners' }],
     theme: { accent: '#6c77ff', background: '#0b0a28' },
