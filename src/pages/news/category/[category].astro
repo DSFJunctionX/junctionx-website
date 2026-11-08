@@ -1,0 +1,35 @@
+---
+// One page per news category that has articles, e.g. /news/category/announcements/
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import NewsFeed from '../../../components/NewsFeed.astro';
+import { getNews, usedCategories, type NewsEntry } from '../../../lib/news';
+
+export async function getStaticPaths() {
+  const news = await getNews();
+  const categories = usedCategories(news);
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: {
+      label: category.label,
+      entries: news.filter((entry) => entry.data.category === category.label),
+      categories,
+    },
+  }));
+}
+
+interface Props {
+  label: string;
+  entries: NewsEntry[];
+  categories: { label: string; slug: string }[];
+}
+
+const { label, entries, categories } = Astro.props;
+const { category } = Astro.params;
+---
+
+<SiteLayout title={`${label} · News`} description={`JunctionX Lisbon news in the ${label} category.`}>
+  <PageHeader eyebrow="News" title={label} lead={`JunctionX Lisbon news filed under ${label}, newest first.`} />
+
+  <NewsFeed entries={entries} categories={categories} activeCategory={category} />
+</SiteLayout>

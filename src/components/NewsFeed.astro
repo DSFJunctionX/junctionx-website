@@ -1,0 +1,153 @@
+---
+// Chronological news feed grouped by year, with category filters.
+// Used by /news/ and /news/category/<slug>/.
+import NewsCard from './NewsCard.astro';
+import { SOCIAL_LINKS } from '../data/site';
+import { groupByYear, type NewsEntry } from '../lib/news';
+
+interface Props {
+  entries: NewsEntry[];
+  /** Categories that have articles (for the filter bar). */
+  categories: readonly { label: string; slug: string }[];
+  /** Slug of the active category, if the feed is filtered. */
+  activeCategory?: string;
+}
+
+const { entries, categories, activeCategory } = Astro.props;
+const groups = groupByYear(entries);
+const linkedin = SOCIAL_LINKS.find((link) => link.label === 'LinkedIn');
+const instagram = SOCIAL_LINKS.find((link) => link.label === 'Instagram');
+---
+
+<div class="container news-feed">
+  {
+    categories.length > 1 && (
+      <nav class="news-filter" aria-label="Filter news by category">
+        <ul role="list">
+          <li>
+            <a href="/news/" aria-current={activeCategory ? undefined : 'page'}>
+              All
+            </a>
+          </li>
+          {categories.map((category) => (
+            <li>
+              <a
+                href={`/news/category/${category.slug}/`}
+                aria-current={activeCategory === category.slug ? 'page' : undefined}
+              >
+                {category.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+
+  {
+    groups.length > 0 ? (
+      groups.map((group) => (
+        <section class="news-year" aria-labelledby={`news-${group.year}`}>
+          <h2 id={`news-${group.year}`} class="news-year__label">
+            {group.year}
+          </h2>
+          <div class="news-year__list">
+            {group.entries.map((entry) => (
+              <NewsCard entry={entry} headingLevel={3} />
+            ))}
+          </div>
+        </section>
+      ))
+    ) : (
+      <div class="empty-state">
+        <p class="empty-state__title">No announcements yet</p>
+        <p>
+          Announcements and updates from the JunctionX Lisbon team will appear here. In the
+          meantime, follow us on{' '}
+          <a class="text-link" href={linkedin?.href} target="_blank" rel="noopener noreferrer">LinkedIn</a>{' '}
+          or{' '}
+          <a class="text-link" href={instagram?.href} target="_blank" rel="noopener noreferrer">Instagram</a>,
+          or browse our <a class="text-link" href="/past-events/">past events</a>.
+        </p>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .news-feed {
+    padding-bottom: var(--section-space);
+  }
+
+  .news-filter {
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .news-filter ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .news-filter a {
+    display: inline-block;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .news-filter a:hover {
+    color: var(--text);
+    border-color: var(--text-subtle);
+  }
+
+  .news-filter a[aria-current='page'] {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .news-year {
+    display: grid;
+    gap: 0 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 64rem) {
+    .news-year {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+  }
+
+  .news-year__label {
+    padding-top: 1.75rem;
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+
+  .news-year__list {
+    max-width: 56rem;
+  }
+
+  /* The year group already draws the top rule. */
+  .news-year__list > :global(.news-card:first-child) {
+    border-top: 0;
+  }
+
+  @media (max-width: 63.99rem) {
+    .news-year__label {
+      padding-top: 1.5rem;
+    }
+  }
+
+  .empty-state {
+    max-width: 44rem;
+  }
+</style>

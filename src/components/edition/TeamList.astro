@@ -1,0 +1,98 @@
+---
+// Organising team of an edition. Every card has the same structure: optional
+// photo, role (only when documented), name and a LinkedIn link.
+import type { TeamMember } from '../../data/editions/types';
+
+interface Props {
+  members: TeamMember[];
+}
+
+const { members } = Astro.props;
+---
+
+<ul class="team" role="list">
+  {
+    members.map((member) => (
+      <li class="team__member">
+        {member.image && <img class="team__photo" src={member.image} alt="" loading="lazy" decoding="async" />}
+        {member.role && <p class="team__role">{member.role}</p>}
+        <p class="team__name">{member.name}</p>
+        {member.linkedin && (
+          <a class="team__link" href={member.linkedin} target="_blank" rel="noopener noreferrer">
+            <svg class="team__icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+              <path
+                fill="currentColor"
+                d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"
+              />
+            </svg>
+            LinkedIn<span class="visually-hidden">: {member.name} (opens in a new tab)</span>
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .team {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 1rem;
+  }
+
+  .team__member {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .team__photo {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 0.75rem;
+    object-fit: cover;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .team__role {
+    color: var(--edition-accent, var(--accent));
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .team__name {
+    font-weight: 600;
+  }
+
+  /* Pinned to the bottom so links line up across cards with and without a role. */
+  .team__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  .team__link:hover {
+    color: var(--text);
+  }
+
+  .team__link:hover .team__icon {
+    color: #0a66c2;
+  }
+
+  .team__icon {
+    flex-shrink: 0;
+    border-radius: 2px;
+    background: transparent;
+  }
+</style>

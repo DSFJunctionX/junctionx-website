@@ -1,0 +1,80 @@
+---
+// Programme of an edition, one column per day.
+import type { ProgrammeDay } from '../../data/editions/types';
+
+interface Props {
+  days: ProgrammeDay[];
+  /** UTC offset for <time datetime>, e.g. "+01:00" (Lisbon summer time). */
+  utcOffset: string;
+}
+
+const { days, utcOffset } = Astro.props;
+---
+
+<div class="programme">
+  {
+    days.map((day) => (
+      <section class="programme__day" aria-label={`${day.weekday}, ${day.label}`}>
+        <h3 class="programme__heading">
+          <span class="eyebrow">{day.weekday}</span>
+          <time datetime={day.date}>{day.label}</time>
+        </h3>
+        <ol class="programme__slots" role="list">
+          {day.slots.map((slot) => (
+            <li>
+              <time datetime={`${day.date}T${slot.time}:00${utcOffset}`}>{slot.time}</time>
+              <span>
+                {slot.href ? (
+                  <a class="text-link" href={slot.href} target="_blank" rel="noopener noreferrer">
+                    {slot.title}
+                  </a>
+                ) : (
+                  slot.title
+                )}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .programme {
+    display: grid;
+    gap: 2rem 3rem;
+  }
+
+  @media (min-width: 44rem) {
+    .programme {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .programme__heading {
+    display: grid;
+    gap: 0.3rem;
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+  }
+
+  .programme__slots {
+    margin-top: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .programme__slots li {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .programme__slots time {
+    color: var(--edition-accent, var(--accent));
+    font-family: var(--mono);
+    font-size: 0.9rem;
+  }
+</style>

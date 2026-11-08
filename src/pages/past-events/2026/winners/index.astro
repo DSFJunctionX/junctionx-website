@@ -1,0 +1,118 @@
+---
+// Winners of JunctionX Lisbon 2026 (formerly /winners-2026/, which redirects here).
+// The original page's text, photo, caption, SEO metadata and "organise the next
+// edition" card are preserved inside the shared edition frame.
+import EditionLayout from '../../../../layouts/EditionLayout.astro';
+import EditionSection from '../../../../components/edition/EditionSection.astro';
+import WinnerFeature from '../../../../components/edition/WinnerFeature.astro';
+import OrganiseCard from '../../../../components/archive-2026/OrganiseCard.astro';
+import { getEvent } from '../../../../data/events';
+import { edition2026Nav, winnerMembers2026, winnerSources2026 } from '../../../../data/editions/2026';
+
+const event = getEvent(2026);
+const photo = '/assets/winners/junctionx-lisbon-2026-winners.jpg';
+const photoAlt = "The five members of No Other Choice smiling on stage at JunctionX Lisbon 2026, holding the winner's cheque for €1,500.";
+---
+
+<EditionLayout
+  event={event}
+  nav={edition2026Nav('/past-events/2026/')}
+  subpage="Winners"
+  heroTitle="Celebrating JunctionX Lisbon 2026"
+  heroSummary="Congratulations to No Other Choice, the winning team of JunctionX Lisbon 2026!"
+  title="JunctionX Lisbon 2026 Winners"
+  description="Congratulations to No Other Choice, the winning team of JunctionX Lisbon 2026."
+  image={{ src: photo, alt: photoAlt, width: 1253, height: 946 }}
+>
+  <Fragment slot="actions">
+    <a class="link-arrow" href="/past-events/2026/">Explore the JunctionX Lisbon 2026 archive</a>
+  </Fragment>
+
+  <EditionSection id="winners" label="Winners" title="The winning team">
+    <figure class="winners-photo">
+      <img
+        src={photo}
+        alt={photoAlt}
+        width="1253"
+        height="946"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <figcaption>No Other Choice, winners of JunctionX Lisbon 2026</figcaption>
+    </figure>
+
+    <p class="winners-thanks">
+      Thank you to everyone who participated, mentored, partnered with us, and helped make this
+      edition possible.
+    </p>
+
+    <div class="winners-details">
+      <WinnerFeature
+        team="No Other Choice"
+        result="1st place overall · Inspiring Solutions challenge"
+        members={winnerMembers2026}
+        membersNote="Four students from Técnico’s Department of Computer Science and Engineering (DEI) and one from the Faculty of Sciences of the University of Lisbon (FCUL)"
+        prize="€1,500 and a place at Junction 2026 in Espoo, Finland"
+        sources={winnerSources2026}
+      >
+        <p>
+          The team tackled Inspiring Solutions’ QuantumTrace challenge, which asked participants to
+          uncover cryptography that quantum computing will make vulnerable. Their solution combined
+          a platform that checks source code, network traffic, cloud configurations, certificates and
+          websites; a browser extension that flags insecure website connections; and a Visual
+          Studio Code extension that suggests AI-assisted fixes.
+        </p>
+        <p><a href="/news/no-other-choice-wins-junctionx-lisbon-2026/">Read the story in News</a></p>
+      </WinnerFeature>
+    </div>
+  </EditionSection>
+
+  <section class="winners-organise" aria-labelledby="organise-title">
+    <div class="container section-grid">
+      <p class="eyebrow winners-organise__label">Get involved</p>
+      <div>
+        <OrganiseCard titleId="organise-title" />
+      </div>
+    </div>
+  </section>
+</EditionLayout>
+
+<style>
+  .winners-photo {
+    margin: 0;
+  }
+
+  .winners-photo img {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .winners-photo figcaption {
+    margin-top: 0.85rem;
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .winners-thanks {
+    max-width: 40rem;
+    margin-top: 2rem;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  }
+
+  .winners-details {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .winners-organise {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    border-top: 1px solid var(--border);
+  }
+
+  .winners-organise__label {
+    color: var(--edition-accent);
+  }
+</style>

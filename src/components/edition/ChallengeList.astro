@@ -1,0 +1,151 @@
+---
+// Challenges of an edition, each with its partner, summary, full brief and PDF.
+import LogoTile from './LogoTile.astro';
+import type { Challenge } from '../../data/editions/types';
+
+interface Props {
+  challenges: Challenge[];
+}
+
+const { challenges } = Astro.props;
+---
+
+<ol class="challenges" role="list">
+  {
+    challenges.map((challenge, index) => (
+      <li class="challenge">
+        <div class="challenge__aside">
+          {challenge.logo && <LogoTile logo={challenge.logo} alt={`${challenge.partner} logo`} size="sm" />}
+          <p class="challenge__partner">
+            <span class="challenge__number">{String(index + 1).padStart(2, '0')}</span>
+            {challenge.partner}
+          </p>
+        </div>
+        <div class="challenge__body">
+          <h3 class="challenge__title">{challenge.title}</h3>
+          <p class="challenge__summary" set:html={challenge.summary} />
+
+          {challenge.brief && (
+            <details class="challenge__brief">
+              <summary>Read the challenge description</summary>
+              <div class="prose">
+                {challenge.brief.map((paragraph) => (
+                  <p set:html={paragraph} />
+                ))}
+                {challenge.briefList && (
+                  <ul>
+                    {challenge.briefList.map((item) => (
+                      <li set:html={item} />
+                    ))}
+                  </ul>
+                )}
+                {challenge.briefOutro && <p set:html={challenge.briefOutro} />}
+              </div>
+            </details>
+          )}
+
+          {challenge.pdf && (
+            <p class="challenge__pdf">
+              <a class="link-arrow" href={challenge.pdf} target="_blank" rel="noopener noreferrer">
+                Full brief (PDF)
+              </a>
+            </p>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .challenges {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .challenge {
+    display: grid;
+    gap: 1.25rem 2.5rem;
+    padding-block: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 48rem) {
+    .challenge {
+      grid-template-columns: 13rem minmax(0, 1fr);
+    }
+  }
+
+  .challenge__aside {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    max-width: 16rem;
+  }
+
+  .challenge__partner {
+    display: flex;
+    gap: 0.6rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .challenge__number {
+    color: var(--edition-accent, var(--accent));
+    font-family: var(--mono);
+  }
+
+  .challenge__title {
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    letter-spacing: -0.03em;
+  }
+
+  .challenge__summary {
+    max-width: 44rem;
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .challenge__brief {
+    margin-top: 1.25rem;
+  }
+
+  .challenge__brief summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .challenge__brief summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .challenge__brief summary::before {
+    content: '+';
+    display: inline-grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+
+  .challenge__brief[open] summary::before {
+    content: '−';
+  }
+
+  .challenge__brief .prose {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .challenge__pdf {
+    margin-top: 1.25rem;
+  }
+</style>

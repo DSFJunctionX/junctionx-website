@@ -1,0 +1,155 @@
+---
+// One row in a news feed: date, category, title, description and an optional image.
+// Summaries of external press coverage are labelled with their publishers.
+import { categorySlug } from '../data/news-categories';
+import { formatDate, isoDate, publishers, type NewsEntry } from '../lib/news';
+
+interface Props {
+  entry: NewsEntry;
+  headingLevel?: 2 | 3;
+}
+
+const { entry, headingLevel = 2 } = Astro.props;
+const { title, description, pubDate, heroImage, draft, category, kind } = entry.data;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const href = `/news/${entry.id}/`;
+const isPress = kind === 'press';
+---
+
+<article class="news-card">
+  <div class="news-card__text">
+    <p class="news-card__meta">
+      <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+      <a class="news-card__category" href={`/news/category/${categorySlug(category)}/`}>{category}</a>
+      {draft && <span class="news-card__draft">Draft</span>}
+    </p>
+    <Heading class="news-card__title">
+      <a href={href}>{title}</a>
+    </Heading>
+    <p class="news-card__description">{description}</p>
+    {
+      isPress && (
+        <p class="news-card__press">
+          <span class="news-card__press-label">Press coverage</span>
+          <span>{publishers(entry).join(' · ')}</span>
+        </p>
+      )
+    }
+  </div>
+  {
+    heroImage && (
+      <img
+        class="news-card__image"
+        src={heroImage}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
+</article>
+
+<style>
+  .news-card {
+    position: relative;
+    display: grid;
+    gap: 1.25rem 2.5rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 44rem) {
+    .news-card:has(.news-card__image) {
+      grid-template-columns: minmax(0, 1fr) 13rem;
+      align-items: start;
+    }
+  }
+
+  .news-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+  }
+
+  /* Sits above the card-wide title link so it stays independently clickable. */
+  .news-card__category {
+    position: relative;
+    z-index: 1;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .news-card__category:hover {
+    text-decoration: underline;
+  }
+
+  .news-card__draft {
+    padding: 0.1rem 0.5rem;
+    border: 1px dashed var(--accent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .news-card__title {
+    margin-top: 0.6rem;
+    font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+    letter-spacing: -0.025em;
+  }
+
+  .news-card__title a {
+    text-decoration: none;
+  }
+
+  /* The title link covers the whole card, so the entire row is clickable. */
+  .news-card__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .news-card:hover .news-card__title a {
+    color: var(--accent);
+  }
+
+  .news-card__description {
+    max-width: 40rem;
+    margin-top: 0.6rem;
+    color: var(--text-muted);
+  }
+
+  .news-card__press {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.75rem;
+    margin-top: 0.9rem;
+    color: var(--text-subtle);
+    font-size: 0.875rem;
+  }
+
+  .news-card__press-label {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .news-card__image {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+</style>

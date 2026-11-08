@@ -1,0 +1,149 @@
+---
+// Minimal footer for the evergreen site.
+import { NAV_LINKS, SITE, SOCIAL_LINKS } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="/" class="site-footer__logo">
+        <img src="/assets/junctionx-banner.png" alt="JunctionX" width="926" height="123" />
+        <span>Lisbon</span>
+      </a>
+      <p class="site-footer__tagline">{SITE.tagline}</p>
+    </div>
+
+    <nav class="site-footer__col" aria-labelledby="footer-site">
+      <h2 id="footer-site" class="eyebrow">Site</h2>
+      <ul role="list">
+        {NAV_LINKS.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-footer__col">
+      <h2 class="eyebrow">Contact</h2>
+      <ul role="list">
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="eyebrow">Follow</h2>
+      <ul role="list">
+        {
+          SOCIAL_LINKS.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+                <span class="visually-hidden"> (opens in a new tab)</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="site-footer__bottom">
+      <p>© {year} {SITE.name}</p>
+      <a href="/privacy/">Privacy policy</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: clamp(3rem, 7vw, 4.5rem);
+  }
+
+  @media (min-width: 40rem) {
+    .site-footer__grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .site-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .site-footer__grid {
+      grid-template-columns: 2fr 1fr 1.4fr 1fr;
+    }
+
+    .site-footer__brand {
+      grid-column: auto;
+    }
+  }
+
+  .site-footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .site-footer__logo img {
+    width: auto;
+    height: 1.35rem;
+  }
+
+  .site-footer__logo span {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .site-footer__tagline {
+    margin-top: 1rem;
+  }
+
+  .site-footer__col h2 {
+    margin-bottom: 1rem;
+  }
+
+  .site-footer__col li + li {
+    margin-top: 0.5rem;
+  }
+
+  .site-footer a {
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .site-footer__col a,
+  .site-footer__bottom a {
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .site-footer__col a:hover,
+  .site-footer__bottom a:hover {
+    color: var(--text);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    padding-block: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-subtle);
+    font-size: 0.875rem;
+  }
+</style>

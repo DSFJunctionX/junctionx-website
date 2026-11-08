@@ -1,0 +1,95 @@
+---
+// Partners of an edition, grouped (e.g. challenge partners, community partners).
+import LogoTile from './LogoTile.astro';
+import type { Partner } from '../../data/editions/types';
+
+interface Props {
+  groups: { label: string; note?: string; partners: Partner[] }[];
+}
+
+const { groups } = Astro.props;
+---
+
+<div class="partner-groups">
+  {
+    groups.map((group) => {
+      const detailed = group.partners.some((partner) => partner.description);
+      return (
+        <div class="partner-group">
+          <h3 class="eyebrow partner-group__label">{group.label}</h3>
+          <ul class:list={['partner-group__list', { 'partner-group__list--detailed': detailed }]} role="list">
+            {group.partners.map((partner) => (
+              <li class="partner">
+                {partner.logo && <LogoTile logo={partner.logo} alt="" size={detailed ? 'md' : 'sm'} />}
+                <p class="partner__name">
+                  {partner.url ? (
+                    <a href={partner.url} target="_blank" rel="noopener noreferrer">
+                      {partner.name}
+                    </a>
+                  ) : (
+                    partner.name
+                  )}
+                </p>
+                {partner.description && <p class="partner__description">{partner.description}</p>}
+              </li>
+            ))}
+          </ul>
+          {group.note && <p class="partner-group__note">{group.note}</p>}
+        </div>
+      );
+    })
+  }
+</div>
+
+<style>
+  .partner-groups {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  .partner-group__label {
+    margin-bottom: 1rem;
+  }
+
+  .partner-group__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: 1rem;
+  }
+
+  .partner-group__list--detailed {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .partner {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+  }
+
+  .partner__name {
+    font-weight: 600;
+    font-size: 0.975rem;
+  }
+
+  .partner__name a {
+    text-decoration: none;
+  }
+
+  .partner__name a:hover {
+    color: var(--accent);
+  }
+
+  .partner__description {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .partner-group__note {
+    max-width: 40rem;
+    margin-top: 1rem;
+    color: var(--text-subtle);
+    font-size: 0.875rem;
+  }
+</style>

@@ -1,0 +1,175 @@
+---
+// The winning team of an edition: team, result, members, optional photo, a
+// description of the project (default slot) and the sources it is based on.
+import type { EventImage } from '../../data/events';
+import type { WinnerSource } from '../../data/editions/types';
+
+interface Props {
+  team: string;
+  result: string;
+  members: string[];
+  /** e.g. "Computer Science and Engineering undergraduates at Técnico". */
+  membersNote?: string;
+  prize?: string;
+  image?: EventImage;
+  sources?: WinnerSource[];
+}
+
+const { team, result, members, membersNote, prize, image, sources = [] } = Astro.props;
+---
+
+<article class="winner">
+  {
+    image && (
+      <figure class="winner__figure">
+        <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+      </figure>
+    )
+  }
+
+  <div class="winner__header">
+    <p class="winner__result">{result}</p>
+    <h3 class="winner__team">{team}</h3>
+  </div>
+
+  <dl class="winner__facts">
+    <div>
+      <dt>Team</dt>
+      <dd>
+        {members.join(', ')}
+        {membersNote && <span class="winner__note">{membersNote}</span>}
+      </dd>
+    </div>
+    {
+      prize && (
+        <div>
+          <dt>Prize</dt>
+          <dd>{prize}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  <div class="prose winner__body">
+    <slot />
+  </div>
+
+  {
+    sources.length > 0 && (
+      <div class="winner__sources">
+        <p class="eyebrow">Sources</p>
+        <ul role="list">
+          {sources.map((source) => (
+            <li>
+              <a href={source.url} target="_blank" rel="noopener noreferrer">
+                {source.title}
+              </a>
+              <span>
+                {source.publisher}
+                {source.date && ` · ${source.date}`}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .winner {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .winner__figure {
+    margin: 0;
+  }
+
+  .winner__figure img {
+    width: 100%;
+    max-height: 34rem;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .winner__result {
+    color: var(--edition-accent, var(--accent));
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .winner__team {
+    margin-top: 0.5rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.04em;
+  }
+
+  .winner__facts {
+    display: grid;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding-block: 1.25rem;
+    border-block: 1px solid var(--border);
+  }
+
+  @media (min-width: 44rem) {
+    .winner__facts {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .winner__facts dt {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .winner__facts dd {
+    margin: 0.35rem 0 0;
+    font-weight: 500;
+  }
+
+  .winner__note {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .winner__body {
+    font-size: 1.0625rem;
+  }
+
+  .winner__sources ul {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .winner__sources li {
+    display: grid;
+    gap: 0.15rem;
+    font-size: 0.9375rem;
+  }
+
+  .winner__sources a {
+    color: var(--text);
+    text-decoration-color: var(--border-strong);
+  }
+
+  .winner__sources a:hover {
+    color: var(--accent);
+  }
+
+  .winner__sources span {
+    color: var(--text-subtle);
+    font-size: 0.8125rem;
+  }
+</style>

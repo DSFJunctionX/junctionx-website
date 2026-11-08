@@ -1,0 +1,53 @@
+---
+// A partner logo on a tile that suits it: light tiles for dark or colourful
+// logos, dark tiles for white ones. Logos are shown as originally supplied.
+import type { Logo } from '../../data/editions/types';
+
+interface Props {
+  logo: Logo;
+  alt: string;
+  size?: 'md' | 'sm';
+}
+
+const { logo, alt, size = 'md' } = Astro.props;
+---
+
+<span class:list={['logo-tile', `logo-tile--${logo.tone}`, `logo-tile--${size}`]}>
+  <img src={logo.src} alt={alt} loading="lazy" decoding="async" />
+</span>
+
+<style>
+  .logo-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .logo-tile--light {
+    background: #f4f4f6;
+  }
+
+  .logo-tile--dark {
+    background: #161922;
+  }
+
+  .logo-tile--md {
+    height: 6.5rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .logo-tile--sm {
+    height: 4.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .logo-tile img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+</style>
