@@ -1,0 +1,63 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import EventCard from '../../components/EventCard.astro';
+import { getPastEvents } from '../../data/events';
+
+const events = getPastEvents();
+const latest = events[0];
+---
+
+<SiteLayout
+  title="Past Events"
+  description="The archive of JunctionX Lisbon editions: challenges, partners, organising teams and winners."
+  image={latest?.image}
+>
+  <PageHeader
+    eyebrow="Archive"
+    title="Past events"
+    lead="JunctionX Lisbon began in 2025. Each edition is a chapter in its history, preserved with its challenges, partners, people and projects."
+  />
+
+  <div class="container archive">
+    <ol class="archive__list" role="list">
+      {
+        events.map((event) => (
+          <li class="archive__item">
+            <p class="archive__year" aria-hidden="true">
+              {event.year}
+            </p>
+            <EventCard event={event} headingLevel={2} />
+          </li>
+        ))
+      }
+    </ol>
+
+  </div>
+</SiteLayout>
+
+<style>
+  .archive {
+    padding-bottom: var(--section-space);
+  }
+
+  .archive__item {
+    display: grid;
+    gap: 1rem 3rem;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 64rem) {
+    .archive__item {
+      grid-template-columns: 8rem 1fr;
+    }
+  }
+
+  .archive__year {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+  }
+</style>

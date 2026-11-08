@@ -1,0 +1,67 @@
+---
+// Frequently asked questions. Uses native <details>, so it works without JavaScript.
+import type { FaqItem } from '../../data/editions/types';
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((item) => (
+      <details class="faq__item">
+        <summary>{item.question}</summary>
+        <p class="faq__answer" set:html={item.answer} />
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    max-width: 48rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq__item {
+    border-top: 1px solid var(--border);
+  }
+
+  .faq__item summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary::after {
+    content: '+';
+    flex-shrink: 0;
+    color: var(--edition-accent, var(--accent));
+    font-family: var(--mono);
+  }
+
+  .faq__item[open] summary::after {
+    content: '−';
+  }
+
+  .faq__answer {
+    max-width: 42rem;
+    padding-bottom: 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .faq__answer :global(a) {
+    color: var(--accent);
+  }
+</style>

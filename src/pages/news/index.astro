@@ -1,0 +1,21 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import NewsFeed from '../../components/NewsFeed.astro';
+import { getNews, usedCategories } from '../../lib/news';
+
+const news = await getNews();
+---
+
+<SiteLayout
+  title="News"
+  description="Announcements, updates and press coverage of JunctionX Lisbon, from the first edition in 2025 to today."
+>
+  <PageHeader
+    eyebrow="Announcements & press"
+    title="News"
+    lead="Announcements, updates and press coverage of JunctionX Lisbon, newest first."
+  />
+
+  <NewsFeed entries={news} categories={usedCategories(news)} />
+</SiteLayout>

@@ -1,0 +1,78 @@
+---
+// Documents, pages and external links of an edition.
+import type { Resource } from '../../data/editions/types';
+
+interface Props {
+  resources: Resource[];
+}
+
+const { resources } = Astro.props;
+const isExternal = (resource: Resource) => resource.type === 'External' || resource.type === 'PDF';
+---
+
+<ul class="resources" role="list">
+  {
+    resources.map((resource) => (
+      <li>
+        <a
+          class="resource"
+          href={resource.href}
+          target={isExternal(resource) ? '_blank' : undefined}
+          rel={isExternal(resource) ? 'noopener noreferrer' : undefined}
+        >
+          <span class="resource__type">{resource.type}</span>
+          <span class="resource__label">{resource.label}</span>
+          <span class="resource__arrow" aria-hidden="true">
+            {isExternal(resource) ? '↗' : '→'}
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .resources {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .resource {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding-block: 0.9rem;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+  }
+
+  .resource:hover .resource__label {
+    color: var(--accent);
+  }
+
+  .resource__type {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .resource__label {
+    color: var(--text);
+  }
+
+  .resource__arrow {
+    color: var(--text-subtle);
+  }
+
+  @media (max-width: 30rem) {
+    .resource {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .resource__type {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

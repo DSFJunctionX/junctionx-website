@@ -1,0 +1,632 @@
+---
+// Archive of JunctionX Lisbon 2026, the second edition.
+// The shared edition frame (EditionLayout) wraps the original 2026 website,
+// whose sections and styles are preserved unchanged in
+// src/components/archive-2026/ and src/styles/archive-2026.css.
+import EditionLayout from '../../../layouts/EditionLayout.astro';
+import EditionSection from '../../../components/edition/EditionSection.astro';
+import WinnerFeature from '../../../components/edition/WinnerFeature.astro';
+import ResourceList from '../../../components/edition/ResourceList.astro';
+import About from "../../../components/archive-2026/sections/About.astro";
+import Prizes from "../../../components/archive-2026/sections/Prizes.astro";
+import Sponsors from "../../../components/archive-2026/sections/Sponsors.astro";
+import Video from "../../../components/archive-2026/sections/Video.astro";
+import Location from "../../../components/archive-2026/sections/Location.astro";
+import FAQs from "../../../components/archive-2026/sections/FAQs.astro";
+import Team from "../../../components/archive-2026/sections/Team.astro";
+import Challenges from '../../../components/archive-2026/sections/Challenges.astro';
+import { getEvent } from '../../../data/events';
+import { edition2026Nav, resources2026, winnerMembers2026, winnerSources2026 } from '../../../data/editions/2026';
+import '../../../styles/archive-2026.css';
+
+const event = getEvent(2026);
+const winnersHref = '/past-events/2026/winners/';
+---
+
+<EditionLayout
+  event={event}
+  nav={edition2026Nav('')}
+  title="JunctionX Lisbon 2026 · Second Edition"
+  description="Archive of JunctionX Lisbon 2026, the second edition: Portugal's student hackathon held on 10–11 October 2026 in Lisbon, with more than €25,000 in prizes. Challenges, sponsors, schedule, team and winners."
+  image={event.image}
+>
+  <Fragment slot="head">
+    <!-- Typeface of the original 2026 website (headings of the preserved sections). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  </Fragment>
+
+  <p slot="brand" class="lockup-2026" aria-hidden="true">
+    <img src="/assets/junctionx-banner.png" alt="" width="926" height="123" /><span>Lisbon</span>
+  </p>
+
+  <Fragment slot="actions">
+    <a class="button" href={winnersHref}>Meet the winners</a>
+    <a class="link-arrow" href="#original-website">Explore the original website</a>
+  </Fragment>
+
+  <EditionSection id="winners" label="Winners" title="The winners">
+    <WinnerFeature
+      team="No Other Choice"
+      result="1st place overall · Inspiring Solutions challenge"
+      members={winnerMembers2026}
+      membersNote="Four students from Técnico’s Department of Computer Science and Engineering (DEI) and one from the Faculty of Sciences of the University of Lisbon (FCUL)"
+      prize="€1,500 and a place at Junction 2026 in Espoo, Finland"
+      image={event.image}
+      sources={winnerSources2026}
+    >
+      <p>
+        The team tackled Inspiring Solutions’ QuantumTrace challenge, which asked participants to
+        uncover cryptography that quantum computing will make vulnerable. Their solution, which DEI
+        refers to by the challenge’s name, combined a platform that checks source code, network
+        traffic, cloud configurations, certificates and websites; a browser extension that flags
+        insecure website connections; and a Visual Studio Code extension that suggests AI-assisted
+        fixes.
+      </p>
+      <p>
+        <a href={winnersHref}>Winners page</a> ·{' '}
+        <a href="/news/no-other-choice-wins-junctionx-lisbon-2026/">Read the story in News</a>
+      </p>
+    </WinnerFeature>
+  </EditionSection>
+
+  <div class="original-site" id="original-website">
+    <div class="container original-site__label">
+      <p class="eyebrow">Original event website</p>
+      <p>The JunctionX Lisbon 2026 website as it appeared after the event, preserved unchanged below.</p>
+    </div>
+
+    <div class="archive-2026">
+      <div class="zoom-wrapper">
+  <div id="top" class="main">
+    <canvas id="hero-canvas" class="main__canvas"></canvas>
+    <div class="main__bg" aria-hidden="true"></div>
+
+    <section id="home" class="container">
+      <div class="hero-content">
+        <div class="text-column">
+          <img src="/assets/junctionx-banner.png" alt="JunctionX" class="logo-banner">
+          <p class="h1">LISBON</p>
+          <p class="lead">
+            Portugal's largest student hackathon<br>
+            10-11 October 2026, in Lisbon
+          </p>
+          <!-- Desktop Button -->
+          <div class="actions desktop-actions">
+            <a class="btn btn--apply" href={winnersHref}>
+              MEET THE WINNERS <span class="btn--apply-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="countdown-column">
+          <div class="prize-callout" aria-label="More than 25,000 euros in prizes">
+            <span class="prize-callout__amount">+25.000€</span>
+            <span class="prize-callout__label">IN PRIZES</span>
+          </div>
+          
+          <div class="concluded" role="status">
+            <p class="concluded__eyebrow">EDITION CONCLUDED</p>
+            <p class="concluded__title">Thank you, Lisbon!</p>
+            <p class="concluded__text">JunctionX Lisbon 2026 took place on 10-11 October. Congratulations to <strong>No Other Choice</strong>, this year's winning team.</p>
+          </div>
+
+          <!-- Mobile Button (Shows under the concluded panel on small screens) -->
+          <div class="actions mobile-actions">
+            <a class="btn btn--apply" href={winnersHref}>
+              MEET THE WINNERS <span class="btn--apply-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <About />
+  <Prizes />
+  <Sponsors />
+  <Challenges />
+  <Video winnersHref={winnersHref} />
+  <Location />
+  <FAQs />
+  <Team />
+      </div>
+    </div>
+  </div>
+
+  <EditionSection id="resources" label="Resources" title="Documents and links">
+    <ResourceList resources={resources2026} />
+  </EditionSection>
+</EditionLayout>
+
+<style>
+  .lockup-2026 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .lockup-2026 img {
+    width: auto;
+    height: clamp(1.05rem, 2.1vw, 1.4rem);
+  }
+
+  .lockup-2026 span {
+    font-family: var(--mono);
+    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .original-site {
+    border-top: 1px solid var(--border);
+  }
+
+  .original-site__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+    padding-block: 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .original-site__label .eyebrow {
+    color: var(--edition-accent);
+  }
+
+  .main {
+    position: relative;
+    width: 100%;
+    min-height: 75vh;
+    min-height: 75svh;
+    background: linear-gradient(180deg, #0a0f1d 0%, #000000 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-block: clamp(2rem, 6vh, 4rem);
+    box-sizing: border-box;
+  }
+
+  .main__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    display: block;
+  }
+
+  .main__bg {
+    display: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: clamp(1.25rem, 6vw, 120px);
+    padding-right: clamp(1.25rem, 6vw, 120px);
+    box-sizing: border-box;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .text-column {
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .logo-banner {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  .lead {
+    font-size: clamp(0.9rem, 2vw, 1.125rem);
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .mobile-actions {
+    display: none; /* Hidden on Desktop */
+  }
+
+  .btn--apply {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(10, 15, 29, 0.6);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border: 2px solid #BDBDFF;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+
+  .btn--apply-arrow {
+    background: #BDBDFF;
+    color: #0a0f1d;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+  }
+
+  .btn--apply:hover,
+  .btn--apply:focus-visible {
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
+    transform: translateY(-2px);
+    border-color: #ff007f;
+  }
+
+  .btn--apply:hover .btn--apply-arrow {
+    transform: translateX(4px);
+    background: #ff007f;
+    color: #ffffff;
+  }
+
+  .countdown-column {
+    width: 100%;
+    max-width: 380px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  .prize-callout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 0 2rem 0; 
+    padding: 1.25rem 2rem;
+    border: 2px solid #ff007f;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(10, 15, 29, 0.9));
+    transform: rotate(-2deg);
+    animation: neon-pulse 2s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .prize-callout__amount {
+    color: #ffffff;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 0, 127, 0.4);
+  }
+
+  .prize-callout__label {
+    color: #ff78b9;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+  }
+
+  .concluded {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: clamp(16px, 3vw, 24px) clamp(16px, 4vw, 30px);
+    border-radius: 12px;
+    border: 1px solid rgba(189, 189, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(189, 189, 255, 0.1);
+  }
+
+  .concluded__eyebrow {
+    margin: 0;
+    color: #BDBDFF;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+  }
+
+  .concluded__title {
+    margin: 0.5rem 0;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 0 15px rgba(189, 189, 255, 0.4);
+  }
+
+  .concluded__text {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+  }
+
+  .concluded__text strong {
+    color: #ff78b9;
+  }
+
+  @keyframes neon-pulse {
+    0% {
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.3), inset 0 0 10px rgba(255, 0, 127, 0.1);
+      transform: scale(1) rotate(-2deg);
+    }
+    100% {
+      box-shadow: 0 0 40px rgba(255, 0, 127, 0.8), inset 0 0 25px rgba(255, 0, 127, 0.5);
+      transform: scale(1.04) rotate(-2deg);
+    }
+  }
+
+  @media (max-width: 960px) {
+    .hero-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+
+    .countdown-column {
+      max-width: 100%;
+    }
+    
+    .desktop-actions {
+      display: none; /* Hide the top apply button on mobile */
+    }
+
+    .mobile-actions {
+      display: flex; /* Show the bottom apply button on mobile */
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .main {
+      padding-block: 2rem;
+    }
+
+    .prize-callout {
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+    }
+  }
+
+  /* Small phones: stack the callout so it doesn't force the page wider than the screen */
+  @media (max-width: 400px) {
+    .prize-callout {
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .prize-callout__amount {
+      font-size: clamp(2rem, 10vw, 2.5rem);
+    }
+  }
+
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  const mainContainer = document.querySelector('.main');
+  const canvas = document.getElementById('hero-canvas');
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    mainContainer.clientWidth / mainContainer.clientHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 5;
+
+  const starCount = 1200;
+  const positions = new Float32Array(starCount * 3);
+
+  for (let i = 0; i < starCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+  }
+
+  const starGeometry = new THREE.BufferGeometry();
+  starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const starMaterial = new THREE.PointsMaterial({
+    color: 0xBDBDFF,
+    size: 0.05,
+    transparent: true,
+    opacity: 1,
+    depthWrite: false
+  });
+
+  const stars = new THREE.Points(starGeometry, starMaterial);
+  scene.add(stars);
+
+  /* --- UPGRADED COMETS --- */
+  const SHOOTING_STAR_COUNT = 6; 
+  const shootingStars = [];
+
+  const resetShootingStar = (star) => {
+    // Uniform angle (falling diagonally down-right)
+    const direction = new THREE.Vector3(1, -0.6, 0).normalize();
+
+    // Spawn further out, with varied Z depth
+    star.origin.set(
+      -10 - Math.random() * 5,
+      5 + Math.random() * 8,  
+      (Math.random() - 0.5) * 5 
+    );
+    
+    star.direction = direction;
+    star.speed = 20 + Math.random() * 15; 
+    star.length = 4 + Math.random() * 6; 
+    
+    star.delay = Math.random() * 12; 
+    
+    star.duration = 1.0 + Math.random() * 1.5; 
+    star.age = 0;
+
+    // Fixed color matching the background stars
+    const c = new THREE.Color(0xBDBDFF);
+    
+    star.head.material.color.copy(c);
+    star.headGlow.material.color.copy(c);
+
+    // Update vertex colors (Head uses color, Tail uses black which translates to transparent in AdditiveBlending)
+    const colors = star.line.geometry.attributes.color;
+    colors.setXYZ(0, c.r, c.g, c.b); 
+    colors.setXYZ(1, 0, 0, 0);       
+    colors.needsUpdate = true;
+  };
+
+  for (let i = 0; i < SHOOTING_STAR_COUNT; i++) {
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(),
+      new THREE.Vector3()
+    ]);
+    
+    // Add vertex colors buffer to geometry for the fading tail effect
+    const colors = new Float32Array([1, 1, 1,  0, 0, 0]);
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.LineBasicMaterial({
+      vertexColors: true, 
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    
+    const line = new THREE.Line(geometry, material);
+
+    // Small bright core
+    const head = new THREE.Mesh(
+      new THREE.SphereGeometry(0.04, 8, 8),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+
+    // Larger softer glow
+    const headGlow = new THREE.Mesh(
+      new THREE.SphereGeometry(0.12, 12, 12),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+
+    scene.add(line);
+    scene.add(head);
+    scene.add(headGlow);
+
+    const star = { line, head, headGlow, origin: new THREE.Vector3() };
+    resetShootingStar(star);
+    shootingStars.push(star);
+  }
+
+  const updateShootingStars = (delta) => {
+    shootingStars.forEach((star) => {
+      star.age += delta;
+
+      if (star.age < star.delay) {
+        star.line.material.opacity = 0;
+        star.head.material.opacity = 0;
+        star.headGlow.material.opacity = 0;
+        return;
+      }
+
+      const t = (star.age - star.delay) / star.duration;
+
+      if (t >= 1) {
+        resetShootingStar(star);
+        return;
+      }
+
+      const travelled = star.direction.clone().multiplyScalar(star.speed * (star.age - star.delay));
+      const headPos = star.origin.clone().add(travelled);
+      const tailPos = headPos.clone().sub(star.direction.clone().multiplyScalar(star.length));
+
+      const positionsAttr = star.line.geometry.attributes.position;
+      positionsAttr.setXYZ(0, headPos.x, headPos.y, headPos.z);
+      positionsAttr.setXYZ(1, tailPos.x, tailPos.y, tailPos.z);
+      positionsAttr.needsUpdate = true;
+
+      // Pulse opacity throughout the duration
+      const currentOpacity = Math.sin(t * Math.PI);
+      star.line.material.opacity = currentOpacity;
+      
+      star.head.position.copy(headPos);
+      star.head.material.opacity = currentOpacity;
+
+      star.headGlow.position.copy(headPos);
+      star.headGlow.material.opacity = currentOpacity * 0.5; 
+    });
+  };
+
+  const resize = () => {
+    const width = mainContainer.clientWidth;
+    const height = mainContainer.clientHeight;
+
+    if (width === 0 || height === 0) return;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  };
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  const clock = new THREE.Clock();
+
+  const animate = () => {
+    requestAnimationFrame(animate);
+    const delta = clock.getDelta();
+    const elapsed = clock.elapsedTime;
+
+    stars.rotation.y = elapsed * 0.02;
+    stars.rotation.x = elapsed * 0.01;
+
+    updateShootingStars(delta);
+
+    renderer.render(scene, camera);
+  };
+
+  animate();
+</script>

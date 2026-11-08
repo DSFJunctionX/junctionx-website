@@ -1,0 +1,305 @@
+---
+import { render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { PAST_EVENTS } from '../../data/events';
+import { categorySlug } from '../../data/news-categories';
+import { formatDate, getNews, isoDate, listFormat, publishers, type NewsEntry, type NewsSource } from '../../lib/news';
+
+export async function getStaticPaths() {
+  const news = await getNews();
+  return news.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: NewsEntry;
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  heroImageAlt,
+  draft,
+  category,
+  kind,
+  edition,
+  sources,
+} = entry.data;
+const { Content } = await render(entry);
+
+const isPress = kind === 'press';
+const relatedEdition = PAST_EVENTS.find((event) => event.year === edition);
+const image = heroImage ? { src: heroImage, alt: heroImageAlt ?? title } : undefined;
+
+const formatLabels: Record<NewsSource['format'], string> = {
+  article: 'Article',
+  event: 'Event listing',
+  audio: 'Audio',
+  video: 'Video',
+  gallery: 'Photo gallery',
+};
+---
+
+<SiteLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  noindex={draft}
+>
+  <article class="article">
+    <header class="container article__header">
+      <a class="article__back" href="/news/"><span aria-hidden="true">←</span> All news</a>
+      <p class="article__meta">
+        <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+        <a class="article__category" href={`/news/category/${categorySlug(category)}/`}>{category}</a>
+        {
+          updatedDate && (
+            <span>
+              Updated <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+            </span>
+          )
+        }
+        {draft && <span class="article__draft">Draft — not published</span>}
+      </p>
+      <h1>{title}</h1>
+      <p class="article__lead">{description}</p>
+
+      {
+        isPress && (
+          <p class="article__press">
+            <span class="article__press-label">Press coverage</span>
+            <span>
+              A JunctionX Lisbon summary of reporting by {listFormat(publishers(entry))}.{' '}
+              <a href="#sources">See the original sources</a>.
+            </span>
+          </p>
+        )
+      }
+    </header>
+
+    {
+      heroImage && (
+        <figure class="container article__figure">
+          <img src={heroImage} alt={heroImageAlt ?? ''} decoding="async" fetchpriority="high" />
+        </figure>
+      )
+    }
+
+    <div class="container">
+      <div class="prose article__body">
+        <Content />
+      </div>
+
+      {
+        sources.length > 0 && (
+          <section class="sources" id="sources" aria-labelledby="sources-title">
+            <h2 id="sources-title" class="eyebrow">
+              {isPress ? 'Original sources' : 'Sources'}
+            </h2>
+            <ol class="sources__list" role="list">
+              {sources.map((source) => (
+                <li class="sources__item">
+                  <p class="sources__meta">
+                    <span>{source.publisher}</span>
+                    {source.date && <time datetime={isoDate(source.date)}>{formatDate(source.date)}</time>}
+                    <span>{formatLabels[source.format]}</span>
+                    {source.language === 'pt' && <span>In Portuguese</span>}
+                  </p>
+                  <a
+                    class="sources__link"
+                    href={source.url}
+                    hreflang={source.language}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {source.title}
+                    <span aria-hidden="true"> ↗</span>
+                    <span class="visually-hidden"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
+
+      <footer class="article__footer">
+        {
+          relatedEdition && (
+            <a class="link-arrow" href={relatedEdition.href}>
+              {relatedEdition.title} archive
+            </a>
+          )
+        }
+        <a class="link-arrow" href="/news/">All news</a>
+      </footer>
+    </div>
+  </article>
+</SiteLayout>
+
+<style>
+  .article {
+    padding-bottom: var(--section-space);
+  }
+
+  .article__header {
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .article__back {
+    display: inline-flex;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+
+  .article__back:hover {
+    color: var(--text);
+  }
+
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: clamp(2rem, 5vw, 3rem);
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+  }
+
+  .article__category {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .article__category:hover {
+    text-decoration: underline;
+  }
+
+  .article__draft {
+    color: var(--accent);
+  }
+
+  .article h1 {
+    max-width: 24ch;
+    margin-top: 1rem;
+    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+    letter-spacing: -0.04em;
+  }
+
+  .article__lead {
+    max-width: var(--narrow-width);
+    margin-top: 1.25rem;
+    color: var(--text-muted);
+    font-size: clamp(1.125rem, 1.8vw, 1.3rem);
+  }
+
+  .article__press {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    max-width: var(--narrow-width);
+    margin-top: 1.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .article__press-label {
+    flex-shrink: 0;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article__press a {
+    color: var(--accent);
+  }
+
+  .article__figure {
+    margin-block: clamp(2.5rem, 5vw, 3.5rem) 0;
+  }
+
+  .article__figure img {
+    width: 100%;
+    max-height: 36rem;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .article__body {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .sources {
+    max-width: var(--narrow-width);
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .sources__list {
+    margin-top: 1rem;
+  }
+
+  .sources__item {
+    padding-block: 1rem;
+  }
+
+  .sources__item + .sources__item {
+    border-top: 1px solid var(--border);
+  }
+
+  .sources__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+  }
+
+  .sources__link {
+    display: inline-block;
+    margin-top: 0.35rem;
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .sources__link:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+
+  .article__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    max-width: var(--narrow-width);
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+</style>

@@ -1,0 +1,149 @@
+---
+// Main header for the evergreen site: brand + three navigation items.
+// No JavaScript: on narrow screens the navigation moves to a second row.
+import { NAV_LINKS, SITE } from '../data/site';
+
+const path = Astro.url.pathname;
+
+const isCurrentSection = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="brand">
+      <img
+        src="/assets/junctionx-logo.png"
+        alt=""
+        width="124"
+        height="124"
+        class="brand__emblem"
+      />
+      <span class="brand__name">JunctionX <span>Lisbon</span></span>
+      <span class="visually-hidden">— home</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <ul role="list">
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={path === link.href ? 'page' : isCurrentSection(link.href) ? 'true' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 50;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+  }
+
+  .site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 2rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: var(--header-height);
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+  }
+
+  .brand__emblem {
+    width: 2rem;
+    height: 2rem;
+    /* The emblem PNG has a black background; "screen" lets the header show through. */
+    mix-blend-mode: screen;
+  }
+
+  .brand__name span {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .site-nav a {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .site-nav a:hover {
+    color: var(--text);
+    background: var(--bg-raised);
+  }
+
+  .site-nav a[aria-current] {
+    color: var(--text);
+  }
+
+  .site-nav a[aria-current]::after {
+    content: '';
+    position: absolute;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0.2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  @media (min-width: 40rem) {
+    .site-header {
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  /* Narrow screens: brand on the first row, navigation on the second. */
+  @media (max-width: 39.99rem) {
+    .brand {
+      min-height: 3.5rem;
+    }
+
+    .site-nav {
+      flex-basis: 100%;
+      border-top: 1px solid var(--border);
+    }
+
+    .site-nav ul {
+      margin-inline: -0.8rem;
+    }
+
+    .site-nav a {
+      padding-block: 0.7rem;
+    }
+  }
+</style>

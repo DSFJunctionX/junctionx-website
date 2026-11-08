@@ -1,0 +1,197 @@
+---
+// Hero for an edition archive page: breadcrumb, edition label, status,
+// the edition's original wordmark (slot "brand"), title, summary and key facts.
+import type { PastEvent } from '../../data/events';
+
+interface Props {
+  event: PastEvent;
+  title?: string;
+  summary?: string;
+  subpage?: string;
+}
+
+const { event, title = event.title, summary = event.summary, subpage } = Astro.props;
+---
+
+<header class="edition-hero">
+  <div class="container">
+    <nav class="edition-hero__crumbs" aria-label="Breadcrumb">
+      <ol role="list">
+        <li><a href="/past-events/">Past events</a></li>
+        {
+          subpage ? (
+            <>
+              <li><a href={event.href}>{event.year}</a></li>
+              <li><span aria-current="page">{subpage}</span></li>
+            </>
+          ) : (
+            <li><span aria-current="page">{event.year}</span></li>
+          )
+        }
+      </ol>
+    </nav>
+
+    <p class="edition-hero__badges">
+      <span class="edition-hero__edition">{event.editionLabel}</span>
+      <span class="edition-hero__status">Concluded</span>
+    </p>
+
+    {Astro.slots.has('brand') && <div class="edition-hero__brand"><slot name="brand" /></div>}
+
+    <h1>{title}</h1>
+    <p class="edition-hero__summary">{summary}</p>
+
+    <dl class="edition-hero__facts">
+      <div>
+        <dt>Dates</dt>
+        <dd><time datetime={event.startDate}>{event.dateLabel}</time></dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>{event.location}</dd>
+      </div>
+      <div>
+        <dt>Venue</dt>
+        <dd>{event.venue}</dd>
+      </div>
+      <div>
+        <dt>Edition</dt>
+        <dd>{event.editionLabel} · {event.year}</dd>
+      </div>
+    </dl>
+
+    {Astro.slots.has('actions') && <div class="edition-hero__actions"><slot name="actions" /></div>}
+  </div>
+</header>
+
+<style>
+  .edition-hero {
+    position: relative;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.5rem, 6vw, 4rem);
+    background: linear-gradient(180deg, var(--edition-bg) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* A thin rule in the edition's own accent colour. */
+  .edition-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: var(--edition-accent);
+    opacity: 0.8;
+  }
+
+  .edition-hero__crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+  }
+
+  .edition-hero__crumbs li + li::before {
+    content: '/';
+    margin-right: 0.4rem;
+    color: var(--border-strong);
+  }
+
+  .edition-hero__crumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .edition-hero__crumbs a:hover {
+    color: var(--text);
+  }
+
+  .edition-hero__crumbs [aria-current] {
+    color: var(--text);
+  }
+
+  .edition-hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .edition-hero__edition,
+  .edition-hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+  }
+
+  .edition-hero__edition {
+    border: 1px solid var(--edition-accent);
+    color: var(--text);
+  }
+
+  .edition-hero__edition::before {
+    content: '';
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--edition-accent);
+  }
+
+  .edition-hero__status {
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+  }
+
+  .edition-hero__brand {
+    margin-top: 1.75rem;
+  }
+
+  .edition-hero h1 {
+    margin-top: 1.25rem;
+    font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+    letter-spacing: -0.045em;
+  }
+
+  .edition-hero__summary {
+    max-width: 42rem;
+    margin-top: 1.25rem;
+    color: var(--text-muted);
+    font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  }
+
+  .edition-hero__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1.25rem 2rem;
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .edition-hero__facts dt {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .edition-hero__facts dd {
+    margin: 0.35rem 0 0;
+    font-weight: 500;
+  }
+
+  .edition-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.75rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+// Organising team of an edition.
+import type { TeamMember } from '../../data/editions/types';
+
+interface Props {
+  members: TeamMember[];
+}
+
+const { members } = Astro.props;
+---
+
+<ul class="team" role="list">
+  {
+    members.map((member) => (
+      <li class="team__member">
+        {member.image && <img class="team__photo" src={member.image} alt="" loading="lazy" decoding="async" />}
+        <p class="team__role">{member.role}</p>
+        <p class="team__name">{member.name}</p>
+        {member.linkedin && (
+          <a class="team__link" href={member.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn<span class="visually-hidden">: {member.name} (opens in a new tab)</span>
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .team {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 1rem;
+  }
+
+  .team__member {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .team__photo {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 0.75rem;
+    object-fit: cover;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .team__role {
+    color: var(--edition-accent, var(--accent));
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .team__name {
+    font-weight: 600;
+  }
+
+  .team__link {
+    width: fit-content;
+    margin-top: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .team__link:hover {
+    color: var(--text);
+  }
+</style>

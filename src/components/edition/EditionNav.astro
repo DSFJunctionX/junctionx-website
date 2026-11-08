@@ -1,0 +1,85 @@
+---
+// Section menu for an edition page. Sticks below the site header on wider
+// screens and scrolls horizontally on narrow ones.
+import type { PastEvent } from '../../data/events';
+
+interface Props {
+  event: PastEvent;
+  items: { href: string; label: string }[];
+}
+
+const { event, items } = Astro.props;
+---
+
+<nav class="edition-nav" aria-label={`${event.title} sections`}>
+  <div class="container">
+    <p class="edition-nav__title">
+      <a href={event.href}>{event.year}</a>
+    </p>
+    <ul role="list">
+      {items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .edition-nav {
+    z-index: 40;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+  }
+
+  @media (min-width: 40rem) {
+    .edition-nav {
+      position: sticky;
+      top: calc(var(--header-height) + 1px);
+    }
+  }
+
+  .edition-nav .container {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .edition-nav__title {
+    flex-shrink: 0;
+    padding-right: 1.25rem;
+    border-right: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+  }
+
+  .edition-nav__title a {
+    color: var(--edition-accent);
+    text-decoration: none;
+  }
+
+  .edition-nav ul {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, #000 90%, transparent);
+  }
+
+  .edition-nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .edition-nav a {
+    display: block;
+    padding: 0.8rem 0.6rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .edition-nav ul a:hover {
+    color: var(--text);
+  }
+</style>

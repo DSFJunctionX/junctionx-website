@@ -1,0 +1,98 @@
+---
+// Links to the previous and next editions: each edition is a chapter.
+import { getAdjacentEvents, type PastEvent } from '../../data/events';
+
+interface Props {
+  event: PastEvent;
+}
+
+const { event } = Astro.props;
+const { previous, next } = getAdjacentEvents(event.year);
+---
+
+<nav class="edition-pager" aria-label="Other editions">
+  <div class="container edition-pager__inner">
+    {
+      previous ? (
+        <a class="edition-pager__link" href={previous.href} rel="prev">
+          <span class="edition-pager__dir">← Previous chapter</span>
+          <span class="edition-pager__title">{previous.title}</span>
+          <span class="edition-pager__meta">{previous.editionLabel} · {previous.dateLabel}</span>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    {
+      next ? (
+        <a class="edition-pager__link edition-pager__link--next" href={next.href} rel="next">
+          <span class="edition-pager__dir">Next chapter →</span>
+          <span class="edition-pager__title">{next.title}</span>
+          <span class="edition-pager__meta">{next.editionLabel} · {next.dateLabel}</span>
+        </a>
+      ) : (
+        <a class="edition-pager__link edition-pager__link--next" href="/past-events/">
+          <span class="edition-pager__dir">Archive →</span>
+          <span class="edition-pager__title">All past events</span>
+          <span class="edition-pager__meta">Every JunctionX Lisbon edition</span>
+        </a>
+      )
+    }
+  </div>
+</nav>
+
+<style>
+  .edition-pager {
+    border-top: 1px solid var(--border);
+  }
+
+  .edition-pager__inner {
+    display: grid;
+    gap: 1rem;
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  @media (min-width: 40rem) {
+    .edition-pager__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .edition-pager__link {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .edition-pager__link:hover {
+    border-color: var(--border-strong);
+    background: var(--bg-raised);
+  }
+
+  .edition-pager__link--next {
+    text-align: right;
+  }
+
+  .edition-pager__dir {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .edition-pager__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .edition-pager__meta {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+</style>

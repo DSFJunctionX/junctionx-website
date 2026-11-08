@@ -1,523 +1,469 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import About from "../components/sections/About.astro";
-import Prizes from "../components/sections/Prizes.astro";
-import Sponsors from "../components/sections/Sponsors.astro";
-import Video from "../components/sections/Video.astro";
-import Location from "../components/sections/Location.astro";
-import FAQs from "../components/sections/FAQs.astro";
-import Team from "../components/sections/Team.astro";
-import Challenges from '../components/sections/Challenges.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { getPastEvents } from '../data/events';
+import { SITE, SOCIAL_LINKS } from '../data/site';
+import { getNews } from '../lib/news';
 
-const winnersHref = '/winners-2026/';
+const pastEvents = getPastEvents();
+const latestEvent = pastEvents[0];
+const foundingEvent = pastEvents.at(-1);
+const latestNews = (await getNews()).slice(0, 3);
+
+const community = [
+  {
+    name: 'Students',
+    text: 'From any university or field of study, learning by building alongside others.',
+  },
+  {
+    name: 'Developers',
+    text: 'Engineers and designers who want to prototype quickly and try new tools.',
+  },
+  {
+    name: 'Researchers',
+    text: 'Academics who want to see ideas tested against concrete, real-world problems.',
+  },
+  {
+    name: 'Mentors',
+    text: 'Experienced practitioners who guide teams through technical and product decisions.',
+  },
+  {
+    name: 'Partners',
+    text: 'Companies and organisations that bring real challenges, expertise and support.',
+  },
+];
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: Astro.site?.href,
+  logo: new URL(SITE.defaultImage.src, Astro.site).href,
+  email: SITE.email,
+  description: SITE.description,
+  sameAs: SOCIAL_LINKS.map((link) => link.href),
+};
 ---
 
-<Layout>
-  <main id="top" class="main">
-    <canvas id="hero-canvas" class="main__canvas"></canvas>
-    <div class="main__bg" aria-hidden="true"></div>
+<SiteLayout>
+  <Fragment slot="head">
+    <!--
+      The 2025 and 2026 event websites used to live at this URL. Forward old shared links
+      such as lisbon.hackjunction.com/#challenges to the same section of the right archive.
+    -->
+    <script is:inline>
+      (function () {
+        var legacy = {
+          prizes: '/past-events/2026/#prizes',
+          sponsors: '/past-events/2026/#sponsors',
+          challenges: '/past-events/2026/#challenges',
+          location: '/past-events/2026/#location',
+          faq: '/past-events/2026/#faq',
+          'our-team': '/past-events/2026/#our-team',
+          partners: '/past-events/2025/#partners',
+          collab: '/past-events/2025/#partners',
+          register: '/past-events/2025/',
+        };
+        var target = legacy[window.location.hash.slice(1)];
+        if (target) window.location.replace(target);
+      })();
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+  </Fragment>
 
-    <section id="home" class="container">
-      <div class="hero-content">
-        <div class="text-column">
-          <img src="/assets/junctionx-banner.png" alt="JunctionX" class="logo-banner">
-          <h1 class="h1">LISBON</h1>
-          <p class="lead">
-            Portugal's largest student hackathon<br>
-            10-11 October 2026, in Lisbon
-          </p>
-          <!-- Desktop Button -->
-          <div class="actions desktop-actions">
-            <a class="btn btn--apply" href={winnersHref}>
-              MEET THE WINNERS <span class="btn--apply-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <p class="hero__brand">
+        <img src="/assets/junctionx-banner.png" alt="JunctionX" width="926" height="123" />
+        <span>Lisbon</span>
+      </p>
+
+      <h1 id="hero-title" class="hero__title">Building what’s next.</h1>
+
+      <p class="hero__lead">
+        A community bringing together students, developers, researchers and companies to build
+        innovative solutions through hackathons and collaborative projects.
+      </p>
+      <p class="hero__note">A permanent home for the JunctionX Lisbon initiative.</p>
+
+      <div class="hero__actions">
+        <a class="button" href="/past-events/">Explore past events</a>
+        <a class="button button--quiet" href="/news/">Read the news</a>
+      </div>
+
+      <dl class="hero__facts">
+        <div>
+          <dt>Based in</dt>
+          <dd>Lisbon, Portugal</dd>
         </div>
+        {
+          foundingEvent && (
+            <div>
+              <dt>Founded</dt>
+              <dd>
+                <a href={foundingEvent.href}>{foundingEvent.year}</a>
+              </dd>
+            </div>
+          )
+        }
+        {
+          latestEvent && (
+            <div>
+              <dt>Latest edition</dt>
+              <dd>
+                <a href={latestEvent.href}>{latestEvent.title}</a>
+              </dd>
+            </div>
+          )
+        }
+        <div>
+          <dt>Contact</dt>
+          <dd>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
 
-        <div class="countdown-column">
-          <div class="prize-callout" aria-label="More than 15,000 euros in prizes">
-            <span class="prize-callout__amount">+25.000€</span>
-            <span class="prize-callout__label">IN PRIZES</span>
-          </div>
-          
-          <div class="concluded" role="status">
-            <p class="concluded__eyebrow">EDITION CONCLUDED</p>
-            <p class="concluded__title">Thank you, Lisbon!</p>
-            <p class="concluded__text">JunctionX Lisbon 2026 took place on 10-11 October. Congratulations to <strong>No Other Choice</strong>, this year's winning team.</p>
-          </div>
-
-          <!-- Mobile Button (Shows under the concluded panel on small screens) -->
-          <div class="actions mobile-actions">
-            <a class="btn btn--apply" href={winnersHref}>
-              MEET THE WINNERS <span class="btn--apply-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="container section-grid">
+      <p class="eyebrow section-label"><span>01</span> About</p>
+      <div>
+        <h2 id="about-title" class="section-title">More than a weekend.</h2>
+        <div class="about__text">
+          <p>
+            JunctionX Lisbon is the Lisbon home of JunctionX, the international hackathon series by
+            Junction. Since its founding edition in 2025, it has brought together students,
+            developers, researchers and companies to work on real challenges and turn ideas into
+            working prototypes.
+          </p>
+          <p>
+            Each hackathon is a chapter in a longer story. This website keeps that story in one
+            place: what is happening now, and a permanent record of past editions, with their
+            challenges, partners, people and projects.
+          </p>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <About />
-  <Prizes />
-  <Sponsors />
-  <Challenges />
-  <Video winnersHref={winnersHref} />
-  <Location />
-  <FAQs />
-  <Team />
-</Layout>
+  <section class="section" id="community" aria-labelledby="community-title">
+    <div class="container section-grid">
+      <p class="eyebrow section-label"><span>02</span> Community</p>
+      <div>
+        <h2 id="community-title" class="section-title">Who it brings together</h2>
+        <p class="section-intro">
+          JunctionX Lisbon is for people who like to make things, whatever their background.
+        </p>
+
+        <ul class="community" role="list">
+          {
+            community.map((group) => (
+              <li class="community__item">
+                <h3 class="community__name">{group.name}</h3>
+                <p class="community__text">{group.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="community__cta">
+          Want to take part, mentor, partner or help organise a future edition? Write to{' '}
+          <a class="text-link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="past-events" aria-labelledby="past-events-title">
+    <div class="container section-grid">
+      <p class="eyebrow section-label"><span>03</span> Past events</p>
+      <div>
+        <h2 id="past-events-title" class="section-title">Every edition, on the record.</h2>
+        <p class="section-intro">
+          Each edition is a chapter in the history of JunctionX Lisbon, archived with its
+          challenges, partners, team and winners.
+        </p>
+
+        <ol class="chapters" role="list">
+          {
+            pastEvents.map((event) => (
+              <li class="chapter" style={`--chapter-accent: ${event.theme.accent}`}>
+                <p class="chapter__year">{event.year}</p>
+                <div>
+                  <p class="chapter__meta">
+                    <span class="chapter__label">{event.editionLabel}</span>
+                    <span aria-hidden="true"> · </span>
+                    <time datetime={event.startDate}>{event.dateLabel}</time>
+                    <span aria-hidden="true"> · </span>
+                    {event.location}
+                  </p>
+                  <h3 class="chapter__title">
+                    <a href={event.href}>{event.title}</a>
+                  </h3>
+                  <p class="chapter__summary">{event.summary}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <p class="section-footer">
+          <a class="link-arrow" href="/past-events/">All past events</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="news" aria-labelledby="news-title">
+    <div class="container section-grid">
+      <p class="eyebrow section-label"><span>04</span> News</p>
+      <div>
+        <h2 id="news-title" class="section-title">Latest announcements</h2>
+
+        {
+          latestNews.length > 0 ? (
+            <div class="home-news">
+              {latestNews.map((entry) => (
+                <NewsCard entry={entry} headingLevel={3} />
+              ))}
+            </div>
+          ) : (
+            <p class="section-intro">
+              There are no announcements yet. News and updates from the JunctionX Lisbon team will
+              appear here.
+            </p>
+          )
+        }
+
+        <p class="section-footer">
+          <a class="link-arrow" href="/news/">All news</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
 
 <style>
-  .main {
+  /* ---------- Hero ---------- */
+  .hero {
     position: relative;
-    width: 100%;
-    min-height: 75vh;
-    min-height: 75svh;
-    background: linear-gradient(180deg, #0a0f1d 0%, #000000 100%);
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding-block: clamp(2rem, 6vh, 4rem);
-    box-sizing: border-box;
+    padding-block: clamp(4.5rem, 12vw, 9rem) clamp(3.5rem, 8vw, 5.5rem);
   }
 
-  .main__canvas {
+  /* A single, very soft glow in the brand lavender. */
+  .hero::before {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    top: -18rem;
+    right: -16rem;
+    width: 52rem;
+    height: 40rem;
+    background: radial-gradient(closest-side, rgb(189 189 255 / 0.09), transparent);
     pointer-events: none;
-    display: block;
   }
 
-  .main__bg {
-    display: none;
-  }
-
-  .container {
+  .hero .container {
     position: relative;
-    z-index: 10;
-    width: 100%;
   }
 
-  .hero-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding-left: clamp(1.25rem, 6vw, 120px);
-    padding-right: clamp(1.25rem, 6vw, 120px);
-    box-sizing: border-box;
-    gap: clamp(2rem, 5vw, 4rem);
-  }
-
-  .text-column {
-    max-width: 500px;
-    width: 100%;
-  }
-
-  .logo-banner {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .h1 {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    line-height: 1.1;
-  }
-
-  .lead {
-    font-size: clamp(0.9rem, 2vw, 1.125rem);
-  }
-
-  .actions {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 2rem;
-    width: 100%;
-  }
-
-  .mobile-actions {
-    display: none; /* Hidden on Desktop */
-  }
-
-  .btn--apply {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: rgba(10, 15, 29, 0.6);
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    padding: 0.5rem 0.5rem 0.5rem 2rem;
-    border: 2px solid #BDBDFF;
-    border-radius: 50px;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-  }
-
-  .btn--apply-arrow {
-    background: #BDBDFF;
-    color: #0a0f1d;
-    width: 48px;
-    height: 48px;
+  .hero__brand {
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.6rem;
-    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    gap: 0.9rem;
   }
 
-  .btn--apply:hover,
-  .btn--apply:focus-visible {
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
-    transform: translateY(-2px);
-    border-color: #ff007f;
+  .hero__brand img {
+    width: auto;
+    height: clamp(1.05rem, 2.1vw, 1.5rem);
   }
 
-  .btn--apply:hover .btn--apply-arrow {
-    transform: translateX(4px);
-    background: #ff007f;
-    color: #ffffff;
-  }
-
-  .countdown-column {
-    width: 100%;
-    max-width: 380px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-  }
-
-  .prize-callout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin: 0 0 2rem 0; 
-    padding: 1.25rem 2rem;
-    border: 2px solid #ff007f;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(10, 15, 29, 0.9));
-    transform: rotate(-2deg);
-    animation: neon-pulse 2s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
-    backdrop-filter: blur(10px);
-  }
-
-  .prize-callout__amount {
-    color: #ffffff;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 0, 127, 0.4);
-  }
-
-  .prize-callout__label {
-    color: #ff78b9;
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
+  .hero__brand span {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: clamp(0.8rem, 1.4vw, 1.05rem);
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
   }
 
-  .concluded {
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.03);
-    padding: clamp(16px, 3vw, 24px) clamp(16px, 4vw, 30px);
-    border-radius: 12px;
-    border: 1px solid rgba(189, 189, 255, 0.2);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(189, 189, 255, 0.1);
-  }
-
-  .concluded__eyebrow {
-    margin: 0;
-    color: #BDBDFF;
+  .hero__title {
+    max-width: 12ch;
+    margin-top: clamp(1.75rem, 4vw, 2.75rem);
+    font-size: clamp(3rem, 9vw, 7rem);
     font-weight: 600;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
   }
 
-  .concluded__title {
-    margin: 0.5rem 0;
-    color: #ffffff;
-    font-size: clamp(1.5rem, 4vw, 2.1rem);
-    font-weight: 800;
-    line-height: 1.1;
-    text-shadow: 0 0 15px rgba(189, 189, 255, 0.4);
+  .hero__lead {
+    max-width: 38rem;
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    color: var(--text-muted);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    line-height: 1.55;
   }
 
-  .concluded__text {
-    margin: 0;
-    color: #e0e0e0;
-    font-size: 0.95rem;
+  .hero__note {
+    margin-top: 1rem;
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
   }
 
-  .concluded__text strong {
-    color: #ff78b9;
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
   }
 
-  @keyframes neon-pulse {
-    0% {
-      box-shadow: 0 0 15px rgba(255, 0, 127, 0.3), inset 0 0 10px rgba(255, 0, 127, 0.1);
-      transform: scale(1) rotate(-2deg);
-    }
-    100% {
-      box-shadow: 0 0 40px rgba(255, 0, 127, 0.8), inset 0 0 25px rgba(255, 0, 127, 0.5);
-      transform: scale(1.04) rotate(-2deg);
+  .hero__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1.25rem 2rem;
+    margin: clamp(3.5rem, 8vw, 5.5rem) 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero__facts dt {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hero__facts dd {
+    margin: 0.35rem 0 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+
+  .hero__facts a {
+    text-decoration: none;
+  }
+
+  .hero__facts a:hover {
+    color: var(--accent);
+  }
+
+  /* ---------- Sections ---------- */
+  .section-label span {
+    margin-right: 0.6rem;
+    color: var(--accent);
+  }
+
+  .about__text {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 42rem;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  }
+
+  .community {
+    margin-top: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .community__item {
+    display: grid;
+    gap: 0.35rem 2rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 40rem) {
+    .community__item {
+      grid-template-columns: 11rem 1fr;
+      align-items: baseline;
     }
   }
 
-  @media (max-width: 960px) {
-    .hero-content {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2.5rem;
-    }
+  .community__name {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+  }
 
-    .countdown-column {
-      max-width: 100%;
-    }
-    
-    .desktop-actions {
-      display: none; /* Hide the top apply button on mobile */
-    }
+  .community__text {
+    color: var(--text-muted);
+  }
 
-    .mobile-actions {
-      display: flex; /* Show the bottom apply button on mobile */
-      justify-content: center;
-      margin-top: 1.5rem;
+  .community__cta {
+    max-width: 40rem;
+    margin-top: 2rem;
+    color: var(--text-muted);
+  }
+
+  .chapters {
+    margin-top: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chapter {
+    position: relative;
+    display: grid;
+    gap: 0.5rem 2rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 40rem) {
+    .chapter {
+      grid-template-columns: 6rem 1fr;
     }
   }
 
-  @media (max-width: 600px) {
-    .main {
-      padding-block: 2rem;
-    }
-
-    .prize-callout {
-      gap: 0.5rem;
-      padding: 0.65rem 1rem;
-    }
+  .chapter__year {
+    color: var(--chapter-accent);
+    font-family: var(--mono);
+    font-size: 1.125rem;
+    font-weight: 500;
   }
 
-  /* Small phones: stack the callout so it doesn't force the page wider than the screen */
-  @media (max-width: 400px) {
-    .prize-callout {
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .prize-callout__amount {
-      font-size: clamp(2rem, 10vw, 2.5rem);
-    }
+  .chapter__meta {
+    color: var(--text-subtle);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
   }
 
+  .chapter__label {
+    color: var(--text);
+  }
+
+  .chapter__title {
+    margin-top: 0.5rem;
+    font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+    letter-spacing: -0.03em;
+  }
+
+  .chapter__title a {
+    text-decoration: none;
+  }
+
+  /* The whole row is clickable. */
+  .chapter__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .chapter:hover .chapter__title a {
+    color: var(--accent);
+  }
+
+  .chapter__summary {
+    max-width: 40rem;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .home-news {
+    margin-top: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
 </style>
-
-<script>
-  import * as THREE from 'three';
-
-  const mainContainer = document.querySelector('.main');
-  const canvas = document.getElementById('hero-canvas');
-
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    alpha: true,
-    antialias: true
-  });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  const scene = new THREE.Scene();
-
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    mainContainer.clientWidth / mainContainer.clientHeight,
-    0.1,
-    1000
-  );
-  camera.position.z = 5;
-
-  const starCount = 1200;
-  const positions = new Float32Array(starCount * 3);
-
-  for (let i = 0; i < starCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
-  }
-
-  const starGeometry = new THREE.BufferGeometry();
-  starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-  const starMaterial = new THREE.PointsMaterial({
-    color: 0xBDBDFF,
-    size: 0.05,
-    transparent: true,
-    opacity: 1,
-    depthWrite: false
-  });
-
-  const stars = new THREE.Points(starGeometry, starMaterial);
-  scene.add(stars);
-
-  /* --- UPGRADED COMETS --- */
-  const SHOOTING_STAR_COUNT = 6; 
-  const shootingStars = [];
-
-  const resetShootingStar = (star) => {
-    // Uniform angle (falling diagonally down-right)
-    const direction = new THREE.Vector3(1, -0.6, 0).normalize();
-
-    // Spawn further out, with varied Z depth
-    star.origin.set(
-      -10 - Math.random() * 5,
-      5 + Math.random() * 8,  
-      (Math.random() - 0.5) * 5 
-    );
-    
-    star.direction = direction;
-    star.speed = 20 + Math.random() * 15; 
-    star.length = 4 + Math.random() * 6; 
-    
-    star.delay = Math.random() * 12; 
-    
-    star.duration = 1.0 + Math.random() * 1.5; 
-    star.age = 0;
-
-    // Fixed color matching the background stars
-    const c = new THREE.Color(0xBDBDFF);
-    
-    star.head.material.color.copy(c);
-    star.headGlow.material.color.copy(c);
-
-    // Update vertex colors (Head uses color, Tail uses black which translates to transparent in AdditiveBlending)
-    const colors = star.line.geometry.attributes.color;
-    colors.setXYZ(0, c.r, c.g, c.b); 
-    colors.setXYZ(1, 0, 0, 0);       
-    colors.needsUpdate = true;
-  };
-
-  for (let i = 0; i < SHOOTING_STAR_COUNT; i++) {
-    const geometry = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(),
-      new THREE.Vector3()
-    ]);
-    
-    // Add vertex colors buffer to geometry for the fading tail effect
-    const colors = new Float32Array([1, 1, 1,  0, 0, 0]);
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const material = new THREE.LineBasicMaterial({
-      vertexColors: true, 
-      transparent: true,
-      opacity: 0,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    
-    const line = new THREE.Line(geometry, material);
-
-    // Small bright core
-    const head = new THREE.Mesh(
-      new THREE.SphereGeometry(0.04, 8, 8),
-      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
-    );
-
-    // Larger softer glow
-    const headGlow = new THREE.Mesh(
-      new THREE.SphereGeometry(0.12, 12, 12),
-      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
-    );
-
-    scene.add(line);
-    scene.add(head);
-    scene.add(headGlow);
-
-    const star = { line, head, headGlow, origin: new THREE.Vector3() };
-    resetShootingStar(star);
-    shootingStars.push(star);
-  }
-
-  const updateShootingStars = (delta) => {
-    shootingStars.forEach((star) => {
-      star.age += delta;
-
-      if (star.age < star.delay) {
-        star.line.material.opacity = 0;
-        star.head.material.opacity = 0;
-        star.headGlow.material.opacity = 0;
-        return;
-      }
-
-      const t = (star.age - star.delay) / star.duration;
-
-      if (t >= 1) {
-        resetShootingStar(star);
-        return;
-      }
-
-      const travelled = star.direction.clone().multiplyScalar(star.speed * (star.age - star.delay));
-      const headPos = star.origin.clone().add(travelled);
-      const tailPos = headPos.clone().sub(star.direction.clone().multiplyScalar(star.length));
-
-      const positionsAttr = star.line.geometry.attributes.position;
-      positionsAttr.setXYZ(0, headPos.x, headPos.y, headPos.z);
-      positionsAttr.setXYZ(1, tailPos.x, tailPos.y, tailPos.z);
-      positionsAttr.needsUpdate = true;
-
-      // Pulse opacity throughout the duration
-      const currentOpacity = Math.sin(t * Math.PI);
-      star.line.material.opacity = currentOpacity;
-      
-      star.head.position.copy(headPos);
-      star.head.material.opacity = currentOpacity;
-
-      star.headGlow.position.copy(headPos);
-      star.headGlow.material.opacity = currentOpacity * 0.5; 
-    });
-  };
-
-  const resize = () => {
-    const width = mainContainer.clientWidth;
-    const height = mainContainer.clientHeight;
-
-    if (width === 0 || height === 0) return;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-  };
-
-  resize();
-  window.addEventListener('resize', resize);
-
-  const clock = new THREE.Clock();
-
-  const animate = () => {
-    requestAnimationFrame(animate);
-    const delta = clock.getDelta();
-    const elapsed = clock.elapsedTime;
-
-    stars.rotation.y = elapsed * 0.02;
-    stars.rotation.x = elapsed * 0.01;
-
-    updateShootingStars(delta);
-
-    renderer.render(scene, camera);
-  };
-
-  animate();
-</script>

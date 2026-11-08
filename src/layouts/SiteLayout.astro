@@ -1,0 +1,27 @@
+---
+// Layout for the evergreen JunctionX Lisbon website (home, news, past events,
+// privacy). Edition archives wrap it in EditionLayout.
+import SiteHead, { type Props as HeadProps } from '../components/SiteHead.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+type Props = HeadProps;
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SiteHead {...props} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

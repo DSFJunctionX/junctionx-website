@@ -1,0 +1,39 @@
+---
+// Shared frame for every edition archive page (/past-events/<year>/...).
+// Site header and footer, an edition hero, a section menu and links to the
+// previous and next editions. Each edition keeps its own accent colours
+// (event.theme), taken from its original website.
+import SiteLayout from './SiteLayout.astro';
+import EditionHero from '../components/edition/EditionHero.astro';
+import EditionNav from '../components/edition/EditionNav.astro';
+import EditionPager from '../components/edition/EditionPager.astro';
+import type { PastEvent } from '../data/events';
+import type { Props as HeadProps } from '../components/SiteHead.astro';
+
+interface Props extends Omit<HeadProps, 'type'> {
+  event: PastEvent;
+  /** Section links for the edition menu. */
+  nav: { href: string; label: string }[];
+  /** Overrides for sub-pages, such as the winners page. */
+  heroTitle?: string;
+  heroSummary?: string;
+  /** Extra breadcrumb level after the year, e.g. "Winners". */
+  subpage?: string;
+}
+
+const { event, nav, heroTitle, heroSummary, subpage, ...head } = Astro.props;
+const themeStyle = `--edition-accent: ${event.theme.accent}; --edition-bg: ${event.theme.background};`;
+---
+
+<SiteLayout {...head}>
+  <slot name="head" slot="head" />
+  <div class="edition" style={themeStyle}>
+    <EditionHero event={event} title={heroTitle} summary={heroSummary} subpage={subpage}>
+      <slot name="brand" slot="brand" />
+      <slot name="actions" slot="actions" />
+    </EditionHero>
+    <EditionNav event={event} items={nav} />
+    <slot />
+    <EditionPager event={event} />
+  </div>
+</SiteLayout>
