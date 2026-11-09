@@ -12,6 +12,7 @@ import type { Resource, WinnerSource } from './types';
  */
 export const edition2026Nav = (base: string) => [
   { href: `${base}#winners`, label: 'Winners' },
+  { href: `${base}#photos`, label: 'Photos' },
   { href: `${base}#about`, label: 'About' },
   { href: `${base}#prizes`, label: 'Prizes' },
   { href: `${base}#sponsors`, label: 'Sponsors' },
@@ -19,7 +20,6 @@ export const edition2026Nav = (base: string) => [
   { href: `${base}#location`, label: 'Location & schedule' },
   { href: `${base}#faq`, label: 'FAQs' },
   { href: `${base}#our-team`, label: 'Team' },
-  { href: `${base}#photos`, label: 'Photos' },
   { href: `${base}#resources`, label: 'Resources' },
 ];
 

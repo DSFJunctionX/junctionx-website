@@ -1,11 +1,10 @@
 ---
 // Winners of JunctionX Lisbon 2026 (formerly /winners-2026/, which redirects here).
-// The original page's text, photo, caption, SEO metadata and "organise the next
-// edition" card are preserved inside the shared edition frame.
+// The original page's text, photo, caption and SEO metadata are preserved inside
+// the shared edition frame.
 import EditionLayout from '../../../../layouts/EditionLayout.astro';
 import EditionSection from '../../../../components/edition/EditionSection.astro';
 import WinnerFeature from '../../../../components/edition/WinnerFeature.astro';
-import OrganiseCard from '../../../../components/archive-2026/OrganiseCard.astro';
 import { getEvent } from '../../../../data/events';
 import { edition2026Nav, winnerMembers2026, winnerSources2026 } from '../../../../data/editions/2026';
 
@@ -67,14 +66,6 @@ const photoAlt = "The five members of No Other Choice smiling on stage at Juncti
     </div>
   </EditionSection>
 
-  <section class="winners-organise" aria-labelledby="organise-title">
-    <div class="container section-grid">
-      <p class="eyebrow winners-organise__label">Get involved</p>
-      <div>
-        <OrganiseCard titleId="organise-title" />
-      </div>
-    </div>
-  </section>
 </EditionLayout>
 
 <style>
@@ -105,14 +96,5 @@ const photoAlt = "The five members of No Other Choice smiling on stage at Juncti
 
   .winners-details {
     margin-top: clamp(2.5rem, 6vw, 3.5rem);
-  }
-
-  .winners-organise {
-    padding-block: clamp(3rem, 7vw, 5rem);
-    border-top: 1px solid var(--border);
-  }
-
-  .winners-organise__label {
-    color: var(--edition-accent);
   }
 </style>
