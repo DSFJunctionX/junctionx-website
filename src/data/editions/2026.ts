@@ -19,6 +19,7 @@ export const edition2026Nav = (base: string) => [
   { href: `${base}#location`, label: 'Location & schedule' },
   { href: `${base}#faq`, label: 'FAQs' },
   { href: `${base}#our-team`, label: 'Team' },
+  { href: `${base}#photos`, label: 'Photos' },
   { href: `${base}#resources`, label: 'Resources' },
 ];
 
@@ -45,7 +46,11 @@ export const winnerSources2026: WinnerSource[] = [
   },
 ];
 
+/** Official photo gallery of the 2026 edition (public Google Drive folder). */
+export const gallery2026 = 'https://drive.google.com/drive/folders/1kQm853mbQZroi47o1slo0h1fU6T1RldF';
+
 export const resources2026: Resource[] = [
+  { label: 'Official photo gallery of JunctionX Lisbon 2026 (Google Drive)', href: gallery2026, type: 'External' },
   { label: 'JunctionX Lisbon 2026: Official Regulations', href: '/assets/JunctionX%20Lisbon%202026%20-%20Official%20Regulations.pdf', type: 'PDF' },
   { label: 'Challenge brief: Untrace (NOS)', href: '/assets/challenges/NOS%20-%20JunctionX%20Lisbon%202026.pdf', type: 'PDF' },
   { label: 'Challenge brief: Fresh eyes on fresh produce! (Sensei)', href: '/assets/challenges/Sensei%20-%20JunctionX%20Lisbon%202026.pdf', type: 'PDF' },

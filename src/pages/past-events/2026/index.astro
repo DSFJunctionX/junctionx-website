@@ -7,6 +7,7 @@ import EditionLayout from '../../../layouts/EditionLayout.astro';
 import EditionSection from '../../../components/edition/EditionSection.astro';
 import WinnerFeature from '../../../components/edition/WinnerFeature.astro';
 import ResourceList from '../../../components/edition/ResourceList.astro';
+import GalleryLink from '../../../components/edition/GalleryLink.astro';
 import About from "../../../components/archive-2026/sections/About.astro";
 import Prizes from "../../../components/archive-2026/sections/Prizes.astro";
 import Sponsors from "../../../components/archive-2026/sections/Sponsors.astro";
@@ -16,7 +17,7 @@ import FAQs from "../../../components/archive-2026/sections/FAQs.astro";
 import Team from "../../../components/archive-2026/sections/Team.astro";
 import Challenges from '../../../components/archive-2026/sections/Challenges.astro';
 import { getEvent } from '../../../data/events';
-import { edition2026Nav, resources2026, winnerMembers2026, winnerSources2026 } from '../../../data/editions/2026';
+import { edition2026Nav, gallery2026, resources2026, winnerMembers2026, winnerSources2026 } from '../../../data/editions/2026';
 import '../../../styles/archive-2026.css';
 
 const event = getEvent(2026);
@@ -135,6 +136,16 @@ const winnersHref = '/past-events/2026/winners/';
     </div>
   </div>
 
+  <EditionSection id="photos" label="Photos" title="Photo gallery">
+    <div class="gallery-2026">
+      <GalleryLink
+        href={gallery2026}
+        title="Official photo gallery of JunctionX Lisbon 2026"
+        text="Photos and videos from the event, shared by the JunctionX Lisbon team. Opens on Google Drive."
+      />
+    </div>
+  </EditionSection>
+
   <EditionSection id="resources" label="Resources" title="Documents and links">
     <ResourceList resources={resources2026} />
   </EditionSection>
@@ -161,6 +172,10 @@ const winnersHref = '/past-events/2026/winners/';
 
   .original-site {
     border-top: 1px solid var(--border);
+  }
+
+  .gallery-2026 {
+    max-width: 32rem;
   }
 
   .original-site__label {
