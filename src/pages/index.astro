@@ -72,6 +72,34 @@ const organizationJsonLd = {
   </Fragment>
 
   <section class="hero" aria-labelledby="hero-title">
+    <!--
+      Background after-movie. Muted, decorative, and started from the script below so it
+      never loads for visitors who prefer reduced motion or have data saver on (they see
+      the poster frame instead).
+    -->
+    <div class="hero__media" aria-hidden="true">
+      <video
+        class="hero__video"
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster="/assets/home/after-movie-poster.jpg"
+        tabindex="-1"
+      >
+        <source
+          src="/assets/home/after-movie-1080.mp4"
+          type="video/mp4"
+          media="(min-width: 64em)"
+        />
+        <source src="/assets/home/after-movie-720.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <button class="hero__video-toggle" type="button" aria-pressed="false" hidden>
+      <span class="hero__video-toggle-label">Pause background video</span>
+    </button>
+
     <div class="container">
       <p class="hero__brand">
         <img src="/assets/junctionx-banner.png" alt="JunctionX" width="926" height="123" />
@@ -125,6 +153,53 @@ const organizationJsonLd = {
       </dl>
     </div>
   </section>
+
+  <script>
+    const video = document.querySelector<HTMLVideoElement>('.hero__video');
+    const toggle = document.querySelector<HTMLButtonElement>('.hero__video-toggle');
+    const label = toggle?.querySelector('.hero__video-toggle-label');
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData =
+      (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ===
+      true;
+
+    if (video && toggle && label && !reducedMotion && !saveData) {
+      let pausedByUser = false;
+
+      const render = () => {
+        const paused = video.paused;
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.dataset.state = paused ? 'paused' : 'playing';
+        label.textContent = paused ? 'Play background video' : 'Pause background video';
+      };
+
+      const play = () => {
+        video.play().then(render, render);
+      };
+
+      video.addEventListener('play', render);
+      video.addEventListener('pause', render);
+
+      toggle.addEventListener('click', () => {
+        pausedByUser = !video.paused;
+        if (pausedByUser) video.pause();
+        else play();
+      });
+
+      // Only spend CPU on the video while the hero is on screen.
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          if (!pausedByUser) play();
+        } else if (!video.paused) {
+          video.pause();
+        }
+      }).observe(video);
+
+      toggle.hidden = false;
+      render();
+    }
+  </script>
 
   <section class="section" id="about" aria-labelledby="about-title">
     <div class="container section-grid">
@@ -253,20 +328,109 @@ const organizationJsonLd = {
     padding-block: clamp(4.5rem, 12vw, 9rem) clamp(3.5rem, 8vw, 5.5rem);
   }
 
-  /* A single, very soft glow in the brand lavender. */
-  .hero::before {
+  /* ----- Background video ----- */
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--bg);
+    pointer-events: none;
+  }
+
+  .hero__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /*
+    The footage is bright, so it sits under a heavy scrim: darkest on the left behind the
+    text, lifting towards the right, and fading fully into the page background at the
+    bottom so the hero melts into the next section.
+  */
+  .hero__media::after {
     content: '';
     position: absolute;
-    top: -18rem;
-    right: -16rem;
-    width: 52rem;
-    height: 40rem;
-    background: radial-gradient(closest-side, rgb(189 189 255 / 0.09), transparent);
-    pointer-events: none;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgb(11 12 17 / 0.55) 0%, transparent 22%, transparent 62%, var(--bg) 100%),
+      linear-gradient(
+        to right,
+        rgb(11 12 17 / 0.9) 0%,
+        rgb(11 12 17 / 0.8) 40%,
+        rgb(11 12 17 / 0.55) 75%,
+        rgb(11 12 17 / 0.45) 100%
+      ),
+      radial-gradient(60rem 40rem at 100% 0%, rgb(189 189 255 / 0.1), transparent 70%);
+  }
+
+  /* On narrow screens the text spans the full width, so darken evenly. */
+  @media (max-width: 48rem) {
+    .hero__media::after {
+      background:
+        linear-gradient(to bottom, rgb(11 12 17 / 0.6) 0%, transparent 25%, transparent 60%, var(--bg) 100%),
+        rgb(11 12 17 / 0.78);
+    }
   }
 
   .hero .container {
     position: relative;
+    z-index: 1;
+  }
+
+  .hero__video-toggle {
+    position: absolute;
+    z-index: 2;
+    right: var(--gutter);
+    bottom: 1.25rem;
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: rgb(11 12 17 / 0.6);
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .hero__video-toggle[hidden] {
+    display: none;
+  }
+
+  .hero__video-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero__video-toggle-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* Pause icon (two bars) while playing, play icon (triangle) while paused. */
+  .hero__video-toggle::before {
+    content: '';
+    width: 0.625rem;
+    height: 0.75rem;
+    background: linear-gradient(
+      to right,
+      currentColor 0 35%,
+      transparent 35% 65%,
+      currentColor 65% 100%
+    );
+  }
+
+  .hero__video-toggle[data-state='paused']::before {
+    background: currentColor;
+    clip-path: polygon(15% 0, 100% 50%, 15% 100%);
   }
 
   .hero__brand {
